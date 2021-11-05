@@ -1,0 +1,122 @@
+server:
+  port: 8090
+  compression:
+    enabled: true
+    min-response-size: 2048
+    # Comma-separated list of MIME types that should be compressed.
+    mime-types: text/html,text/xml,text/plain,text/css,application/json,application/xml,application/javascript
+  servlet:
+    contextPath: /
+    session:
+      timeout: 1h
+    multipart:
+      max-request-size: 30MB
+      max-file-size: 10MB
+---
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: devteam
+    url: jdbc:mysql://localhost:3306/digital
+  freemarker:
+    check-template-location: false
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+7
+  data:
+    redis:
+      repositories:
+        enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+---
+spring:
+  main:
+    banner-mode: console
+    allow-bean-definition-overriding: false
+  output:
+    ansi:
+      enabled: ALWAYS
+  flyway:
+    enabled: false
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
+
+# Log Configuration ###########################
+---
+logging:
+  config: classpath:logback-console.xml
+---
+redis:
+  database: ${REDIS_DB:0}
+  host: ${REDIS_HOST:ec2-3-216-231-188.compute-1.amazonaws.com}
+  port: ${REDIS_PORT:24450}
+  password: ${REDIS_PWD:p6cf6503be3872daa53a6e6d13fafc866d169d44caeac5b63f112781f8bd4c56d}
+  timeout: 5000
+
+---
+rsa:
+  private_key: MIIBUwIBADANBgkqhkiG9w0BAQEFAASCAT0wggE5AgEAAkEA0vfvyTdGJkdbHkB8mp0f3FE0GYP3AYPaJF7jUd1M0XxFSE2ceK3k2kw20YvQ09NJKk+OMjWQl9WitG9pB6tSCQIDAQABAkA2SimBrWC2/wvauBuYqjCFwLvYiRYqZKThUS3MZlebXJiLB+Ue/gUifAAKIg1avttUZsHBHrop4qfJCwAI0+YRAiEA+W3NK/RaXtnRqmoUUkb59zsZUBLpvZgQPfj1MhyHDz0CIQDYhsAhPJ3mgS64NbUZmGWuuNKp5coY2GIj/zYDMJp6vQIgUueLFXv/eZ1ekgz2Oi67MNCk5jeTF2BurZqNLR3MSmUCIFT3Q6uHMtsB9Eha4u7hS31tj1UWE+D+ADzp59MGnoftAiBeHT7gDMuqeJHPL4b+kC+gzV4FGTfhR9q3tTbklZkD2A==
+---
+code:
+  expiration: 300
+---
+file:
+  mac:
+    path: ~/file/
+    avatar: ~/avatar/
+  linux:
+    path: /home/digital/file/
+    avatar: /home/digital/avatar/
+  windows:
+    path: C:\digital\file\
+    avatar: C:\digital\avatar\
+  maxSize: 100
+  avatarMaxSize: 5
+---
+jwt:
+  header: Authorization
+  token-start-with: Bearer
+  base64-secret: ZmQ0ZGI5NjQ0MDQwY2I4MjMxY2Y3ZmI3MjdhN2ZmMjNhODViOTg1ZGE0NTBjMGM4NDA5NzYxMjdjOWMwYWRmZTBlZjlhNGY3ZTg4Y2U3YTE1ODVkZDU5Y2Y3OGYwZWE1NzUzNWQ2YjFjZDc0NGMxZWU2MmQ3MjY1NzJmNTE0MzI=
+  # https://www.convertworld.com/zh-hans/time/milliseconds.html
+  token-validity-in-seconds: 14400000
+  online-key: online-token-
+  code-key: code-key-
+  detect: 1800000
+  renew: 3600000
+---
+task:
+  pool:
+    core-pool-size: 10
+    max-pool-size: 30
+    keep-alive-seconds: 60
+    queue-capacity: 50
+---
+login:
+  cache-enable: true
+  single-login: false
+  login-code:
+    code-type: arithmetic
+    expiration: 2
+    width: 111
+    height: 36
+    length: 2
+    font-name:
+    font-size: 25
