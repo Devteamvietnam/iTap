@@ -1,6 +1,6 @@
 <h3 align="center">
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&center=true&vCenter=true&lines=Digital+Project)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&center=true&vCenter=true&lines=Digitalvfx+Project)](https://git.io/typing-svg)
 ![Snake animation](github-user-contribution.svg)
 </h3>
 
@@ -8,10 +8,7 @@
 ![](https://img.shields.io/badge/Framework-springboot-informational?style=flat&logo=springboot&logoColor=white&color=3bac3a)
 ![](https://img.shields.io/badge/Framework-gradle-informational?style=flat&logo=gradle&logoColor=white&color=3bac3a)
 ![](https://img.shields.io/badge/Framework-lombok-informational?style=flat&logo=lombok&logoColor=white&color=3bac3a)
-![](https://img.shields.io/badge/Framework-react-informational?style=flat&logo=react&logoColor=white&color=3bac3a)
 ![](https://img.shields.io/badge/Framework-springsecurity-informational?style=flat&logo=springsecurity&logoColor=white&color=3bac3a)
-![](https://img.shields.io/badge/Language-JavaScript-informational?style=flat&logo=javascript&logoColor=white&color=3bac3a)
-![](https://img.shields.io/badge/Language-TypeScript-informational?style=flat&logo=typescript&logoColor=white&color=3bac3a)
 ![](https://img.shields.io/badge/CI/CD-Github_Action-informational?style=flat&logo=github&logoColor=white&color=3bac3a)
 ![](https://img.shields.io/badge/CI/CD-Jenkins-informational?style=flat&logo=jenkins&logoColor=white&color=3bac3a)
 ![](https://img.shields.io/badge/CI/CD-Circle_CI-informational?style=flat&logo=circleci&logoColor=white&color=3bac3a)
@@ -25,4 +22,4 @@
 ![](https://img.shields.io/badge/Tools-Docker-informational?style=flat&logo=docker&logoColor=white&color=3bac3a)
 ![](https://img.shields.io/badge/Cloud-AWS-informational?style=flat&logo=Amazon&logoColor=white&color=3bac3a)
 
-
+### Email Contact devteamvietnam@gmail.com

@@ -1,13 +1,13 @@
-package com.devteam;
+package com.devteam.digital;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class APIAPP {
+public class DigitalApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(APIAPP.class, args);
+        SpringApplication.run(DigitalApplication.class, args);
     }
 
 }

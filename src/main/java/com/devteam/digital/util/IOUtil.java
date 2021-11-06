@@ -1,4 +1,4 @@
-package com.devteam;
+package com.devteam.digital.util;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;

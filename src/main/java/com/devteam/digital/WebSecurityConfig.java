@@ -1,4 +1,4 @@
-package com.devteam;
+package com.devteam.digital;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
