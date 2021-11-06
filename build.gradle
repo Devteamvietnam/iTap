@@ -69,6 +69,7 @@ dependencies {
     implementation 'com.google.guava:guava:31.0.1-jre'
     implementation group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.7'
     implementation 'nl.basjes.parse.useragent:yauaa:5.23'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.13.0'
 
 
 
