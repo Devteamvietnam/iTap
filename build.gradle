@@ -66,6 +66,10 @@ dependencies {
     implementation 'org.apache.commons:commons-pool2'
     implementation 'org.apache.commons:commons-lang3'
     implementation "cn.hutool:hutool-all:5.3.4"
+    implementation 'com.google.guava:guava:31.0.1-jre'
+    implementation group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.7'
+    implementation 'nl.basjes.parse.useragent:yauaa:5.23'
+
 
 
 }

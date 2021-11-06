@@ -54,7 +54,6 @@ spring:
       max-file-size: 200MB
       max-request-size: 215MB
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
     hikari:
       connectionTimeout: 30000
       idleTimeout: 600000
