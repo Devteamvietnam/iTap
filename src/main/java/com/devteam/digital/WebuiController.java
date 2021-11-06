@@ -3,7 +3,7 @@ package com.devteam.digital;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.devteam.digital.util.IOUtil;
+import com.devteam.digital.common.exception.IOUtil;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

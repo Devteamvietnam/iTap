@@ -1,4 +1,4 @@
-package com.devteam.digital.util;
+package com.devteam.digital.common.exception;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
