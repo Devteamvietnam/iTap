@@ -31,8 +31,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     /************************ Spring framework ***************/
     implementation group: 'org.springframework', name: 'spring-web', version: '5.3.12'
     implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.5.3'
