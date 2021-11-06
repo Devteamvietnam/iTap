@@ -1,4 +1,4 @@
-package com.devteam.digital.common;
+package com.devteam.digital.common.annotation;
 
 import java.lang.annotation.*;
 
