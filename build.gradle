@@ -7,76 +7,22 @@ plugins {
 
 group = 'com.devteam'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
-compileJava.options.encoding = 'UTF-8'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
+sourceCompatibility = '11'
 
 repositories {
-    mavenLocal()
     mavenCentral()
-    maven { url "https://repo.spring.io/plugins-release" }
-    maven { url "https://repo.spring.io/milestone" }
 }
 
 dependencies {
-    /************************ Spring boot ***************/
-    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation 'org.springframework.boot:spring-boot-starter-cache'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-configuration-processor'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'mysql:mysql-connector-java'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-    /************************ Spring framework ***************/
-    implementation group: 'org.springframework', name: 'spring-web', version: '5.3.12'
-    implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.5.3'
-    implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.5.3'
-    /************************ Spring lombok ***************/
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    /************************ runtime Hikaricp ***************/
-    implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.0.0'
-    /************************ Database ***************/
-    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.27'
-    /************************ Javax ***************/
-    implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
-    implementation 'javax.inject:javax.inject:1'
-    /************************ mapstruct ***************/
-    implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.4.2.Final'
-    implementation group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.4.2.Final'
-    /************************ Hibernate ***************/
-    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '7.0.1.Final'
-    /************************ Other package ***************/
-    implementation 'com.github.whvcse:easy-captcha:1.6.2'
-    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.78'
-    implementation 'org.apache.poi:poi:3.17'
-    implementation 'org.apache.poi:poi-ooxml:3.17'
-    implementation 'xerces:xercesImpl:2.12.0'
-    implementation("io.springfox:springfox-swagger2:2.9.2") {
-        exclude group: 'io.swagger', module: 'swagger-annotations'
-        exclude group: 'io.swagger', module: 'swagger-models'
-    }
-    implementation "io.springfox:springfox-swagger-ui:2.9.2"
-    implementation 'io.swagger:swagger-annotations:1.5.21'
-    implementation 'io.swagger:swagger-models:1.5.21'
-    implementation 'org.apache.commons:commons-pool2'
-    implementation 'org.apache.commons:commons-lang3'
-    implementation "cn.hutool:hutool-all:5.3.4"
-    implementation 'com.google.guava:guava:31.0.1-jre'
-    implementation group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.7'
-    implementation 'nl.basjes.parse.useragent:yauaa:5.23'
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.13.0'
-
-
-
+    testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {

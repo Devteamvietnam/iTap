@@ -14,28 +14,4 @@
     <root level="info">
         <appender-ref ref="console" />
     </root>
-
-    <logger name="jdbc.sqlonly" level="INFO" additivity="false">
-        <appender-ref ref="console" />
-    </logger>
-
-    <logger name="jdbc.resultset" level="ERROR" additivity="false">
-        <appender-ref ref="console" />
-    </logger>
-
-    <logger name="jdbc.resultsettable" level="OFF" additivity="false">
-        <appender-ref ref="console" />
-    </logger>
-
-    <logger name="jdbc.connection" level="OFF" additivity="false">
-        <appender-ref ref="console" />
-    </logger>
-
-    <logger name="jdbc.sqltiming" level="OFF" additivity="false">
-        <appender-ref ref="console" />
-    </logger>
-
-    <logger name="jdbc.audit" level="OFF" additivity="false">
-        <appender-ref ref="console" />
-    </logger>
 </configuration>
