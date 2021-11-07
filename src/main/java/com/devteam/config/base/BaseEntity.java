@@ -31,6 +31,6 @@ abstract  public class BaseEntity<T extends Serializable> {
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = DateUtil.COMPACT_DATETIME_FORMAT)
     @Column(name = "modified_time")
-    private Date   modifiedTime;
+    private Date  modifiedTime;
 
 }

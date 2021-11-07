@@ -59,7 +59,7 @@ public class CustomerController {
     public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
         try {
             Customer createdCustomer = customerService.create(customer);
-            return ResponseEntity.created(new URI("/customer/" + createdCustomer.getId())).body(customer);
+            return ResponseEntity.created(new URI("/api/v1//customer/" + createdCustomer.getId())).body(customer);
         }catch(Exception ex) {
             return handleException(ex);
         }
