@@ -15,13 +15,17 @@ server:
 
 spring:
   datasource:
-    username: root
-    url: jdbc:mysql://localhost:3306/digital?useSSL=false
-    password: 'devteam'
+    username: zosypussmbaoad
+    url: jdbc:postgresql://ec2-52-201-168-60.compute-1.amazonaws.com:5432/d60e6vvl8t7lq9
+    password: 499a656f84716503c288c6ed799b6b0e2f05c6b98bfb52af7a1477a12a4c63a1
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
 
