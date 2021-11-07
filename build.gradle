@@ -2,29 +2,48 @@ plugins {
     id 'org.springframework.boot' version '2.5.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'java-library'
     id 'eclipse'
 }
 
+project.ext {
+    springSecurityVersion    = '5.3.3.RELEASE'
+}
 group = 'com.devteam'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+compileJava.options.encoding = 'UTF-8'
 
 repositories {
+    mavenLocal()
     mavenCentral()
+    maven { url "https://repo.spring.io/plugins-release" }
+    maven { url "https://repo.spring.io/milestone" }
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    implementation 'mysql:mysql-connector-java'
+//  implementation('org.springframework.boot:spring-boot-starter-aop')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+//	implementation('org.springframework.boot:spring-boot-starter-data-redis')
+//	implementation('org.springframework.boot:spring-boot-starter-cache')
+	implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation'org.springframework.boot:spring-boot-starter-web'
+    implementation"org.springframework.boot:spring-boot-starter-actuator"
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-jersey'
+    implementation 'com.zaxxer:HikariCP:5.0.0'
+    implementation 'org.springframework.integration:spring-integration-core:5.5.5'
+    implementation 'org.springframework:spring-messaging:5.3.10'
+
+    implementation 'mysql:mysql-connector-java:5.1.48'
     implementation 'org.postgresql:postgresql:42.3.1'
-    implementation 'io.jsonwebtoken:jjwt:0.9.1'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
-    implementation 'org.springframework.boot:spring-boot-starter'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'javax.xml.bind:jaxb-api:2.3.0'
+    compileOnly 'org.projectlombok:lombok:1.18.10'
+    annotationProcessor 'org.projectlombok:lombok:1.18.10'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
 }
 
 test {

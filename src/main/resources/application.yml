@@ -13,19 +13,58 @@ server:
       max-request-size: 30MB
       max-file-size: 10MB
 
-spring:
-  datasource:
-    username: zosypussmbaoad
-    url: jdbc:postgresql://ec2-52-201-168-60.compute-1.amazonaws.com:5432/d60e6vvl8t7lq9
-    password: 499a656f84716503c288c6ed799b6b0e2f05c6b98bfb52af7a1477a12a4c63a1
-    driver-class-name: org.postgresql.Driver
-    hikari:
-      connectionTimeout: 20000
-      maximumPoolSize: 5
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
+# Spring Configuration ############################
 
+spring:
+  main:
+    banner-mode: off
+    allow-bean-definition-overriding: false
+  output:
+    ansi:
+      enabled: ALWAYS
+  flyway:
+    enabled: false
+
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
+    jdbcUrl: jdbc:postgresql://ec2-52-201-168-60.compute-1.amazonaws.com:5432/d60e6vvl8t7lq9
+    driverClassName: org.postgresql.Driver
+    username: zosypussmbaoad
+    password: 499a656f84716503c288c6ed799b6b0e2f05c6b98bfb52af7a1477a12a4c63a1
+  jpa:
+    open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  batch:
+    jdbc:
+      initialize-schema: always
+
+# Log Configuration ###########################
+
+logging:
+  config: classpath:logback-console.xml
+
+# Hibernate And DB  Configuration #######################
+
+hibernate:
+  hbm2ddl:
+    auto: update
+
+
+
+---
+digital:
+  app:
+    jwtExpirationMs: 86400000
+    jwtSecret: ddthienDigitalSecretKey
+---
