@@ -1,7 +1,7 @@
-package com.devteam.customer.service;
+package com.devteam.module.customer.service;
 
-import com.devteam.customer.entity.Customer;
-import com.devteam.customer.repository.CustomerRepository;
+import com.devteam.module.customer.entity.Customer;
+import com.devteam.module.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

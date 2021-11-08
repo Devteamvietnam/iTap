@@ -41,7 +41,7 @@ public class JpaDevConfiguration {
             @Qualifier("validator") LocalValidatorFactoryBean validator) {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(ds);
-        factoryBean.setPackagesToScan("com.devteam.*");
+        factoryBean.setPackagesToScan("com.devteam.**");
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         factoryBean.setJpaVendorAdapter(vendorAdapter);

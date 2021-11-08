@@ -64,3 +64,10 @@ spring:
     active: dev
     restart:
       enabled: false
+---
+auth:
+  jwt:
+    issuer: "Digital"
+    audience: "Digital App"
+    ttl-in-seconds: 3600
+    secret: "qgbMvat817h1g/s8oS5K8ys+QrUkVWbnf82Iyd1YFmzE1U6DLGy7kWYk/94gxbe+BDokCUqTqz7sP1Zw52OZmwwKDa6a/Wk7ApwKEiAZ3BzurE97RWIc1YfRtzdUuPRRSDneAk73qbKdIFjU8lO0rvEuRLg=="

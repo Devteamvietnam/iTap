@@ -1,6 +1,6 @@
-package com.devteam.customer.repository;
+package com.devteam.module.customer.repository;
 
-import com.devteam.customer.entity.Customer;
+import com.devteam.module.customer.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
