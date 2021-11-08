@@ -7,12 +7,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@RequiredArgsConstructor
+
 @Entity
 @Table(name = "address")
+@Getter
+@Setter
 public class Address extends BaseEntity {
 
     @Id
@@ -29,4 +28,16 @@ public class Address extends BaseEntity {
     @ManyToOne
     @JsonBackReference
     private Customer customer;
+
+    public Address(){}
+
+    public Address(String id, String streetAddress, String city, String stateCode, String country, String zipCode, Customer customer) {
+        this.id = id;
+        this.streetAddress = streetAddress;
+        this.city = city;
+        this.stateCode = stateCode;
+        this.country = country;
+        this.zipCode = zipCode;
+        this.customer = customer;
+    }
 }

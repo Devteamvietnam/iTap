@@ -9,19 +9,17 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@RequiredArgsConstructor
+
 @Entity
 @Table(name = "customer")
+@Getter
+@Setter
 public class Customer extends BaseEntity {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
-
+    private  String id;
 
     private  String firstName;
     private  String lastName;
@@ -31,6 +29,16 @@ public class Customer extends BaseEntity {
     @JoinColumn(name = "customer_id")
     @JsonManagedReference
     private List<Address> addresses = new ArrayList<>();
+
+    public Customer(){}
+
+    public Customer(String id, String firstName, String lastName, String emailAddress, List<Address> addresses) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.addresses = addresses;
+    }
 
     public void setAddresses(List<Address> addresses) {
         if(this.addresses == null) {

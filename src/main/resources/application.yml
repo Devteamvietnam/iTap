@@ -3,7 +3,6 @@ server:
   compression:
     enabled: true
     min-response-size: 2048
-    # Comma-separated list of MIME types that should be compressed.
     mime-types: text/html,text/xml,text/plain,text/css,application/json,application/xml,application/javascript
   servlet:
     contextPath: /
@@ -13,8 +12,7 @@ server:
       max-request-size: 30MB
       max-file-size: 10MB
 
-# Spring Configuration ############################
-
+---
 spring:
   main:
     banner-mode: console
@@ -58,6 +56,12 @@ logging:
 hibernate:
   hbm2ddl:
     auto: update
+---
+spring:
+  cache:
+    cache-names: customers
+    caffeine:
+      spec: maximumSize=500, expireAfterAccess=60s
 ---
 app:
   jwtSecret: DigitalddThienSecretKey

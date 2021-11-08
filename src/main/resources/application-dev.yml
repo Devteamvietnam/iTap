@@ -64,6 +64,10 @@ spring:
     active: dev
     restart:
       enabled: false
+  cache:
+    cache-names: customers
+    caffeine:
+      spec: maximumSize=500, expireAfterAccess=60s
 ---
 app:
   jwtSecret: DigitalddThienSecretKey
