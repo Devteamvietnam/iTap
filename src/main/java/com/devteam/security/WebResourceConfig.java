@@ -1,5 +1,6 @@
 package com.devteam.security;
 
+import com.devteam.util.IOUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import static springfox.documentation.builders.PathSelectors.regex;
@@ -22,7 +24,6 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @Configuration
 @EnableOpenApi
 public class WebResourceConfig extends WebMvcConfigurationSupport {
-
 
     @Bean
     public Docket productApi() {
@@ -54,7 +55,7 @@ public class WebResourceConfig extends WebMvcConfigurationSupport {
                 .resourceChain(false);
 
         registry
-                .addResourceHandler("/**").addResourceLocations("classpath:/public/");
+                .addResourceHandler("/").addResourceLocations("classpath:/public/**");
     }
 
     @Override
@@ -63,4 +64,5 @@ public class WebResourceConfig extends WebMvcConfigurationSupport {
                 .addViewController("/swagger-ui/")
                 .setViewName("forward:/swagger-ui/index.html");
     }
+
 }
