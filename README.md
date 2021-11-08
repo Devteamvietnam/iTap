@@ -30,3 +30,6 @@
   gradle bootRun -Dspring.profiles.active=dev 
   
   when run in local
+
+### Document API
+{baseUrl}/swagger-ui/index.html
