@@ -8,6 +8,7 @@ plugins {
 
 project.ext {
     springSecurityVersion    = '5.3.3.RELEASE'
+    springfoxVersion = '3.0.0'
 }
 group = 'com.devteam'
 version = '0.0.1-SNAPSHOT'
@@ -36,10 +37,21 @@ dependencies {
     implementation 'org.springframework.integration:spring-integration-core:5.5.5'
     implementation 'org.springframework:spring-messaging:5.3.10'
     implementation group: "com.h2database", name: "h2", version: '1.4.200'
-
     implementation 'mysql:mysql-connector-java:5.1.48'
     implementation 'org.postgresql:postgresql:42.3.1'
     implementation 'javax.xml.bind:jaxb-api:2.3.0'
+
+
+    implementation group: 'io.springfox', name: 'springfox-core', version: springfoxVersion
+    implementation group: 'io.springfox', name: 'springfox-oas', version: springfoxVersion
+    implementation group: 'io.springfox', name: 'springfox-spi', version: springfoxVersion
+    implementation group: 'io.springfox', name: 'springfox-schema', version: springfoxVersion
+    implementation group: 'io.springfox', name: 'springfox-swagger-common', version: springfoxVersion
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: springfoxVersion
+    implementation group: 'io.springfox', name: 'springfox-spring-web', version: springfoxVersion
+    implementation group: 'io.springfox', name: 'springfox-spring-webmvc', version: springfoxVersion
+    implementation group: 'io.springfox', name: 'springfox-spring-webflux', version: springfoxVersion
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

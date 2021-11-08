@@ -4,9 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.devteam.util.IOUtil;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class WebuiController {
 
     public void appPage(HttpServletRequest req, HttpServletResponse response) throws Exception {
@@ -17,6 +17,7 @@ public class WebuiController {
         try {
             response.setContentType("text/html");
             response.setContentType("application/json");
+            response.setContentType("application/javascript");
             response.setCharacterEncoding("utf-8");
             String content = IOUtil.getResourceAsString("public/**", "UTF-8");
             response.getWriter().write(content);
