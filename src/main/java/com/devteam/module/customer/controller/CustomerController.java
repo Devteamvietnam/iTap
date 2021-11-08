@@ -15,7 +15,7 @@ import java.net.URI;
 
 @CrossOrigin(maxAge = 3000)
 @RestController
-@RequestMapping("/api/v1/customer")
+@RequestMapping("/rest/dev/v1/customer")
 public class CustomerController {
 
     @Autowired
