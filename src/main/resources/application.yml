@@ -59,3 +59,6 @@ hibernate:
   hbm2ddl:
     auto: update
 ---
+app:
+  jwtSecret: DigitalddThienSecretKey
+  jwtExpiration: 86400

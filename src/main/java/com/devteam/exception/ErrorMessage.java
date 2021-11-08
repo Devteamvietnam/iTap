@@ -1,4 +1,5 @@
-package com.devteam.error;
+package com.devteam.exception;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

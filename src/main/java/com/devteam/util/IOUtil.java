@@ -1,7 +1,7 @@
 package com.devteam.util;
 
-import com.devteam.error.ErrorType;
-import com.devteam.error.RuntimeError;
+import com.devteam.exception.error.ErrorType;
+import com.devteam.exception.error.RuntimeError;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;

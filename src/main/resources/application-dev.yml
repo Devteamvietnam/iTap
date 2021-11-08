@@ -65,3 +65,6 @@ spring:
     restart:
       enabled: false
 ---
+app:
+  jwtSecret: DigitalddThienSecretKey
+  jwtExpiration: 86400

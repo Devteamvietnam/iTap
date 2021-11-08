@@ -23,9 +23,9 @@ public class Customer extends BaseEntity {
     private String id;
 
 
-    private @NonNull String firstName;
-    private @NonNull String lastName;
-    private @NonNull String emailAddress;
+    private  String firstName;
+    private  String lastName;
+    private  String emailAddress;
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = Address.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")

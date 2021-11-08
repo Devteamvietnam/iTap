@@ -20,11 +20,11 @@ public class Address extends BaseEntity {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    private String streetAddress;
-    private @NonNull String city;
-    private @NonNull String stateCode;
-    private @NonNull String country;
-    private @NonNull String zipCode;
+    private  String streetAddress;
+    private  String city;
+    private  String stateCode;
+    private  String country;
+    private  String zipCode;
 
     @ManyToOne
     @JsonBackReference
