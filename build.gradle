@@ -40,6 +40,7 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.3.1'
     implementation 'javax.xml.bind:jaxb-api:2.3.0'
     implementation 'com.github.ben-manes.caffeine:caffeine:3.0.4'
+    implementation 'com.google.guava:guava:31.0.1-jre'
 
     //JWT
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
@@ -47,15 +48,7 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 
 
-    implementation group: 'io.springfox', name: 'springfox-core', version: springfoxVersion
-    implementation group: 'io.springfox', name: 'springfox-oas', version: springfoxVersion
-    implementation group: 'io.springfox', name: 'springfox-spi', version: springfoxVersion
-    implementation group: 'io.springfox', name: 'springfox-schema', version: springfoxVersion
-    implementation group: 'io.springfox', name: 'springfox-swagger-common', version: springfoxVersion
-    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: springfoxVersion
-    implementation group: 'io.springfox', name: 'springfox-spring-web', version: springfoxVersion
-    implementation group: 'io.springfox', name: 'springfox-spring-webmvc', version: springfoxVersion
-    implementation group: 'io.springfox', name: 'springfox-spring-webflux', version: springfoxVersion
+    implementation 'org.springdoc:springdoc-openapi-ui:1.5.12'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
