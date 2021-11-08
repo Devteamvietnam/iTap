@@ -2,10 +2,14 @@ package com.devteam.security;
 
 import java.util.Collections;
 
+import com.devteam.config.auth.AuthTokenFilter;
+import com.devteam.module.account.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -23,8 +27,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests().antMatchers("/", "/swagger-ui").permitAll();
         httpSecurity.headers().frameOptions().disable();
         httpSecurity.csrf().disable();
-        httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        httpSecurity.authorizeRequests().antMatchers("/api/v1/auth/**").permitAll();
     }
 
     @Bean
@@ -41,8 +43,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return bean;
     }
 
-    @Bean
-    public AuthenticationManager getAuthenticationManager() throws Exception {
-        return authenticationManager();
-    }
 }
