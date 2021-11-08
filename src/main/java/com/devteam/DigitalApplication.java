@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages="com.devteam.*")
 public class DigitalApplication{
     public static void main(String[] args) {
         SpringApplication.run(DigitalApplication.class, args);
