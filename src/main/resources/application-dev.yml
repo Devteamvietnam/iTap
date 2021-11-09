@@ -36,7 +36,7 @@ spring:
       connectionTimeout: 30000
       idleTimeout: 600000
       maxLifetime: 1800000
-    jdbcUrl: jdbc:h2:file./data/db/h2/digitaldb;DB_CLOSE_DELAY=0
+    jdbcUrl: jdbc:h2:mem:digitaldb;DB_CLOSE_DELAY=0
     driverClassName: org.h2.Driver
     username: sa
     password:
