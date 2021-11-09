@@ -30,7 +30,6 @@ public class DataInitService {
     @Value("${app.data.init-sample:false}")
     private boolean initSample;
 
-
     @Order(1)
     @EventListener({ ContextRefreshedEvent.class })
     void onContextRefreshedEvent() {
