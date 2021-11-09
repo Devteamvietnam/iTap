@@ -3,6 +3,9 @@ package com.devteam.module.account.logic;
 import com.devteam.CachingConfig;
 import com.devteam.core.DAOService;
 import com.devteam.core.JPAService;
+import com.devteam.core.entity.ChangeStorageStateRequest;
+import com.devteam.core.enums.StorageState;
+import com.devteam.core.query.*;
 import com.devteam.module.account.entity.Account;
 import com.devteam.module.account.entity.AccountType;
 import com.devteam.module.account.entity.UserProfile;
@@ -18,6 +21,7 @@ import com.devteam.module.common.Result;
 import com.devteam.module.storage.IStorageService;
 import com.devteam.module.storage.StorageResource;
 import com.devteam.module.storage.UserStorage;
+import com.devteam.security.AccountAclModel;
 import com.devteam.util.avatar.AvatarUtil;
 import com.devteam.util.ds.Objects;
 import com.devteam.util.error.ErrorType;
@@ -191,5 +195,59 @@ public class AccountLogic extends DAOService {
             return new Result<>(Result.Status.Success, true).withMessage(msg);
         }
         return new Result<>(Result.Status.Fail, false).withMessage("Cannot find the account");
+    }
+
+    public List<Account> searchAccounts(ClientInfo client, SqlQueryParams params) {
+        String[] SEARCH_FIELDS = new String[]{"loginId", "email", "fullName", "mobile"};
+        SqlQuery query =
+                new SqlQuery()
+                        .ADD_TABLE(new EntityTable(Account.class).selectAllFields())
+                        .FILTER(
+                                SearchFilter.isearch(Account.class, SEARCH_FIELDS))
+                        .FILTER(
+                                OptionFilter.storageState(Account.class),
+                                OptionFilter.create(Account.class, "accountType", AccountType.ALL),
+                                RangeFilter.date(Account.class, "lastLoginTime"),
+                                RangeFilter.createdTime(Account.class),
+                                RangeFilter.modifiedTime(Account.class))
+                        .ORDERBY(new String[] {"loginId", "email", "fullName", "mobile", "modifiedTime"}, "loginId", "DESC");
+        return query(client, query, params, Account.class);
+    }
+
+    public List<AccountAclModel> findAccountAcls(ClientInfo client, String loginId) {
+        SqlQuery query = new SqlQuery()
+                .ADD_TABLE(
+                        new EntityTable(Account.class)
+                                .addSelectField("loginId", "loginId")
+                                .addSelectField("priority", "priority"))
+                .FILTER(new ClauseFilter(Account.class, "loginId", "=", ":loginId"))
+                .FILTER(OptionFilter.storageState(Account.class))
+                .ORDERBY(new String[] { "priority" }, "priority", "ASC");
+        query.addParam("loginId", loginId);
+        return query(client, query, AccountAclModel.class);
+    }
+
+    public boolean changeStorageState(ClientInfo client, ChangeStorageStateRequest req) {
+        List<Account> accounts = accountRepo.findAccounts(req.getEntityIds());
+        for(Account account : accounts) {
+            changeStorageState(client, account, req.getNewStorageState());
+        }
+        return true;
+    }
+
+    public boolean changeStorageState(ClientInfo client, Account account, StorageState state) {
+        final String LOGIN_ID = account.getLoginId();
+        plugins.forEach(plugin -> {
+            plugin.onPreStateChange(client, account, state);
+        });
+
+        if(account.getAccountType() == AccountType.USER) {
+            userProfileRepo.setStorageState(LOGIN_ID,  state);
+        }
+        accountRepo.setStorageState(LOGIN_ID,  state);
+        plugins.forEach(plugin -> {
+            plugin.onPostStateChange(client, account, state);
+        });
+        return true;
     }
 }

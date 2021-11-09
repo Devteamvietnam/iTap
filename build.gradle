@@ -49,6 +49,11 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'commons-beanutils:commons-beanutils:1.9.4'
 
+    implementation group: "org.springdoc", name: "springdoc-openapi-ui", version: '1.5.2'
+    implementation group: 'io.springfox', name: 'springfox-oas', version: springfoxVersion
+
+    implementation group: 'io.springfox', name: 'springfox-oas', version: springfoxVersion
+
     implementation 'org.springdoc:springdoc-openapi-ui:1.5.12'
     implementation 'javax.cache:cache-api:1.1.1'
     implementation 'org.ehcache:ehcache:3.9.7'
