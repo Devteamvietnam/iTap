@@ -1,7 +1,7 @@
 package com.devteam.core.repository;
 
 import com.devteam.core.entity.BaseEntity;
-import com.devteam.config.ClientInfo;
+import com.devteam.module.common.ClientInfo;
 import com.devteam.util.error.ErrorType;
 import com.devteam.util.error.RuntimeError;
 import com.devteam.util.text.DateUtil;

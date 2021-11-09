@@ -1,8 +1,8 @@
 package com.devteam.core.plugin;
 
-import com.devteam.config.ClientInfo;
 import com.devteam.core.plugin.entity.PluginInfo;
 import com.devteam.core.plugin.repository.PluginInfoRepository;
+import com.devteam.module.common.ClientInfo;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;

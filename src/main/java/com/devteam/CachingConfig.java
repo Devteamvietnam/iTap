@@ -1,4 +1,4 @@
-package com.devteam.config;
+package com.devteam;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

@@ -1,6 +1,6 @@
-package com.devteam.module.http.rest;
+package com.devteam.module.http;
 
-import com.devteam.config.ClientInfo;
+import com.devteam.module.common.ClientInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

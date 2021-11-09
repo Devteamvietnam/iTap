@@ -1,8 +1,8 @@
 package com.devteam.module.http.rest.v1;
 
-import com.devteam.config.ClientInfo;
-import com.devteam.module.http.rest.ClientSession;
-import com.devteam.module.http.rest.ClientSessionService;
+import com.devteam.module.common.ClientInfo;
+import com.devteam.module.http.ClientSession;
+import com.devteam.module.http.ClientSessionService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class AuthenticationService implements HttpSessionListener, ApplicationContextAware {
   @Autowired
-  private ClientSessionService sessionService;
+  private ClientSessionService             sessionService;
   private Map<String, AuthenticatedClient> authenticatedClients = new ConcurrentHashMap<>();
 
   @Override

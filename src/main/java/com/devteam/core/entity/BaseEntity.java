@@ -1,8 +1,8 @@
 package com.devteam.core.entity;
 
-import com.devteam.config.ClientInfo;
 import com.devteam.core.enums.EditState;
 import com.devteam.core.enums.StorageState;
+import com.devteam.module.common.ClientInfo;
 import com.devteam.util.text.DateUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

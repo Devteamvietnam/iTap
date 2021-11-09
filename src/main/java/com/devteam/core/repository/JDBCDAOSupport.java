@@ -2,9 +2,9 @@ package com.devteam.core.repository;
 
 import com.devteam.core.SqlUpdate;
 import com.devteam.core.query.SqlQuery;
-import com.devteam.config.ClientInfo;
 import com.devteam.core.SqlResultSetExtractor;
 import com.devteam.core.SqlSelectView;
+import com.devteam.module.common.ClientInfo;
 import com.devteam.util.dataformat.DataSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

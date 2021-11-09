@@ -1,6 +1,6 @@
 package com.devteam.core;
 
-import com.devteam.config.ClientInfo;
+import com.devteam.module.common.ClientInfo;
 import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

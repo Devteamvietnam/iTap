@@ -1,7 +1,7 @@
 package com.devteam.core.repository;
 
-import com.devteam.config.ClientInfo;
 import com.devteam.core.entity.BaseEntity;
+import com.devteam.module.common.ClientInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

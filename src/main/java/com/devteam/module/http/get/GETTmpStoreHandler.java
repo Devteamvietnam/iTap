@@ -1,7 +1,7 @@
 package com.devteam.module.http.get;
 
-import com.devteam.config.CachingConfig;
-import com.devteam.config.ClientInfo;
+import com.devteam.CachingConfig;
+import com.devteam.module.common.ClientInfo;
 import com.devteam.util.cipher.MD5;
 import com.devteam.util.ds.Objects;
 import org.springframework.beans.factory.annotation.Autowired;

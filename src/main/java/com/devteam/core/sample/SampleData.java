@@ -1,6 +1,6 @@
 package com.devteam.core.sample;
 
-import com.devteam.config.ClientInfo;
+import com.devteam.module.common.ClientInfo;
 import lombok.Getter;
 
 public class SampleData {

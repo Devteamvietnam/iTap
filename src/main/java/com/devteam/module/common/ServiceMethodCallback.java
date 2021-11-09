@@ -1,4 +1,4 @@
-package com.devteam.config;
+package com.devteam.module.common;
 
 
 public interface ServiceMethodCallback<T> {

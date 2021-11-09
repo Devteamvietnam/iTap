@@ -1,6 +1,6 @@
 package com.devteam.core.query;
 
-import com.devteam.config.ClientInfo;
+import com.devteam.module.common.ClientInfo;
 import com.devteam.util.ds.Arrays;
 import com.devteam.util.ds.Collections;
 import com.devteam.util.ds.MapObject;

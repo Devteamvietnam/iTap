@@ -1,6 +1,6 @@
 package com.devteam.core;
 
-import com.devteam.config.ClientInfo;
+import com.devteam.module.common.ClientInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;

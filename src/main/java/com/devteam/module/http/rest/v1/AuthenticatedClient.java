@@ -1,7 +1,7 @@
 package com.devteam.module.http.rest.v1;
 
-import com.devteam.config.ClientInfo;
-import com.devteam.module.http.rest.ClientSession;
+import com.devteam.module.common.ClientInfo;
+import com.devteam.module.http.ClientSession;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

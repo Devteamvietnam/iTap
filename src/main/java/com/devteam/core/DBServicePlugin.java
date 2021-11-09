@@ -1,6 +1,6 @@
 package com.devteam.core;
 
-import com.devteam.config.ClientInfo;
+import com.devteam.module.common.ClientInfo;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;

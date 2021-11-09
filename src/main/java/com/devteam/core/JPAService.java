@@ -1,6 +1,6 @@
 package com.devteam.core;
 
-import com.devteam.config.ClientInfo;
+import com.devteam.module.common.ClientInfo;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 

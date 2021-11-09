@@ -1,7 +1,7 @@
-package com.devteam.module.http.rest;
+package com.devteam.module.http;
 
 
-import com.devteam.config.ClientInfo;
+import com.devteam.module.common.ClientInfo;
 
 import java.util.HashMap;
 import java.util.Map;

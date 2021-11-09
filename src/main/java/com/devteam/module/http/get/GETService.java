@@ -1,6 +1,6 @@
 package com.devteam.module.http.get;
 
-import com.devteam.config.ClientInfo;
+import com.devteam.module.common.ClientInfo;
 import com.devteam.util.error.ErrorType;
 import com.devteam.util.error.RuntimeError;
 import org.springframework.beans.factory.annotation.Autowired;

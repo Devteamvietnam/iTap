@@ -1,7 +1,6 @@
 package com.devteam.module.account.logic;
 
-import com.devteam.config.CachingConfig;
-import com.devteam.config.ClientInfo;
+import com.devteam.CachingConfig;
 import com.devteam.core.DAOService;
 import com.devteam.core.JPAService;
 import com.devteam.module.account.entity.Account;
@@ -11,6 +10,7 @@ import com.devteam.module.account.model.PasswordGenerator;
 import com.devteam.module.account.plugin.AccountServicePlugin;
 import com.devteam.module.account.repository.AccountRepository;
 import com.devteam.module.account.repository.UserProfileRepository;
+import com.devteam.module.common.ClientInfo;
 import com.devteam.util.error.ErrorType;
 import com.devteam.util.error.RuntimeError;
 import lombok.extern.slf4j.Slf4j;

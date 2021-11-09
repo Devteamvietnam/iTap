@@ -1,7 +1,7 @@
 package com.devteam.module.account.plugin;
 
-import com.devteam.config.ClientInfo;
 import com.devteam.module.account.entity.Account;
+import com.devteam.module.common.ClientInfo;
 import org.springframework.stereotype.Component;
 
 @Component

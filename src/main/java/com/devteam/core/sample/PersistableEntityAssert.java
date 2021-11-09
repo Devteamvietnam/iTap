@@ -3,8 +3,8 @@ package com.devteam.core.sample;
 import com.devteam.core.enums.StorageState;
 import com.devteam.core.entity.BaseEntity;
 import com.devteam.core.query.SqlQueryParams;
-import com.devteam.config.ClientInfo;
 import com.devteam.core.entity.ChangeStorageStateRequest;
+import com.devteam.module.common.ClientInfo;
 import com.devteam.util.dataformat.DataSerializer;
 import com.devteam.util.ds.AssertTool;
 import org.junit.jupiter.api.Assertions;
@@ -73,7 +73,7 @@ public class PersistableEntityAssert<T extends BaseEntity<String>> extends Asser
     }
   }
 
-  protected ClientInfo                        client;
+  protected ClientInfo client;
   protected T                                 entity;
   protected EntityServiceMethods              methods;
 

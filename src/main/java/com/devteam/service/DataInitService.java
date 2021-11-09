@@ -1,8 +1,8 @@
 package com.devteam.service;
 
-import com.devteam.config.ClientInfo;
 import com.devteam.core.DBService;
 import com.devteam.core.sample.EntityDB;
+import com.devteam.module.common.ClientInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;

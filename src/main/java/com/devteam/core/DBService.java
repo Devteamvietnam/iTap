@@ -1,7 +1,7 @@
 package com.devteam.core;
 
-import com.devteam.config.ClientInfo;
 import com.devteam.core.query.SearchFilter;
+import com.devteam.module.common.ClientInfo;
 import com.devteam.util.error.ErrorType;
 import com.devteam.util.error.RuntimeError;
 import org.slf4j.Logger;

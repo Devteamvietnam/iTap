@@ -1,6 +1,6 @@
 package com.devteam.module.http.upload;
 
-import com.devteam.config.CachingConfig;
+import com.devteam.CachingConfig;
 import com.devteam.util.error.ErrorType;
 import com.devteam.util.error.RuntimeError;
 import com.devteam.util.io.IOUtil;

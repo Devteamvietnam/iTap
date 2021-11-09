@@ -1,9 +1,9 @@
 package com.devteam.core;
 
-import com.devteam.config.ClientInfo;
 import com.devteam.core.query.SqlQuery;
 import com.devteam.core.query.SqlQueryParams;
 import com.devteam.core.repository.JDBCDAOSupport;
+import com.devteam.module.common.ClientInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Table;

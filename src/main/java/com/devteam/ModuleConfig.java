@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {
         "com.devteam.module.http",
         "com.devteam.module.customer",
-        "com.devteam.module.account"
+        "com.devteam.module.account",
+        "com.devteam.module.storage",
+        "com.devteam.module.common"
    }
 )
 @EnableJpaRepositories(

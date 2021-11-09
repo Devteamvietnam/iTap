@@ -1,9 +1,9 @@
 package com.devteam.module.account.plugin;
 
-import com.devteam.config.ClientInfo;
 import com.devteam.core.enums.StorageState;
 import com.devteam.core.plugin.ServicePlugin;
 import com.devteam.module.account.entity.Account;
+import com.devteam.module.common.ClientInfo;
 
 abstract public class AccountServicePlugin extends ServicePlugin {
 
