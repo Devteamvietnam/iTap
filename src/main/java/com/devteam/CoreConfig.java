@@ -1,5 +1,6 @@
 package com.devteam;
 
+
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -7,17 +8,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @ComponentScan(basePackages = {
-        "com.devteam.module.http",
-        "com.devteam.module.customer",
-        "com.devteam.module.account"
-   }
+        "com.devteam.core",
+        "com.devteam.core.plugin"
+}
 )
 @EnableJpaRepositories(
         basePackages  = {
-                "com.devteam.module.customer.repository",
-                "com.devteam.module.account.repository"
+                "com.devteam.core.plugin.repository"
         }
 )
 @EnableConfigurationProperties
-public class ModuleConfig {
+public class CoreConfig {
 }

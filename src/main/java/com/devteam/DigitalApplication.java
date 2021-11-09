@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
 })
 @EnableConfigurationProperties
 @Import(value = {
-        ModuleConfig.class, DataConfig.class
+        ModuleConfig.class, DataConfig.class, CoreConfig.class
 })
 public class DigitalApplication{
     public static void main(String[] args) {
