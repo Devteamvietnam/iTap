@@ -63,12 +63,8 @@ spring:
     caffeine:
       spec: maximumSize=500, expireAfterAccess=60s
 ---
-
 app:
-  username: admin
   bypassAuthentication: true
   errorLevel: 1
-  jwtSecret: A1SHSELFHvx3KzMtK1MEOPusSG5NB4NeKIg4mw==HcFqt5ubcggTSSB0mtSAt2Vs
   dummyDataEnabled: true
-  jwtExpirationMs: 86400000
-  password: admin
+  username: admin
