@@ -66,3 +66,15 @@ spring:
 app:
   data:
     init-sample: true
+    init-demo: false
+  home: /home
+  config:
+    dir: /config
+  upload:
+    dir: /upload
+  storage:
+    dir: /data/storage
+---
+storage:
+  service:
+    dir: /storage/service

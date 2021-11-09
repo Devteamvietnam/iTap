@@ -6,13 +6,23 @@ import com.devteam.core.JPAService;
 import com.devteam.module.account.entity.Account;
 import com.devteam.module.account.entity.AccountType;
 import com.devteam.module.account.entity.UserProfile;
+import com.devteam.module.account.model.ChangePasswordRequest;
+import com.devteam.module.account.model.NewAccountModel;
 import com.devteam.module.account.model.PasswordGenerator;
+import com.devteam.module.account.model.ResetPasswordRequest;
 import com.devteam.module.account.plugin.AccountServicePlugin;
 import com.devteam.module.account.repository.AccountRepository;
 import com.devteam.module.account.repository.UserProfileRepository;
 import com.devteam.module.common.ClientInfo;
+import com.devteam.module.common.Result;
+import com.devteam.module.storage.IStorageService;
+import com.devteam.module.storage.StorageResource;
+import com.devteam.module.storage.UserStorage;
+import com.devteam.util.avatar.AvatarUtil;
+import com.devteam.util.ds.Objects;
 import com.devteam.util.error.ErrorType;
 import com.devteam.util.error.RuntimeError;
+import com.devteam.util.text.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -33,6 +43,9 @@ public class AccountLogic extends DAOService {
 
     @Autowired
     private UserProfileRepository userProfileRepo;
+
+    @Autowired
+    private IStorageService storageService;
 
     @Autowired
     private PasswordGenerator passwordGenerator;
@@ -103,5 +116,80 @@ public class AccountLogic extends DAOService {
             plugin.onPostSave(client, account, false);
         }
         return account;
+    }
+
+    public NewAccountModel createNewAccount(ClientInfo client, NewAccountModel model) {
+        Account account = model.getAccount();
+        boolean isNew = account.isNew();
+
+        for(AccountServicePlugin plugin : plugins) {
+            plugin.onPreSave(client, account, isNew);
+        }
+        account.set(client);
+        if(StringUtil.isEmpty(account.getMobile())) {
+            account.setMobile(null);
+        }
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
+        account = accountRepo.save(account);
+
+
+        NewAccountModel retModel = new NewAccountModel();
+        retModel.withAccount(account);
+        UserStorage storage = storageService.createUserStorage(client, account.getLoginId());
+        String fullName = account.getFullName();
+        if(fullName == null) {
+            fullName = account.getLoginId();
+        } else {
+            fullName = fullName.trim();
+            if(StringUtil.isEmpty(fullName)) fullName = account.getLoginId();
+        }
+        byte[] avatarBytes = AvatarUtil.createPngAsBytes(150, 150, fullName);
+        StorageResource origAvatarResource = new StorageResource("orig-avatar.png", avatarBytes);
+        origAvatarResource = storage.wwwSave("avatar", origAvatarResource);
+        StorageResource avatarResource = new StorageResource("avatar.png", avatarBytes);
+        avatarResource = storage.wwwSave("avatar", avatarResource);
+        if(account.getAccountType() == AccountType.USER) {
+            UserProfile profile = model.getProfile();
+            if(Objects.isNull(profile)) {
+                profile = new UserProfile(account.getLoginId(), account.getFullName(), account.getEmail());
+                profile.setMobile(account.getMobile());
+            }
+            profile.setAvatarUrl(avatarResource.getPublicDownloadUri());
+            profile.set(client);
+            profile = userProfileRepo.save(profile);
+            retModel.withUserProfile(profile);
+        }
+        for(AccountServicePlugin plugin : plugins) {
+            plugin.onPostSave(client, account, isNew);
+        }
+
+        return retModel;
+    }
+
+    @CacheEvict(value = CachingConfig.REGION_ENTITY , key= "{'" + Account.TABLE_NAME + "', #request.loginId}")
+    public Result<Boolean> changePassword(ClientInfo client, ChangePasswordRequest request) {
+        log.debug("Call change password");
+        Account account   = getModifiableAccount(client, request.getLoginId());
+        if (account != null) {
+            if(passwordEncoder.matches(request.getOldPassword(), account.getPassword())) {
+                account.setPassword(passwordEncoder.encode(request.getNewPassword()));
+                account.set(client);
+                account = accountRepo.save(account);
+                return new Result<>(Result.Status.Success, true).withMessage("Change password successfully!");
+            }
+            return new Result<>(Result.Status.Fail, true).withMessage("The old password is not matched");
+        }
+        return new Result<>(Result.Status.Fail, false).withMessage("Cannot find the account");
+    }
+
+    public Result<Boolean> resetPassword(ClientInfo client, ResetPasswordRequest request) {
+        Account account   = getModifiableAccount(client, request.getLoginId());
+        if(account != null) {
+            String newPassword = passwordGenerator.generatePassword(8);
+            account.setPassword(newPassword);
+            String msg = "A new password is generated successfully. The new password is " + newPassword;
+            return new Result<>(Result.Status.Success, true).withMessage(msg);
+        }
+        return new Result<>(Result.Status.Fail, false).withMessage("Cannot find the account");
     }
 }

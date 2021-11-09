@@ -10,32 +10,32 @@ import lombok.Getter;
 @Component
 public class AppEnv {
     @Getter
-    @Value("${app.home:#{null}")
+    @Value("${app.home")
     private String appHome;
 
     @Getter
-    @Value("${app.config.dir:#{null}}")
+    @Value("${app.config.dir")
     private String appConfigDir;
 
     @Getter
-    @Value("${app.upload.dir:#{null}}")
+    @Value("${app.upload.dir")
     private String uploadDir;
 
     @Getter
-    @Value("${app.storage.dir:#{null}}")
+    @Value("${app.storage.dir}")
     private String storageDir ;
 
     @PostConstruct
     public void onInit() throws Exception {
         if(appConfigDir == null) {
-            appConfigDir = appHome + "/config" ;
+            appConfigDir = appHome;
         }
         if(uploadDir == null) {
-            uploadDir = appHome + "/upload" ;
+            uploadDir = appHome;
         }
 
         if(storageDir == null) {
-            storageDir = appHome + "/data/storage" ;
+            storageDir = appHome;
         }
     }
 

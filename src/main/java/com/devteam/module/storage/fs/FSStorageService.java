@@ -36,7 +36,7 @@ public class FSStorageService implements IStorageService {
   @Autowired
   private AppEnv appEnv;
 
-  @Value("${storage.service.dir:#{null}}")
+  @Value("${storage.service.dir}")
   private String storageDir ;
 
   @Autowired
