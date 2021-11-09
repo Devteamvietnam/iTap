@@ -1,6 +1,6 @@
 package com.devteam.data.query;
 
-import com.devteam.config.enums.StorageState;
+import com.devteam.data.enums.StorageState;
 import com.devteam.data.entity.BaseEntity;
 import com.devteam.util.text.StringUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,4 +1,4 @@
-package com.devteam.config.enums;
+package com.devteam.data.enums;
 
 public enum EditState {
   NEW, IMPORT, ORIGIN, MODIFIED, DELETED

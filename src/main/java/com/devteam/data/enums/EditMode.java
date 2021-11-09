@@ -1,4 +1,4 @@
-package com.devteam.config.enums;
+package com.devteam.data.enums;
 
 public enum EditMode {
   DRAFT, VALIDATED, LOCKED;

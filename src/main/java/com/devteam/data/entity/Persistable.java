@@ -1,8 +1,8 @@
 package com.devteam.data.entity;
 
 import com.devteam.config.ClientInfo;
-import com.devteam.config.enums.EditState;
-import com.devteam.config.enums.LoadState;
+import com.devteam.data.enums.EditState;
+import com.devteam.data.enums.LoadState;
 import com.devteam.util.ds.IdentifiableObject;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

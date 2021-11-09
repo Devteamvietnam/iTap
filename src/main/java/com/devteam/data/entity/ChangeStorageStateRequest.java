@@ -1,6 +1,6 @@
 package com.devteam.data.entity;
 
-import com.devteam.config.enums.StorageState;
+import com.devteam.data.enums.StorageState;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

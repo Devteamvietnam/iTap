@@ -1,3 +1,3 @@
-package com.devteam.config.enums;
+package com.devteam.data.enums;
 
 public enum Capability { None, Read, Write, Moderator, Admin }

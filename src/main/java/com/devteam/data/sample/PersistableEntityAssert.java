@@ -1,6 +1,6 @@
 package com.devteam.data.sample;
 
-import com.devteam.config.enums.StorageState;
+import com.devteam.data.enums.StorageState;
 import com.devteam.data.entity.BaseEntity;
 import com.devteam.data.query.SqlQueryParams;
 import com.devteam.config.ClientInfo;

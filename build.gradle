@@ -23,6 +23,7 @@ repositories {
 }
 
 dependencies {
+    /*********Spring Core **********/
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
@@ -32,12 +33,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jersey'
     implementation 'org.springframework.boot:spring-boot-starter-batch'
     implementation 'org.springframework.boot:spring-boot-devtools'
-    implementation 'com.zaxxer:HikariCP:5.0.0'
     implementation 'org.springframework.integration:spring-integration-core:5.5.5'
     implementation 'org.springframework:spring-messaging:5.3.10'
+    /*********Hikari DATASOURCE**********/
+    implementation 'com.zaxxer:HikariCP:5.0.0'
+    /*********Database**********/
     implementation group: "com.h2database", name: "h2", version: '1.4.200'
     implementation 'mysql:mysql-connector-java:5.1.48'
     implementation 'org.postgresql:postgresql:42.3.1'
+    /*********Other Package**********/
     implementation 'javax.xml.bind:jaxb-api:2.3.0'
     implementation 'com.github.ben-manes.caffeine:caffeine:3.0.4'
     implementation 'com.google.guava:guava:31.0.1-jre'

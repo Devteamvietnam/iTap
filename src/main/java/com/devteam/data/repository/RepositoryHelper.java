@@ -1,6 +1,6 @@
 package com.devteam.data.repository;
 
-import com.devteam.config.enums.EditState;
+import com.devteam.data.enums.EditState;
 import com.devteam.data.entity.Persistable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
