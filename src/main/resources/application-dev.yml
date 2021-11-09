@@ -36,13 +36,14 @@ spring:
       connectionTimeout: 30000
       idleTimeout: 600000
       maxLifetime: 1800000
-    jdbcUrl: jdbc:h2:file./data/db/h2/digitaldb
+    jdbcUrl: jdbc:h2:file./data/db/h2/digitaldb;DB_CLOSE_DELAY=0
     driverClassName: org.h2.Driver
     username: sa
     password:
   jpa:
     open-in-view: false
     database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
   batch:
     jdbc:
       initialize-schema: always
@@ -55,7 +56,7 @@ logging:
 ---
 hibernate:
   hbm2ddl:
-    auto: create-drop
+    auto: update
 ---
 spring:
   main:

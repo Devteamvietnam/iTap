@@ -1,6 +1,6 @@
 package com.devteam.security.filter;
 
-import com.devteam.util.StringUtil;
+import com.devteam.util.text.StringUtil;
 import org.springframework.http.MediaType;
 
 import javax.servlet.FilterConfig;

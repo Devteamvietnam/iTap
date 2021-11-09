@@ -1,9 +1,8 @@
 package com.devteam.module.customer.entity;
 
-import com.devteam.config.base.BaseEntity;
+import com.devteam.data.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,12 +13,7 @@ import java.util.List;
 @Table(name = "customer")
 @Getter
 @Setter
-public class Customer extends BaseEntity {
-
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private  String id;
+public class Customer extends BaseEntity<String> {
 
     private  String firstName;
     private  String lastName;

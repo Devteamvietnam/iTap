@@ -3,7 +3,7 @@ package com.devteam.security;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.devteam.util.IOUtil;
+import com.devteam.util.io.IOUtil;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

@@ -1,7 +1,7 @@
 package com.devteam.security.filter;
 
 
-import com.devteam.util.HttpHelper;
+import com.devteam.util.http.HttpHelper;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;

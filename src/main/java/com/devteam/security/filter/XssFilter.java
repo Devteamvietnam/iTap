@@ -1,7 +1,7 @@
 package com.devteam.security.filter;
 
 
-import com.devteam.util.StringUtil;
+import com.devteam.util.text.StringUtil;
 
 import javax.servlet.FilterConfig;
 import javax.servlet.*;
