@@ -1,6 +1,6 @@
 package com.devteam.module.customer.entity;
 
-import com.devteam.data.entity.BaseEntity;
+import com.devteam.core.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
