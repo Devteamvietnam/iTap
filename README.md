@@ -32,4 +32,4 @@
   when run in local
 
 ### Document API
-{baseUrl}/swagger-ui/index.html
+{baseUrl}/swagger-ui.html
