@@ -55,7 +55,7 @@ logging:
 ---
 hibernate:
   hbm2ddl:
-    auto: update
+    auto: create-drop
 ---
 spring:
   cache:
@@ -63,6 +63,12 @@ spring:
     caffeine:
       spec: maximumSize=500, expireAfterAccess=60s
 ---
+
 app:
-  jwtSecret: DigitalddThienSecretKey
-  jwtExpiration: 86400
+  username: admin
+  bypassAuthentication: true
+  errorLevel: 1
+  jwtSecret: A1SHSELFHvx3KzMtK1MEOPusSG5NB4NeKIg4mw==HcFqt5ubcggTSSB0mtSAt2Vs
+  dummyDataEnabled: true
+  jwtExpirationMs: 86400000
+  password: admin
