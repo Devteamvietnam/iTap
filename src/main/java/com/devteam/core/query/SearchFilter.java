@@ -108,17 +108,17 @@ public class SearchFilter  {
     }
   }
 
-  static public <T extends BaseEntity<Long>> SearchFilter isearch(Class<T> entityType, String ... fields) {
+  static public <T extends BaseEntity<String>> SearchFilter isearch(Class<T> entityType, String ... fields) {
      SearchFilter search = new SearchFilter("search", entityType, fields, ILIKE_OP, "search");
      return search;
   }
 
-  static public <T extends BaseEntity<Long>> SearchFilter isearch(String name, Class<T> entityType, String[] fields) {
+  static public <T extends BaseEntity<String>> SearchFilter isearch(String name, Class<T> entityType, String[] fields) {
     SearchFilter search = new SearchFilter(name, entityType, fields, ILIKE_OP, "search");
     return search;
  }
 
-  static public <T extends BaseEntity<Long>> SearchFilter search(Class<T> entityType, String ... fields) {
+  static public <T extends BaseEntity<String>> SearchFilter search(Class<T> entityType, String ... fields) {
      SearchFilter search = new SearchFilter(entityType, fields, LIKE_OP, "search");
      return search;
   }

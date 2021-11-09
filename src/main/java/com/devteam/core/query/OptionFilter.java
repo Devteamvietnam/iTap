@@ -68,11 +68,11 @@ public class OptionFilter extends FieldFilter {
     selectOption = other.getSelectOption();
   }
 
-  static public <T extends BaseEntity<Long>> OptionFilter storageState(Class<T> entity) {
+  static public <T extends BaseEntity<String>> OptionFilter storageState(Class<T> entity) {
     return new OptionFilter(entity, "storageState", "=", StorageState.ALL, StorageState.ACTIVE);
   }
 
-  static public <T extends BaseEntity<Long>, O> OptionFilter create(Class<T> entity, String field, O[] options) {
+  static public <T extends BaseEntity<String>, O> OptionFilter create(Class<T> entity, String field, O[] options) {
     return new OptionFilter(entity, field, "=", options);
   }
 }

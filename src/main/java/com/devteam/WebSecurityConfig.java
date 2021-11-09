@@ -1,4 +1,4 @@
-package com.devteam.security;
+package com.devteam;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
