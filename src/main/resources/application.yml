@@ -55,7 +55,7 @@ logging:
 ---
 hibernate:
   hbm2ddl:
-    auto: update
+    auto: create-drop
 ---
 spring:
   cache:
