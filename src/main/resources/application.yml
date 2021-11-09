@@ -64,7 +64,5 @@ spring:
       spec: maximumSize=500, expireAfterAccess=60s
 ---
 app:
-  bypassAuthentication: true
-  errorLevel: 1
-  dummyDataEnabled: true
-  username: admin
+  data:
+    init-sample: true
