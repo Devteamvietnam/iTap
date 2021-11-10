@@ -1,7 +1,12 @@
 package com.devteam;
 
 import com.devteam.config.JpaConfiguration;
+import com.devteam.core.DBService;
+import com.devteam.core.sample.EntityDB;
+import com.devteam.module.account.service.AccountService;
 import com.devteam.module.common.ClientInfo;
+import com.devteam.module.common.ServiceMethodCallback;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -15,23 +20,24 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(
+        webEnvironment= SpringBootTest.WebEnvironment.NONE,
+        classes = { ModuleConfig.class, CoreConfig.class },
         properties = {
                 "spring.config.location=classpath:application-test.yaml"
-        },
-        classes = {
-                JpaConfiguration.class
         }
 )
-@EnableAutoConfiguration(
-        exclude= { DataSourceAutoConfiguration.class, SecurityAutoConfiguration.class}
-)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 abstract public class TestConfig {
-
-    protected ClientInfo clientInfo = ClientInfo.DEFAULT;
+    
+    @Autowired
+    ApplicationContext context;
 
     @Autowired
-    protected ApplicationContext context;
+    protected DBService dbService ;
 
+    @BeforeEach
+    public void clearDataDB() throws Exception {
+        EntityDB.initDataDB(context);
+    }
 }
