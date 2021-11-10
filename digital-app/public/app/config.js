@@ -1,4 +1,0 @@
-var CONFIG = {
-    build: "latest"
-  }
-  
