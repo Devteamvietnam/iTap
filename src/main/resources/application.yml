@@ -58,12 +58,7 @@ logging:
 hibernate:
   hbm2ddl:
     auto: update
----
-spring:
-  cache:
-    cache-names: customers
-    caffeine:
-      spec: maximumSize=500, expireAfterAccess=60s
+
 ---
 app:
   data:
@@ -71,12 +66,12 @@ app:
     init-demo: false
   home: /app/home
   config:
-    dir: /config
+    dir: /app/config
   upload:
-    dir: /upload
+    dir: /app/upload
   storage:
-    dir: /data/storage
+    dir: /app/data/storage
 ---
 storage:
   service:
-    dir: /storage/service
+    dir: /app/storage/service
