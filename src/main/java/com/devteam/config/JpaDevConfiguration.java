@@ -35,8 +35,8 @@ public class JpaDevConfiguration {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(
             @Value("${hibernate.hbm2ddl.auto:update}") String hbm2ddlAuto,
             @Value("${hibernate.dialect:org.hibernate.dialect.H2Dialect}") String hibernateDialect,
-            @Value("${hibernate.show_sql:true}") String hibernateShowSql,
-            @Value("${hibernate.format_sql:true}") String hibernateFormatSql,
+            @Value("${hibernate.show_sql:false}") String hibernateShowSql,
+            @Value("${hibernate.format_sql:false}") String hibernateFormatSql,
             @Qualifier("datasource") DataSource ds,
             @Qualifier("validator") LocalValidatorFactoryBean validator) {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
