@@ -95,7 +95,7 @@ public class PersistableEntityAssert<T extends BaseEntity<String>> extends Asser
     return params;
   }
 
-  public ChangeStorageStateRequest createArchivedStorageRequest(BaseEntity<Long> entity) {
+  public ChangeStorageStateRequest createArchivedStorageRequest(BaseEntity<String> entity) {
     ChangeStorageStateRequest change = new ChangeStorageStateRequest(StorageState.ARCHIVED);
     change.withEntityId(entity.getId());
     return change;

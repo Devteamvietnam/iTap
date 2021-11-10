@@ -14,13 +14,13 @@ import java.util.List;
 public class ChangeStorageStateRequest {
   @Enumerated(EnumType.STRING)
   private StorageState newStorageState;
-  private List<Long>  entityIds;
+  private List<String>  entityIds;
 
   public ChangeStorageStateRequest(StorageState newState) {
     this.newStorageState = newState;
   }
 
-  public ChangeStorageStateRequest withEntityId(Long id) {
+  public ChangeStorageStateRequest withEntityId(String id) {
     if(entityIds == null) entityIds = new ArrayList<>();
     entityIds.add(id);
     return this;

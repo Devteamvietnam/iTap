@@ -89,6 +89,11 @@ public class AccountService {
         return accountLogic.searchAccounts(client, params);
     }
 
+    @Transactional(readOnly = true)
+    public Account getAccount(ClientInfo client, String loginId) {
+        return accountLogic.getModifiableAccount(client, loginId);
+    }
+
     //Profile
 
     public <T extends BaseProfile> T getProfile(ClientInfo clientInfo, String loginId) {
