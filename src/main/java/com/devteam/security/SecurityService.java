@@ -75,7 +75,7 @@ public class SecurityService {
   public AccessToken validateAccessToken(ClientInfo client, String token) {
     AccessToken accessToken = logic.getAccessToken(client, token);
     if(accessToken == null || accessToken.isExpired()) {
-      return new AccessToken("anon", AccessToken.AccessType.None);
+      return new AccessToken("ddthien-digital-none", AccessToken.AccessType.None);
     }
     return accessToken;
   }

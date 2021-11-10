@@ -19,7 +19,7 @@ import java.util.Collections;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    
+
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
