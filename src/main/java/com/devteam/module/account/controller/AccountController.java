@@ -7,6 +7,10 @@ import javax.servlet.http.HttpSession;
 
 import com.devteam.core.entity.ChangeStorageStateRequest;
 import com.devteam.core.query.SqlQueryParams;
+import com.devteam.module.account.entity.BaseProfile;
+import com.devteam.module.account.entity.UserProfile;
+import com.devteam.module.common.ClientInfo;
+import com.devteam.module.http.upload.UploadResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -99,5 +103,49 @@ public class AccountController extends BaseController {
             return service.resetPassword(getAuthorizedClientInfo(session), request);
         };
         return execute(Method.PUT, "reset-password", executor);
+    }
+
+
+    @ApiOperation(value = "Retrieve Account profile", response = BaseProfile.class)
+    @GetMapping("profile/{loginId}")
+    public @ResponseBody <T extends BaseProfile> RestResponse getProfile(HttpSession session, @PathVariable("loginId") String loginId) {
+        Callable<T> executor = () -> {
+            ClientInfo clientInfo = getAuthorizedClientInfo(session);
+            return service.getProfile(clientInfo, loginId);
+        };
+        return execute(Method.GET, "profile/{loginId}", executor);
+    }
+
+    @ApiOperation(value = "Save the user profile", response = UserProfile.class)
+    @PutMapping("profile/user")
+    public @ResponseBody RestResponse saveUserProfile(HttpSession session, @RequestBody UserProfile profile) {
+        Callable<UserProfile> executor = () -> {
+            ClientInfo clientInfo = getAuthorizedClientInfo(session);
+            return service.saveUserProfile(clientInfo, profile);
+        };
+        return execute(Method.PUT, "profile/user", executor);
+    }
+
+
+    @ApiOperation(value = "Upload user avatar", response = UploadResource.class)
+    @PutMapping("profile/{loginId}/upload-avatar")
+    public @ResponseBody RestResponse uploadAvatar(
+            HttpSession session, @PathVariable("loginId") String loginId, @RequestBody UploadResource resource) {
+        Callable<UploadResource> executor = () -> {
+            ClientInfo clientInfo = getAuthorizedClientInfo(session);
+            return service.uploadAvatar(clientInfo, loginId, resource, true);
+        };
+        return execute(Method.PUT, "profile/user", executor);
+    }
+
+    @ApiOperation(value = "Upload user avatar", response = UploadResource.class)
+    @PutMapping("profile/{loginId}/modify-avatar")
+    public @ResponseBody RestResponse modifyAvatar(
+            HttpSession session, @PathVariable("loginId") String loginId, @RequestBody UploadResource resource) {
+        Callable<UploadResource> executor = () -> {
+            ClientInfo clientInfo = getAuthorizedClientInfo(session);
+            return service.uploadAvatar(clientInfo, loginId, resource, false);
+        };
+        return execute(Method.PUT, "profile/user", executor);
     }
 }
