@@ -7,8 +7,11 @@ import com.devteam.module.account.entity.BaseProfile;
 import com.devteam.module.account.entity.UserProfile;
 import com.devteam.module.account.logic.AccountLogic;
 import com.devteam.module.account.logic.ProfileLogic;
+import com.devteam.module.account.model.ChangePasswordRequest;
 import com.devteam.module.account.model.NewAccountModel;
+import com.devteam.module.account.model.ResetPasswordRequest;
 import com.devteam.module.common.ClientInfo;
+import com.devteam.module.common.Result;
 import com.devteam.module.http.upload.UploadResource;
 import com.devteam.security.AccountAclModel;
 import com.devteam.security.SecurityLogic;
@@ -98,5 +101,15 @@ public class AccountService {
 
     public UploadResource uploadAvatar(ClientInfo client, String loginId, UploadResource resource, boolean saveOrigin) {
         return profileLogic.uploadAvatar(client, loginId, resource, saveOrigin);
+    }
+
+    // Account password
+    @Transactional
+    public Result<Boolean> changePassword(ClientInfo client, ChangePasswordRequest request) {
+        return accountLogic.changePassword(client, request);
+    }
+    @Transactional
+    public Result<Boolean> resetPassword(ClientInfo client, ResetPasswordRequest request) {
+        return accountLogic.resetPassword(client, request);
     }
 }

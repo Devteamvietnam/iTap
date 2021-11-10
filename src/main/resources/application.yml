@@ -51,6 +51,8 @@ spring:
 ---
 logging:
   config: classpath:logback-console.xml
+  level:
+    web: DEBUG
 
 ---
 hibernate:
