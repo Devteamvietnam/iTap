@@ -23,5 +23,5 @@ public interface AccountRepository extends JpaRepository<Account, Serializable> 
     int setStorageState(@Param("loginId") String loginId, @Param("state") StorageState state);
 
     @Query("SELECT a FROM Account a WHERE a.id IN :ids")
-    public List<Account> findAccounts(@Param("ids") List<Long> ids) ;
+    public List<Account> findAccounts(@Param("ids") List<String> ids) ;
 }

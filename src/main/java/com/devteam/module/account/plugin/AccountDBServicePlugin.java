@@ -1,6 +1,8 @@
 package com.devteam.module.account.plugin;
 
+import com.devteam.core.DBScenario;
 import com.devteam.core.DBServicePlugin;
+import com.devteam.module.account.data.DBModuleScenario;
 import com.devteam.module.account.entity.Account;
 import com.devteam.module.account.entity.AccountType;
 import com.devteam.module.account.logic.AccountLogic;
@@ -26,7 +28,6 @@ public class AccountDBServicePlugin extends DBServicePlugin {
     @Override
     public void initDb(ClientInfo client, ApplicationContext context) throws Exception {
         monitorPlugin.createPluginInfo(client);
-
         Account adminAccount = new Account("admin", "admin", "admin@devteam.com", AccountType.USER);
         adminAccount.setFullName("Admin");
         NewAccountModel model = new NewAccountModel().withAccount(adminAccount);
@@ -35,6 +36,6 @@ public class AccountDBServicePlugin extends DBServicePlugin {
 
     @Override
     public void createSammpleData(ClientInfo client,  ApplicationContext context) throws Exception {
-//        new DBScenario(context).add(DBModuleScenario.class).initialize(client);
+        new DBScenario(context).add(DBModuleScenario.class).initialize(client);
     }
 }
