@@ -20,8 +20,6 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
-  flyway:
-    enabled: false
 
 
   servlet:
