@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.scss';
-//es6 class syntax
 export class App extends Component {
   constructor(props: any) {
     super(props);

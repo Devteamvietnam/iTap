@@ -23,6 +23,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "include": ["src", "index.d.ts"],
+  "include": ["src", "src/index.d.ts"],
   "exclude": ["node_modules", "build", "dist", "example"]
 }
