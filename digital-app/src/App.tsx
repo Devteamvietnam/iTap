@@ -1,24 +1,18 @@
-import React, { Component } from 'react';
-import './App.scss';
-import { Navbar } from 'components/client/Navbar';
-//es6 class syntax
-export class App extends Component {
-  constructor(props: any) {
-    super(props);
-  }
+import React from 'react';
+import logo from './logo.png';
+import './App.css';
 
-  render() {
-    return (
-     <div>
-        <header className="header" > 
-        <Navbar />
-        </header>
-      <div className="App">
-          <p>
-            Digital <code>VFX</code> Project
-          </p>
-      </div>
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Digital <code>VFX</code> Project
+        </p>
+      </header>
     </div>
-    );
- }
+  );
 }
+
+export default App;
