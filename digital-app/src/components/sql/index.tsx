@@ -21,6 +21,7 @@ export function createModifiedTimeFilter() {
     {
       "name": "modifiedTime", "label": "Modified Time", "type": "DATE", "required": true,
       "fromValue": null, "toValue": null
+      //"fromValue": "1/1/2010@10:00:00 +0000", "toValue": "1/1/2030@10:00:00 +0000"
     }
   ];
 }
@@ -30,6 +31,7 @@ export function createCreatedTimeFilter() {
     {
       "name": "createdTime", "label": "Created Time", "type": "DATE", "required": true,
       "fromValue": null, "toValue": null
+      //"fromValue": "1/1/2010@10:00:00 +0000", "toValue": "1/1/2030@10:00:00 +0000"
     }
   ];
 }

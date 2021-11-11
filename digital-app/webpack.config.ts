@@ -24,7 +24,7 @@ const config: webpack.Configuration = {
     //filename: 'main.es.js',
     chunkFilename: '[id].js',
     library: {
-      name: 'digital_app',
+      name: 'vion_app',
       type: 'umd',
       umdNamedDefine: true
     },

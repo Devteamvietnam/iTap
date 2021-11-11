@@ -21,12 +21,8 @@
     "removeComments": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
+    "noUnusedParameters": true
   },
-  "include": ["src", "src/index.d.ts"],
+  "include": ["src"],
   "exclude": ["node_modules", "build", "dist", "example"]
 }

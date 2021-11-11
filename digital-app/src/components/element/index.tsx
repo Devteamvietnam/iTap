@@ -34,6 +34,14 @@ export interface ButtonActionModel {
 export interface WButtonProps extends ButtonProps {
   remove?: boolean;
 }
+/**@deprecated */
+export class WButton extends Component<WButtonProps> {
+  render() {
+    let { remove } = this.props;
+    if (remove == true) return null;
+    return <Button {...this.props} />
+  }
+}
 
 export interface GroupButtonActionModel {
   label: string,
@@ -432,6 +440,7 @@ export class StoreableStateComponent<T extends StoreableStateComponentProps = St
 
 export interface ProgressBarProps { progress: number, duration: number };
 export interface ProgressBarState { progress: number };
+/**@deprecated */
 export class ProgressBar extends Component<ProgressBarProps, ProgressBarState> {
   constructor(props: ProgressBarProps) {
     super(props);
