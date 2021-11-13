@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { FAButton, fas } from 'components/widget/fa';
-import { BBAutoComplete2, BBAutoCompletePlugin } from "components/widget/input/autocomplete";
+import { BBAutoComplete, BBAutoCompletePlugin } from "components/widget/input/autocomplete";
 
 import { Form, FormGroup } from 'components/widget/input'
 import { BBStringField } from "components/widget/input";
@@ -17,7 +17,7 @@ export class PersonBBAutoCompletePlugin extends BBAutoCompletePlugin {
 
   }
 
-  onShowMoreInfo(ui: BBAutoComplete2, person: any) {
+  onShowMoreInfo(ui: BBAutoComplete, person: any) {
     if (!person || Object.getOwnPropertyNames(person).length === 0) {
       ui.dialogShow('Person Info', 'md', (<p> {'Choose a person to show more'} </p>));
     } else {
@@ -26,13 +26,13 @@ export class PersonBBAutoCompletePlugin extends BBAutoCompletePlugin {
     }
   }
 
-  onSelectPerson(ui: BBAutoComplete2, selPerson: any) {
+  onSelectPerson(ui: BBAutoComplete, selPerson: any) {
     this.replaceWithSelect(ui, selPerson, '');
     ui.dialogClose();
     ui.forceUpdate();
   }
 
-  onCustomSelect(ui: BBAutoComplete2) {
+  onCustomSelect(ui: BBAutoComplete) {
     let uiContent = (
       <div className='d-flex flex-column p-0' style={{ height: '500px' }}>
         TODO:
@@ -41,7 +41,7 @@ export class PersonBBAutoCompletePlugin extends BBAutoCompletePlugin {
     ui.dialogShow('Select Partner', 'lg', uiContent);
   }
 
-  onCreateNew(ui: BBAutoComplete2) {
+  onCreateNew(ui: BBAutoComplete) {
     let onPostSave = (person: any) => {
       ui.dialogClose();
       console.log('call onPostSave person');

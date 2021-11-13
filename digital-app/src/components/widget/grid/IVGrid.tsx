@@ -5,7 +5,6 @@ import { Arrays } from 'components/util/Arrays';
 import { RecordMap, ListRecordMap } from 'components/util/Collections';
 import { FAIconDefinition } from 'components/widget/fa';
 import { CalendarConfig } from 'components/widget/calendar/ICalendar';
-import { PrintConfig, LoadPrint } from 'components/widget/print';
 import { WidgetContext } from '../context';
 import { ListModel, AggregationDisplayModel, TreeDisplayModelPlugin } from './model';
 import { KanbanBoardConfig } from '../kanban/IKabanBoard';
@@ -139,13 +138,6 @@ export interface VGridAggregationViewConfig extends VGridViewConfig {
   createAggregationModel(ctx: VGridContext): AggregationDisplayModel
 }
 
-export interface VGridPrintViewConfig extends VGridViewConfig {
-  currentPrintName: string;
-  prints: Array<PrintConfig>;
-  loadPrint?: LoadPrint;
-  render?: (ctx: VGridContext, viewConfig: VGridPrintViewConfig) => ReactFragment,
-}
-
 export interface VGridCustomViewConfig extends VGridViewConfig {
   render: (ctx: VGridContext) => any,
 }
@@ -158,7 +150,7 @@ export interface VGridTreeViewConfig extends VGridViewConfig {
 export type VGridViewConfigOption =
   VGridTableViewConfig | VGridGridViewConfig | VGridAggregationViewConfig |
   VGridKabanViewConfig | VGridCalendarViewConfig | VGridCustomViewConfig |
-  VGridTreeViewConfig | VGridPrintViewConfig;
+  VGridTreeViewConfig;
 
 export interface DynamicView {
   name: string;

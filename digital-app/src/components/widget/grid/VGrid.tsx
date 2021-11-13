@@ -13,7 +13,6 @@ import { TableTreeView } from "./view/TableTreeView";
 import { KanbanView } from "./view/KanbanView";
 import { CalendarView } from "./view/CalendarView";
 import { CustomView } from "./view/CustomView";
-import { PrintView } from "./view/ReportView";
 import { VGridControlManager } from "./control/VGridControl";
 
 import "./stylesheet.scss";
@@ -74,8 +73,6 @@ export class VGridViewManager extends Component<VGridProps> {
       viewUI = <CalendarView key={currentViewName} context={context} viewName={currentViewName} />
     } else if (viewMode == 'custom') {
       viewUI = <CustomView key={currentViewName} context={context} viewName={currentViewName} />
-    } else if (viewMode == 'print') {
-      viewUI = <PrintView key={currentViewName} context={context} viewName={currentViewName} />
     } else {
       viewUI = <TableView key={currentViewName} context={context} viewName={currentViewName} />
     }

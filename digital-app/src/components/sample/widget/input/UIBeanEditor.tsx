@@ -19,7 +19,7 @@ import {
   BBColorPicker
 } from "components/widget/input";
 
-import { BBAutoComplete2, BBOptionAutoComplete } from "components/widget/input/autocomplete";
+import { BBAutoComplete, BBOptionAutoComplete } from "components/widget/input/autocomplete";
 import { BBRichTextEditor } from "components/widget/draftjs/Editor";
 
 import { PERSONS, PersonBBAutoCompletePlugin } from './Person';
@@ -220,8 +220,8 @@ export default class UIBeanEditor extends Component<{}, UIBeanEditorState> {
                     onInputChange={this.autoCompleteOnInputChange} />
                 </FormGroup>
 
-                <FormGroup label={'Autocomplete 2'}>
-                  <BBAutoComplete2
+                <FormGroup label={'Autocomplete'}>
+                  <BBAutoComplete
                     plugin={
                       new PersonBBAutoCompletePlugin().withAllowCreateNew(true)
                     }
