@@ -1,25 +1,94 @@
-# Getting Started with Create React App
+<h3 align="center">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&center=true&vCenter=true&lines=Digital+App)](https://git.io/typing-svg)
+
+</h3>
+
+![](https://img.shields.io/badge/Framework-react-informational?style=flat&logo=react&logoColor=white&color=3bac3a)
+![](https://img.shields.io/badge/Language-JavaScript-informational?style=flat&logo=javascript&logoColor=white&color=3bac3a)
+![](https://img.shields.io/badge/Language-TypeScript-informational?style=flat&logo=typescript&logoColor=white&color=3bac3a)
+![](https://img.shields.io/badge/CI/CD-Github_Action-informational?style=flat&logo=github&logoColor=white&color=3bac3a)
+![](https://img.shields.io/badge/OS-MacOS-informational?style=flat&logo=apple&logoColor=white&color=3bac3a)
+![](https://img.shields.io/badge/OS-Windows-informational?style=flat&logo=windows&logoColor=white&color=3bac3a)
+![](https://img.shields.io/badge/Shell-Bash-informational?style=flat&logo=gnu-bash&logoColor=white&color=3bac3a)
+![](https://img.shields.io/badge/Framework-nodejs-informational?style=flat&logo=nodejs&logoColor=white&color=3bac3a)
+
+
+## Tool using in Project
+  - STS4
+  - VScode
+  - Cygwin + Conemu(For window user only) And configure bash shell environment
+  - Install cygwin with the programs: vim, git, openssh, tmux, more, dos2unix, python3
+
+## Other Tool
+
+Other Tools
+The other tools you may want to install
+
+Docker Desktop
+Kubernetes
+i/O Diagram
+
+## Config visual code editor before coding
+
+Install Plugin
+
+Gitlens: Used to show git history
+Blank Line Organizer: Used to manage blank line
+
+
+Copy and paste to settings.json file in vscode
+```
+{
+  // Editor
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.renderWhitespace": "all",
+  "editor.fontSize": 12,
+  "editor.wordWrapColumn": 120,
+  "editor.wordWrap": "wordWrapColumn",
+
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+
+  "files.autoSave": "onFocusChange",
+  "files.trimTrailingWhitespace": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  // Blank Line
+  "blankLine.keepOneEmptyLine": true
+}
+```
+
+## Download nodejs
+
+https://nodejs.org/en/download/
+
+## Clone the repository
+
+git clone https://github.com/ddthien-coder/vion.git
+
+cd path/vion-app
+
+## `npm install`
+
+install package
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### `npm run dev-server`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:4000](http://localhost:4000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `yarn test`
+config host in webpack.config.ts
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
+### `npm run dev-build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -29,15 +98,6 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ## Learn More
 

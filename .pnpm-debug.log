@@ -1,0 +1,14 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "code": "ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND",
+    "err": {
+      "name": "pnpm",
+      "message": "No package.json (or package.yaml, or package.json5) was found in \"E:\\ProjectDigi\\digital\".",
+      "code": "ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND",
+      "stack": "pnpm: No package.json (or package.yaml, or package.json5) was found in \"E:\\ProjectDigi\\digital\".\n    at readProjectManifest (C:\\Users\\ddthien\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:41099:13)\n    at async Object.readProjectManifestOnly (C:\\Users\\ddthien\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:41103:28)\n    at async readProjectManifestOnly (C:\\Users\\ddthien\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:41322:24)\n    at async Object.handler (C:\\Users\\ddthien\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:129795:24)\n    at async C:\\Users\\ddthien\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:133995:20\n    at async run (C:\\Users\\ddthien\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:133970:34)\n    at async runPnpm (C:\\Users\\ddthien\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:134181:5)\n    at async C:\\Users\\ddthien\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:134173:7"
+    }
+  }
+}
