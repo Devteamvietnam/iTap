@@ -15,10 +15,12 @@ export class IDGenerator {
 }
 
 export class TimeUtil {
+  //TODO: rename getCompactDateTimeFormat()
   static getCompactDateTimeFormat() { return COMPACT_DATETIME_FORMAT; }
 
   static javaCompactDateTimeFormat(d: Date) {
     let currDateTime = moment(d).format(COMPACT_DATETIME_FORMAT);
+    //remove timezone colon
     currDateTime = currDateTime.slice(0, currDateTime.length - 3) + currDateTime.slice(currDateTime.length - 2);
     return currDateTime;
   }
@@ -77,6 +79,7 @@ export class ObjUtil {
   static isPrimitive(obj: any) {
     if (typeof obj === 'string' || obj instanceof String) return true;
     else if (typeof obj === 'number') return true;
+    //todo: boolean ,date object type
     return false;
   }
 

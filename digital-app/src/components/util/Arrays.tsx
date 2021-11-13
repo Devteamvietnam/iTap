@@ -1,10 +1,12 @@
 type Compare = (o1: any, o2: any) => -1 | 0 | 1;
 export class Arrays {
+    //check empty
   static isEmpty(array?: Array<any>) {
     if (!array || array.length == 0) return true;
     return false
   }
 
+  //check notEmpty
   static assertNotEmpty(array: Array<any>, mesg?: string) {
     if (!array || array.length == 0) {
       if (!mesg) {
@@ -39,6 +41,7 @@ export class Arrays {
     return array;
   }
 
+  //nối các phần tử của mảng lại với nhau thành một chuỗi.
   static join(array1?: Array<any>, array2?: Array<any>) {
     if (!array1 || !array2) return [];
     let holder: Array<any> = [];

@@ -1,18 +1,8 @@
 import * as fa from './fa'
-import * as context from './context'
-import * as element from './element'
-import * as input from './input'
-import * as draftjs from './draftjs'
-import * as component from './component'
-import * as print from './print'
-import * as layout from './layout'
-import * as calendar from './calendar'
-import * as list from './list/index'
-import * as grid from './grid'
-import * as sql from './search/index'
-import * as util from './util'
+import * as element from '../element'
+import * as layout from '../layout'
+import * as util from '../util';
 
 export {
-  fa, context, element, input, draftjs, component, print,
-  layout, calendar, grid, sql, util,list
+    fa,element,layout,util
 }
