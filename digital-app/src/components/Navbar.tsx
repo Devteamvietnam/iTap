@@ -10,7 +10,7 @@ export class Navbar extends Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="#">VION-APP</a>
+                    <a className="navbar-brand" href="#">Digital-VFX</a>
                     <button className="navbar-toggler" type="button" >
                     <span className="navbar-toggler-icon"></span>
                     </button>

@@ -11,13 +11,15 @@ export function ftDate(val: Date): string {
 
 export function toFileName(text: string): string {
   if (!text) return '';
+  //const translate = { "đ": "d", "Đ": "d" };
   text = text.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/[đĐ]/g, function (match) {
+    //return translate[match];
     if (match == 'đ' || match == 'Đ') return "d";
     return match;
   })
   text = text.replace(/[^\u0020a-zA-Z0-9_.-]/g, '').trim();
   text = text.split(' ').join('-');
-  return text.toLowerCase(); 
+  return text.toLowerCase();
 }
 
 function formatNumber(val: number, precision: number) {

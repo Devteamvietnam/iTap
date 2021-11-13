@@ -15,7 +15,7 @@ export class App extends Component {
         </header>
       <div className="App">
           <p>
-            VION <code>App</code> Project
+            Digital <code>VFX</code> Project
           </p>
       </div>
     </div>
