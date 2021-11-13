@@ -66,11 +66,11 @@ https://nodejs.org/en/download/
 
 ## Clone the repository
 
-git clone https://github.com/ddthien-coder/vion.git
+git clone https://github.com/ddthien-coder/digitalvfx.git
 
-cd path/vion-app
+cd path/digital-app
 
-## `npm install`
+## `pnpm install`
 
 install package
 
@@ -78,17 +78,17 @@ install package
 
 In the project directory, you can run:
 
-### `npm run dev-server`
+### `pnpm run dev-server`
 
 Runs the app in the development mode.\
-Open [http://localhost:4000](http://localhost:4000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 config host in webpack.config.ts
 
-### `npm run dev-build`
+### `pnpm run dev-build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
