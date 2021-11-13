@@ -364,14 +364,6 @@ function createConfig() {
         grid: GridViewConfig(),
 
         aggregation: AggregationViewConfig(),
-        print: {
-          viewMode: 'print',
-          currentPrintName: 'activities',
-          prints: [
-            { name: 'activities', label: 'Activities' },
-            { name: 'progresses', label: 'Progresses' }
-          ]
-        },
         tree1: {
           viewMode: 'tree',
           label: 'Tree 1',
