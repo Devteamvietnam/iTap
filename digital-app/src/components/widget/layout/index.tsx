@@ -13,7 +13,7 @@ import { fas, FAButton, FAIcon } from 'components/widget/fa';
 import { ELEProps, ButtonActionModel, GroupButtonActionModel, mergeCssClass } from '../element';
 import { StoreableStateComponent, StoreableStateComponentProps } from '../element';
 
-import 'components/stylesheet.scss';
+import '../stylesheet.scss';
 
 export { Container, Row, Col } from 'reactstrap'
 

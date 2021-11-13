@@ -10,7 +10,6 @@ import { GridView } from "./view/GridView";
 import { TableView, TableViewModePlugin } from "./view/TableView";
 import { TableAggregationView, TableAggregationViewModePlugin } from "./view/TableAggregationView";
 import { TableTreeView } from "./view/TableTreeView";
-import { KanbanView } from "./view/KanbanView";
 import { CalendarView } from "./view/CalendarView";
 import { CustomView } from "./view/CustomView";
 import { PrintView } from "./view/ReportView";
@@ -68,8 +67,6 @@ export class VGridViewManager extends Component<VGridProps> {
       viewUI = <TableAggregationView key={currentViewName} context={context} viewName={currentViewName} />
     } else if (viewMode == 'tree') {
       viewUI = <TableTreeView key={currentViewName} context={context} viewName={currentViewName} />
-    } else if (viewMode == 'kanban') {
-      viewUI = <KanbanView key={currentViewName} context={context} viewName={currentViewName} />
     } else if (viewMode == 'calendar') {
       viewUI = <CalendarView key={currentViewName} context={context} viewName={currentViewName} />
     } else if (viewMode == 'custom') {
