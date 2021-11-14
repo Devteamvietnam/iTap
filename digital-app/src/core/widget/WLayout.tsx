@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { app, widget, reactstrap } from 'components';
+import { app, widget, util, reactstrap } from 'components';
 
 export interface WComponentProps extends widget.element.StoreableStateComponentProps {
   appContext: app.AppContext;
@@ -101,6 +101,28 @@ export class WComponent<T extends WComponentProps = WComponentProps, S = any>
       this.popupPageContext = null;
     }
   }
+
+  /**@deprecated */
+  showUIDep(title: string, size: 'sm' | 'md' | 'lg' | 'xl', ui: any, popup: boolean = false) {
+    if (popup) {
+      let popupPageCtx = this.newPopupPageContext();
+      widget.layout.showDialog(title, size, ui, popupPageCtx.getDialogContext());
+    } else {
+      let { pageContext } = this.props;
+      pageContext.onAdd(util.text.toFileName(title), title, ui);
+    }
+  }
+
+  /**@deprecated */
+  // showUI(title: string, size: 'sm' | 'md' | 'lg' | 'xl', ui: any, popup: boolean = false) {
+  //   if (popup) {
+  //     let popupPageCtx = new app.PageContext().withPopup();
+  //     widget.layout.showDialog(title, size, ui, popupPageCtx.getDialogContext());
+  //   } else {
+  //     let { pageContext } = this.props;
+  //     pageContext.onAdd(util.text.toFileName(title), title, ui);
+  //   }
+  // }
 }
 export interface WToolbarProps {
   readOnly?: boolean;

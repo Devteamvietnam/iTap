@@ -32,7 +32,7 @@ export enum TypeOpts {
 }
 class UICustomField extends WEntity<UICustomFieldProps> {
 
-  onTypeChange(_newVal: string) {
+  onTypeChange(newVal: string) {
     this.forceUpdate();
   }
 
@@ -97,7 +97,7 @@ class UICustomField extends WEntity<UICustomFieldProps> {
         <ColFormGroup span={12} label={T('Type')}>
           <BBSelectField
             bean={bean} field={'type'} options={typeOpts} disable={!writeCap || !this.isNewBean()}
-            onInputChange={(_bean: any, _field: string, _oldVal: any, newVal: any) => this.onTypeChange(newVal)} />
+            onInputChange={(bean: any, field: string, oldVal: any, newVal: any) => this.onTypeChange(newVal)} />
         </ColFormGroup>
         <ColFormGroup span={12} label={T('Value')}>
           {this.renderValueField(bean.type)}

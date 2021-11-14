@@ -300,12 +300,12 @@ export class WButtonEntityStorage extends WComponent<WButtonEntityStorageProps> 
   onChangeState(newState: any) {
     let { appContext, observer, commitURL, label, onPostCommit } = this.props;
     let entity = observer.getMutableBean();
-    let successCB = (_response: server.rest.RestResponse) => {
+    let successCB = (_result: server.rest.RestResponse) => {
       observer.replaceBeanProperty('storageState', newState);
       appContext.addOSNotification("success", T('Change Storage State {{label}} Success', { label: label }));
       if (onPostCommit) onPostCommit(entity);
     }
-    let failCB = (_response: any) => {
+    let failCB = (result: any) => {
       appContext.addOSNotification('danger', T('Change Storage State {{label}} Fail', { label: label }), null, { label: label });
     }
     let changeStorageReq = { entityIds: [entity.id], newStorageState: newState };
@@ -328,7 +328,7 @@ export class WButtonEntityStorage extends WComponent<WButtonEntityStorageProps> 
       actionItems.push(
         {
           name: state, label: state, size: 'sm',
-          onSelect(_item: ButtonActionModel, _context?: any) { thisUI.onChangeState(state); }
+          onSelect(item: ButtonActionModel, context?: any) { thisUI.onChangeState(state); }
         }
       );
     }

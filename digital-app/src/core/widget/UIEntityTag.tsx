@@ -187,7 +187,7 @@ export class UIEntityTagListPage extends WComponent<UIEntityTagListPageProps> {
 
   onNewEntityTag() {
     const { appContext, pageContext, label, commitURL, readOnly } = this.props;
-    let pageCtx = pageContext.createPopupPageContext();
+    let pageCtx = this.newPopupPageContext();
     let html = (
       <UIEntityTagEditor
         appContext={appContext} pageContext={pageContext} readOnly={readOnly}
