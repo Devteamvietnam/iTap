@@ -107,7 +107,7 @@ class Session {
       alert('Fail to login. Contact the admin for further information.');
     }
     let serverCtx = CONFIG.createServerContext();
-    serverCtx.getRestClient().post("/company/acl/authenticate", loginModel, successCb, failCb);
+    serverCtx.getRestClient().post("/acl/authenticate", loginModel, successCb, failCb);
   }
 
   autoSignin(customSuccessCB: (accountACL: api.AccountAcl) => void, customFailCB: () => void) {

@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+@CrossOrigin(value = "*")
 @Api(value = "devteam", tags = { "acl" })
 @RestController
 @RequestMapping("/api/v1/acl")

@@ -1,4 +1,4 @@
-@import "./App.scss";
+@import "./bootstrap.scss";
 
 $light: rgb(236, 233, 233);
 $dark: rgb(168, 164, 164);
@@ -9,6 +9,7 @@ $primary: rgb(32, 31, 32);
 $info: rgb(70, 130, 180);
 $success: rgb(46, 125, 128);
 $danger: #ff4136;
+
 
 $body-bg: whitesmoke;
 $body-color: black;
@@ -71,7 +72,7 @@ $theme-colors: (
     --bg-info-muted: #{$bg-info-muted};
     --bg-muted: #{$bg-muted};
 
-    // background-image: url('/css/themes/#{$name}/background.png');
+    background-image: url('/css/themes/#{$name}/background.png');
     background-color: transparent;
 
     .body-bg {
@@ -104,6 +105,7 @@ $theme-colors: (
     .btn-outline-primary:disabled {
       color: var(--muted);
     }
+
 
     .btn-secondary { background-color: var(--secondary); color: var(--white); }
     .btn-info { background-color: var(--info); color: var(--white); }

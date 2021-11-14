@@ -48,19 +48,19 @@ class HostAppConfig {
 }
 
 let serverUrl = window.location.origin;
-let restUrl = window.location.origin + '/rest/v1.0.0';
+let restUrl = window.location.origin + '/api/v1';
 let environment: 'dev' | 'prod' = 'prod';
 if (restUrl.indexOf(':3000') > 0) {
   environment = 'dev';
-  serverUrl = serverUrl.replace(/:3000/, ":7080");
-  restUrl = restUrl.replace(/:3000/, ":7080");
+  serverUrl = serverUrl.replace(/:3000/, ":8090");
+  restUrl = restUrl.replace(/:3000/, ":8090");
 }
 
 let model: ConfigModel = {
   environment: environment,
   build: 'latest',
   hosting: {
-    domain: 'ahaysoft.com'
+    domain: 'dev-demo.website'
   },
   serverUrl: serverUrl,
   restUrl: restUrl
