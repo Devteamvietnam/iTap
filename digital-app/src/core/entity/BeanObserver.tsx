@@ -79,7 +79,7 @@ export class BeanObserver implements IBeanObserver {
   }
 
   /**@deprecated */
-  getComplexBeanProperty(name: string, defaultObj: any) {
+  getComplexBeanProperty(_name: string, _defaultObj: any) {
     alert('Do not use this method')
   }
 
