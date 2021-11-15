@@ -23,6 +23,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests().antMatchers("/api/v1/**").permitAll();
         httpSecurity.headers().frameOptions().disable();
         httpSecurity.csrf().disable();
+        httpSecurity.authorizeRequests().antMatchers("/").permitAll()
+                .and()
+                .authorizeRequests().antMatchers("/h2-console").permitAll()
+                .and()
+                .headers().frameOptions().disable()
+                .and()
+                .csrf().ignoringAntMatchers("/h2-console")
+                .and()
+                .cors().disable();
     }
 
     @Bean

@@ -1,5 +1,8 @@
 package com.devteam.util.text;
 
+import com.devteam.util.error.ErrorType;
+import com.devteam.util.error.RuntimeError;
+
 import java.nio.charset.Charset;
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -9,8 +12,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import net.datatp.util.error.ErrorType;
-import net.datatp.util.error.RuntimeError;
 
 public class StringUtil {
   public static final String EMPTY = "";
