@@ -20,8 +20,6 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
-  flyway:
-    enabled: false
 
 
   servlet:
@@ -64,3 +62,8 @@ spring:
     active: dev
     restart:
       enabled: false
+---
+app:
+  data:
+    init-sample: true
+    init-demo: false

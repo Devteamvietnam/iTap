@@ -22,9 +22,6 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
-  flyway:
-    enabled: false
-
 
   servlet:
     multipart:
@@ -58,3 +55,8 @@ logging:
 hibernate:
   hbm2ddl:
     auto: update
+---
+app:
+  data:
+    init-sample: true
+    init-demo: false
