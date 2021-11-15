@@ -1,4 +1,4 @@
-package com.devteam;
+package com.devteam.security;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package com.devteam;
+package com.devteam.security;
 
 import java.util.Collections;
 
