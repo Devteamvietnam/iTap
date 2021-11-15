@@ -1,6 +1,5 @@
 package com.devteam.config.base;
 
-import com.devteam.util.DateUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

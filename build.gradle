@@ -9,6 +9,7 @@ plugins {
 project.ext {
     springSecurityVersion    = '5.3.3.RELEASE'
     springfoxVersion         = '3.0.0'
+    jacksonVersion           = '2.12.3'
 }
 group = 'com.devteam'
 version = '0.0.1-SNAPSHOT'
@@ -62,6 +63,13 @@ dependencies {
     implementation group: 'io.springfox', name: 'springfox-spring-webmvc', version: springfoxVersion
     implementation group: 'io.springfox', name: 'springfox-spring-webflux', version: springfoxVersion
 
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+
+    implementation "dk.brics.automaton:automaton:1.11-8"
+
     implementation 'mysql:mysql-connector-java:5.1.48'
     implementation 'org.postgresql:postgresql:42.3.1'
     implementation 'javax.xml.bind:jaxb-api:2.3.0'
@@ -71,6 +79,9 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+
+    testRuntimeOnly "org.junit.platform:junit-platform-commons:1.7.0"
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.2'
 }
 
 test {

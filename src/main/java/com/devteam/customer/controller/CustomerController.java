@@ -1,6 +1,6 @@
 package com.devteam.customer.controller;
 
-import com.devteam.error.ErrorMessage;
+import com.devteam.util.error.ErrorMessage;
 import com.devteam.customer.entity.Customer;
 import com.devteam.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;

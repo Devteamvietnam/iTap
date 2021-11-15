@@ -1,4 +1,4 @@
-package com.devteam.error;
+package com.devteam.util.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
-import com.devteam.error.ErrorType;
-import com.devteam.error.RuntimeError;
+import com.devteam.util.error.ErrorType;
+import com.devteam.util.error.RuntimeError;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
