@@ -1,7 +1,8 @@
 package com.devteam.util.ds;
 
-import net.datatp.util.error.ErrorType;
-import net.datatp.util.error.RuntimeError;
+
+import com.devteam.util.error.ErrorType;
+import com.devteam.util.error.RuntimeError;
 
 public class Objects {
  static public interface Selector<T> { public boolean select(T obj) ; }
