@@ -43,7 +43,8 @@ dependencies {
     implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
     implementation group: 'com.sun.istack', name: 'istack-commons-runtime', version: '4.0.1'
 
-    implementation group: 'commons-cli', name: 'commons-cli', version: '1.2'
+    implementation 'commons-cli:commons-cli:1.2'
+    implementation 'commons-beanutils:commons-beanutils:1.9.3'
     implementation group: 'com.google.guava', name: 'guava', version: '31.0.1-jre'
     implementation group: 'io.swagger', name: 'swagger-models', version: '1.5.20'
     implementation group: 'io.swagger', name: 'swagger-annotations', version: '1.5.20'
