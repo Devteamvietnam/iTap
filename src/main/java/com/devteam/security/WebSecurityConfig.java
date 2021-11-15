@@ -22,16 +22,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests().antMatchers("/api/v1/**").permitAll();
         httpSecurity.headers().frameOptions().disable();
-        httpSecurity.csrf().disable();
         httpSecurity.authorizeRequests().antMatchers("/").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/h2-console").permitAll()
+                .authorizeRequests().antMatchers("/h2-console/**").permitAll()
                 .and()
                 .headers().frameOptions().disable()
                 .and()
-                .csrf().ignoringAntMatchers("/h2-console")
+                .csrf().ignoringAntMatchers("/h2-console/**")
                 .and()
                 .cors().disable();
+        httpSecurity.csrf().disable();
+
     }
 
     @Bean
