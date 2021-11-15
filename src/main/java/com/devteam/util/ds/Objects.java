@@ -22,7 +22,7 @@ public class Objects {
   static public <T> void assertNotNull(T obj, String message, Object ... args) {
     if(obj == null) {
       if(args.length > 0) {
-        message = message.formatted(args);
+        message = message.format(String.valueOf(args));
       }
       throw new RuntimeError(ErrorType.IllegalArgument, message);
     }
@@ -31,7 +31,7 @@ public class Objects {
   static public <T> void assertNull(T obj, String message, Object ... args) {
     if(obj != null) {
       if(args.length > 0) {
-        message = message.formatted(args);
+        message = message.format(String.valueOf(args));
       }
       throw new RuntimeError(ErrorType.IllegalArgument, message);
     }
