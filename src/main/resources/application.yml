@@ -3,6 +3,7 @@ server:
   compression:
     enabled: true
     min-response-size: 2048
+    # Comma-separated list of MIME types that should be compressed.
     mime-types: text/html,text/xml,text/plain,text/css,application/json,application/xml,application/javascript
   servlet:
     contextPath: /
@@ -12,7 +13,8 @@ server:
       max-request-size: 30MB
       max-file-size: 10MB
 
----
+# Spring Configuration ############################
+
 spring:
   main:
     banner-mode: console
@@ -20,6 +22,8 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
+  flyway:
+    enabled: false
 
 
   servlet:
@@ -49,27 +53,8 @@ spring:
 ---
 logging:
   config: classpath:logback-console.xml
-  level:
-    web: DEBUG
 
 ---
 hibernate:
   hbm2ddl:
     auto: update
-
----
-app:
-  data:
-    init-sample: true
-    init-demo: false
-  home: /app/home
-  config:
-    dir: /app/config
-  upload:
-    dir: /app/upload
-  storage:
-    dir: /app/data/storage
----
-storage:
-  service:
-    dir: /app/storage/service

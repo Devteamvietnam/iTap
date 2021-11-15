@@ -31,5 +31,15 @@
   
   when run in local
 
-### Document API
-{baseUrl}/swagger-ui.html
+create data example in database
+```bash
+curl -i -X POST -H "Content-Type: application/json" http://localhost:8090/api/v1/customer/ -d '{"firstName":"Thien","lastName":"Dinh","emailAddress":"devteamvietnam@gmail.com","addresses":[{"streetAddress":"Hai An","city":"Hai Phong","stateCode":"VN","zipCode":"57564","country":"VN"}]}'
+```
+get data
+```bash
+curl -i 'http://localhost:8090/api/v1/customer/?pageNum=0&pageSize=2'
+```
+get data byId
+```bash
+curl -i http://localhost:8089/api/v1/customer/dbac106f-0c0e-4aae-9b20-654518fe3a53
+```

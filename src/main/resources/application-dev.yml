@@ -20,6 +20,8 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
+  flyway:
+    enabled: false
 
 
   servlet:
@@ -34,14 +36,13 @@ spring:
       connectionTimeout: 30000
       idleTimeout: 600000
       maxLifetime: 1800000
-    jdbcUrl: jdbc:h2:mem:digitaldb;DB_CLOSE_DELAY=0
+    jdbcUrl: jdbc:h2:file./data/db/h2/digitaldb
     driverClassName: org.h2.Driver
     username: sa
     password:
   jpa:
     open-in-view: false
     database-platform: org.hibernate.dialect.H2Dialect
-    defer-datasource-initialization: true
   batch:
     jdbc:
       initialize-schema: always
@@ -50,8 +51,6 @@ spring:
 ---
 logging:
   config: classpath:logback-console.xml
-  level:
-      web: DEBUG
 
 ---
 hibernate:
@@ -65,19 +64,3 @@ spring:
     active: dev
     restart:
       enabled: false
----
-app:
-  data:
-    init-sample: true
-    init-demo: false
-  home: /home
-  config:
-      dir: /config
-  upload:
-      dir: /upload
-  storage:
-      dir: /data/storage
----
-storage:
-  service:
-    dir: /storage/service
