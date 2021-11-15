@@ -1,9 +1,10 @@
 package com.devteam.util.jvm;
 
+import com.devteam.util.text.DateUtil;
+import com.devteam.util.text.StringUtil;
+
 import java.lang.management.GarbageCollectorMXBean;
 
-import net.datatp.util.text.DateUtil;
-import net.datatp.util.text.StringUtil;
 
 public class GarbageCollectorInfo {
   
