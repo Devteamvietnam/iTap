@@ -60,3 +60,14 @@ app:
   data:
     init-sample: true
     init-demo: false
+  home: /app/home
+  config:
+    dir: /app/config
+  upload:
+    dir: /app/upload
+  storage:
+    dir: /app/data/storage
+---
+storage:
+  service:
+    dir: /app/storage/service

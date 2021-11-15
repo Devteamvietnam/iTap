@@ -44,9 +44,7 @@ dependencies {
     implementation group: 'com.sun.istack', name: 'istack-commons-runtime', version: '4.0.1'
 
     implementation group: 'commons-cli', name: 'commons-cli', version: '1.2'
-
-    implementation group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.0.RC4'
-
+    
     implementation group: 'io.swagger', name: 'swagger-models', version: '1.5.20'
     implementation group: 'io.swagger', name: 'swagger-annotations', version: '1.5.20'
     implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: '2.1.9'
