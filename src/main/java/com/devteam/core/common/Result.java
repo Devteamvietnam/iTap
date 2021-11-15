@@ -1,4 +1,4 @@
-package com.devteam.module.common;
+package com.devteam.core.common;
 
 import lombok.Getter;
 import lombok.Setter;

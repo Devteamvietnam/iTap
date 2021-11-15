@@ -1,4 +1,4 @@
-package com.devteam.module.common;
+package com.devteam.core.common;
 
 public interface ServiceMethodCallback<T> {
     public void onPreMethod() ;

@@ -1,4 +1,4 @@
-package com.devteam.module.common;
+package com.devteam.core.common;
 
 public class ClientInfo {
     final static public ClientInfo DEFAULT = new ClientInfo("default", "admin", "localhost");
