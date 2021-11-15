@@ -70,6 +70,23 @@ dependencies {
 
     implementation "dk.brics.automaton:automaton:1.11-8"
 
+    /*************************core/misc template, pdf deploy jars***************************/
+
+    implementation group: 'com.github.jknack', name: 'handlebars', version: '4.2.0'
+
+    implementation group: 'org.xhtmlrenderer', name: 'flying-saucer-core',  version: '9.1.22'
+    implementation group: 'org.xhtmlrenderer', name: 'flying-saucer-pdf',   version: '9.1.22'
+
+    implementation group: 'com.lowagie',  name: 'itext',  version: '2.1.7'
+    implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13.2'
+    
+    implementation group: 'org.apache.poi', name: 'poi', version: '5.0.0'
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.0.0'
+    implementation group: 'org.apache.poi', name: 'poi-ooxml-lite', version: '5.0.0'
+    implementation group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '4.0.0'
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+    implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.20'
+
     implementation 'mysql:mysql-connector-java:5.1.48'
     implementation 'org.postgresql:postgresql:42.3.1'
     implementation 'javax.xml.bind:jaxb-api:2.3.0'

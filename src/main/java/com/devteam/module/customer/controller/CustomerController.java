@@ -1,8 +1,8 @@
-package com.devteam.customer.controller;
+package com.devteam.module.customer.controller;
 
 import com.devteam.util.error.ErrorMessage;
-import com.devteam.customer.entity.Customer;
-import com.devteam.customer.service.CustomerService;
+import com.devteam.module.customer.entity.Customer;
+import com.devteam.module.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
