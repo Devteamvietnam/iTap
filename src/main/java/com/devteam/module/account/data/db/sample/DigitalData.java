@@ -94,7 +94,7 @@ public class DigitalData extends AccountData {
     IDENTITY_2 = new UserIdentity()
         .withLabel("Lien identity label 2")
         .withLoginId(PROFILE.getLoginId())
-        .withInfo("passport", "Xuan Hoang", "586741236", "passport");
+        .withInfo("passport", "Lien Hoang", "586741236", "passport");
     service.saveUserIdentitys(client, PROFILE.getLoginId(), Arrays.asList(IDENTITY_1, IDENTITY_2));
 
     EDUCATION_1 = new UserEducation()
