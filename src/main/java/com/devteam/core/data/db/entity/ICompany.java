@@ -3,13 +3,13 @@ package com.devteam.core.data.db.entity;
 public interface ICompany {
     static public ICompany MOCK = new MockCompany();
 
-    public Long   getId();
+    public String getId();
     public String getCode() ;
     public String getLabel() ;
 
     static public class MockCompany implements ICompany {
 
-        public Long getId() { return 1L; }
+        public String getId() { return String.valueOf(1L); };
 
         @Override
         public String getCode() {
