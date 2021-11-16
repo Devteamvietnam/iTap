@@ -21,7 +21,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @ComponentScan(basePackages = {
         "com.devteam.core.data.*",
-}
+        "com.devteam.core.http.*",
+        }
 )
 @EnableConfigurationProperties
 @EnableTransactionManagement
