@@ -1,6 +1,6 @@
 package com.devteam;
 
-import com.devteam.web.WebSecurityConfig;
+import com.devteam.server.WebSecurityConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;

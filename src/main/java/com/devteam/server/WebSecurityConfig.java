@@ -1,4 +1,4 @@
-package com.devteam.web;
+package com.devteam.server;
 
 import java.util.Collections;
 
