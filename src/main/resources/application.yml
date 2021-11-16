@@ -46,7 +46,9 @@ spring:
     jdbc:
       initialize-schema: always
 
-
+---
+hibernate:
+  dialect: org.hibernate.dialect.PostgreSQLDialect
 ---
 logging:
   config: classpath:logback-console.xml

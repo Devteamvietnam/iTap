@@ -1,4 +1,4 @@
-package com.devteam.module;
+package com.devteam.module.customer;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
@@ -8,12 +8,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @ComponentScan(
-        basePackages = { "com.devteam.module.*" }
+        basePackages = { "com.devteam.module.customer" }
 )
 @EnableJpaRepositories(
         basePackages = { "com.devteam.module.customer.repository" }
 )
 @EnableConfigurationProperties
 @EnableTransactionManagement
-public class CoreModuleConfig {
+public class CustomerConfig {
 }

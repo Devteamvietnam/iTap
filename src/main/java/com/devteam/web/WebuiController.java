@@ -1,12 +1,10 @@
-package com.devteam.security;
+package com.devteam.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.devteam.core.springframework.AppEnv;
 import com.devteam.util.dataformat.DataSerializer;
 import com.devteam.util.io.IOUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
