@@ -21,6 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests().antMatchers("/api/v1/**").permitAll();
+        httpSecurity.authorizeRequests().antMatchers("/", "/swagger-ui").permitAll();
         httpSecurity.headers().frameOptions().disable();
         httpSecurity.authorizeRequests().antMatchers("/").permitAll()
                 .and()
