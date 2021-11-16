@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @ModuleConfig(
         basePackages = {
+                "com.devteam.core.data",
                 "com.devteam.core.data.db",
                 "com.devteam.core.http",
                 "com.devteam.core.springframework"
@@ -27,6 +28,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableConfigurationProperties
 @EnableTransactionManagement
 @EnableJpaRepositories(
+        basePackages = {
+                "com.devteam.core.security.repository",
+                "com.devteam.core.data.db.plugin.repository"
+        },
         repositoryFactoryBeanClass = DataTPRepositoryFactoryBean.class
 )
 @EnableAutoConfiguration
