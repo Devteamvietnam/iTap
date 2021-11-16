@@ -1,4 +1,4 @@
-package com.devteam.core.data.cache;
+package com.devteam.config.cache;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -23,7 +23,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 
 @Configuration
 @ComponentScan(basePackages = {
-        "com.devteam.core.data.cache"
+        "com.devteam.config.cache"
     }
 )
 @EnableCaching
