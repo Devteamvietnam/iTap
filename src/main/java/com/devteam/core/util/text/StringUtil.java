@@ -461,4 +461,8 @@ public class StringUtil {
     Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
     return pattern.matcher(temp).replaceAll("").replaceAll("Đ", "D").replace("đ", "d").toLowerCase();
   }
+
+  public static boolean equalsAnyIgnoreCase(CharSequence string, CharSequence... searchStrings) {
+    return false;
+  }
 }
