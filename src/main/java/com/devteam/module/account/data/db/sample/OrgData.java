@@ -1,6 +1,5 @@
 package com.devteam.module.account.data.db.sample;
 
-import java.util.Arrays;
 
 import com.devteam.core.module.common.ClientInfo;
 import com.devteam.core.module.data.db.sample.EntityDB;

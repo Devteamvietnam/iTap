@@ -1,4 +1,4 @@
-package com.devteam;
+package com.devteam.util;
 
 import com.devteam.config.JpaConfiguration;
 import com.devteam.core.module.common.ClientInfo;

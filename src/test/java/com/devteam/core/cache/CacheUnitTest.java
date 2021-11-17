@@ -2,7 +2,7 @@ package com.devteam.core.cache;
 
 import java.io.Serializable;
 
-import com.devteam.TestConfig;
+import com.devteam.util.TestConfig;
 import com.devteam.core.module.data.cache.CachingConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;

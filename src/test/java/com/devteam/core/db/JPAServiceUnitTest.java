@@ -2,7 +2,7 @@ package com.devteam.core.db;
 
 import java.util.List;
 
-import com.devteam.TestConfig;
+import com.devteam.util.TestConfig;
 import com.devteam.core.module.common.ClientInfo;
 import com.devteam.core.module.data.db.EntityInfo;
 import com.devteam.core.module.data.db.JPAService;
