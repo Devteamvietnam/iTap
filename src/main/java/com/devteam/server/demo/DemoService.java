@@ -1,11 +1,8 @@
 package com.devteam.server.demo;
 
-import java.io.File;
-
 import com.devteam.core.module.common.ClientInfo;
 import com.devteam.core.module.srpingframework.app.AppEnv;
 import com.devteam.module.company.core.entity.Company;
-import com.devteam.module.data.io.ImportModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -16,9 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class DemoService {
-  @Autowired
-  private AppEnv appEnv;
-
+  
   @Getter
   @Autowired
   private ApplicationContext context;
