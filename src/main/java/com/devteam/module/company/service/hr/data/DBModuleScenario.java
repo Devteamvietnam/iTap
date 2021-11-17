@@ -1,6 +1,4 @@
-
 package com.devteam.module.company.service.hr.data;
-
 
 import com.devteam.core.module.common.ClientInfo;
 import com.devteam.core.module.data.db.AbstractDBModuleScenario;
@@ -18,8 +16,6 @@ public class DBModuleScenario extends AbstractDBModuleScenario {
   public void initialize(ClientInfo client, DBScenario scenario) throws Exception {
     Company company = EntityDB.getInstance().getData(CompanyData.class).TEST_COMPANY;
     EntityDB.getInstance().getData(DepartmentData.class).init(client, company);
-    EntityDB.getInstance().getData(HRData.class).init(client, company);
     EntityDB.getInstance().getData(EmployeeData.class).init(client, company);
-    EntityDB.getInstance().getData(WorkContractData.class).init(client, company);
   }
 }
