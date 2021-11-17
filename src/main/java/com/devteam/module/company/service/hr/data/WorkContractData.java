@@ -1,6 +1,8 @@
 package com.devteam.module.company.service.hr.data;
 
 
+import java.util.ArrayList;
+
 import com.devteam.core.module.common.ClientInfo;
 import com.devteam.core.module.data.db.SqlMapRecord;
 import com.devteam.core.module.data.db.sample.EntityDB;
@@ -12,15 +14,13 @@ import com.devteam.module.company.service.hr.entity.EmployeeWorkContract;
 import com.devteam.module.company.service.hr.entity.EmployeeWorkTerm;
 import com.devteam.module.company.service.hr.entity.WorkPositionContract;
 
-import java.util.ArrayList;
 
 public class WorkContractData extends DBModuleDataAssert{
-  public  EmployeeWorkContract WORK_CONTRACT_ADMIN;
   private EmployeeWorkContract WORK_CONTRACT_THIEN;
   private EmployeeWorkContract[] ALL_WORK_CONTRACT;
   
-  private WorkPositionContract WORK_POSITION_CONTRACT_TUAN_APR;
-  private WorkPositionContract WORK_POSITION_CONTRACT_TUAN_AUG;
+  private WorkPositionContract WORK_POSITION_CONTRACT_THIEN_APR;
+  private WorkPositionContract WORK_POSITION_CONTRACT_THIEN_AUG;
   
   protected void initialize(ClientInfo client, Company company) {
     initContract(client, company);
@@ -30,21 +30,7 @@ public class WorkContractData extends DBModuleDataAssert{
   protected void initContract(ClientInfo client, Company company) {
     HRData         HR       = EntityDB.getInstance().getData(HRData.class);
     EmployeeData   EMPLOYEE = EntityDB.getInstance().getData(EmployeeData.class);
-   
-    WORK_CONTRACT_ADMIN =
-        new EmployeeWorkContract(EMPLOYEE.THIEN)
-        .withSatatus(ContractStatus.ACTIVE)
-        .withWorkTerm(
-            new EmployeeWorkTerm(HR.WORK_TERM_PROVISION),
-            new EmployeeWorkTerm(HR.WORK_TERM_REGULATION))
-        .withWorkPositionContract(
-            new WorkPositionContract("Thien January", "tuan-jan", EMPLOYEE.THIEN, HR.WORK_POSITION_IT_DEVELOPER)
-            .withSalary(7_000_000)
-            .withSocialInsuranceSalary(7_000_000)
-            .withReportTo(EMPLOYEE.ADMIN)
-            .withAnnualTakeOff(17)
-            .withAnnualSickLeave(35));
-    
+
     WORK_CONTRACT_THIEN =
         new EmployeeWorkContract(EMPLOYEE.THIEN)
         .withSatatus(ContractStatus.ACTIVE)
@@ -52,16 +38,16 @@ public class WorkContractData extends DBModuleDataAssert{
             new EmployeeWorkTerm(HR.WORK_TERM_PROVISION),
             new EmployeeWorkTerm(HR.WORK_TERM_REGULATION))
         .withWorkPositionContract(
-            new WorkPositionContract("Hieu January", "hieu-jan", EMPLOYEE.THIEN, HR.WORK_POSITION_IT_DEVELOPER)
+            new WorkPositionContract("Thien January", "thien-jan", EMPLOYEE.THIEN, HR.WORK_POSITION_IT_DEVELOPER)
+            .withBankAccountInfo("Bank")
+            .withSalary(6_000_000)
+            .withSocialInsuranceSalary(6_000_000)
+            .withReportTo(EMPLOYEE.THIEN)
             .withAnnualTakeOff(12)
-            .withAnnualSickLeave(30)
-            .withSalary(9_000_000)
-            .withSocialInsuranceSalary(9_000_000)
-            .withReportTo(EMPLOYEE.THIEN));
-
+            .withAnnualSickLeave(30));
     
     ALL_WORK_CONTRACT = new EmployeeWorkContract[] {
-     WORK_CONTRACT_THIEN
+        WORK_CONTRACT_THIEN
     };
     
     for(EmployeeWorkContract sel : ALL_WORK_CONTRACT) {
@@ -73,15 +59,27 @@ public class WorkContractData extends DBModuleDataAssert{
     HRData HR = EntityDB.getInstance().getData(HRData.class);
     EmployeeData EMPLOYEE = EntityDB.getInstance().getData(EmployeeData.class);
     
-    WORK_POSITION_CONTRACT_TUAN_APR = 
-        new WorkPositionContract("Thien April", "thien-apr", EMPLOYEE.THIEN, HR.WORK_POSITION_IT_DEVELOPER)
+    WORK_POSITION_CONTRACT_THIEN_APR =
+        new WorkPositionContract("Tuan April", "tuan-apr", EMPLOYEE.THIEN, HR.WORK_POSITION_IT_DEVELOPER)
         .withEmployeeWorkContract(WORK_CONTRACT_THIEN)
+        .withBankAccountInfo("Bank")
         .withSalary(9_000_000)
         .withSocialInsuranceSalary(9_000_000)
         .withReportTo(EMPLOYEE.THIEN)
         .withAnnualTakeOff(22)
         .withAnnualSickLeave(30);
-    WORK_POSITION_CONTRACT_TUAN_APR = hrService.saveWorkPositionContract(client, company, WORK_POSITION_CONTRACT_TUAN_APR);
+    WORK_POSITION_CONTRACT_THIEN_APR = hrService.saveWorkPositionContract(client, company, WORK_POSITION_CONTRACT_THIEN_APR);
+    
+    WORK_POSITION_CONTRACT_THIEN_AUG =
+        new WorkPositionContract("Tuan August", "tuan-aug", EMPLOYEE.THIEN, HR.WORK_POSITION_IT_DEVELOPER)
+        .withEmployeeWorkContract(WORK_CONTRACT_THIEN)
+        .withBankAccountInfo("Bank")
+        .withSalary(10_000_000)
+        .withSocialInsuranceSalary(10_000_000)
+        .withReportTo(EMPLOYEE.THIEN)
+        .withAnnualTakeOff(22)
+        .withAnnualSickLeave(30);
+    WORK_POSITION_CONTRACT_THIEN_AUG = hrService.saveWorkPositionContract(client, company, WORK_POSITION_CONTRACT_THIEN_AUG);
   }
 
   public void assertCompanyEmployeeWorkContract() {
@@ -101,8 +99,8 @@ public class WorkContractData extends DBModuleDataAssert{
   }
   
   public void assertCompanyWorkPositionContract() {
-    String code = WORK_POSITION_CONTRACT_TUAN_APR.getCode();
-    WorkPositionContract modifield = DataSerializer.JSON.clone(WORK_POSITION_CONTRACT_TUAN_APR);
+    String code = WORK_POSITION_CONTRACT_THIEN_APR.getCode();
+    WorkPositionContract modifield = DataSerializer.JSON.clone(WORK_POSITION_CONTRACT_THIEN_APR);
     modifield.setAllowances(new ArrayList<>());
     new CompanyWorkPositionContractAssert(client, company, modifield)
     .assertLoad((origin, entity) -> {

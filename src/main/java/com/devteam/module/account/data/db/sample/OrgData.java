@@ -23,24 +23,36 @@ public class OrgData extends AccountData {
   AccountService accountService;
 
   public OrgProfile  DIGITAL;
-  public OrgProfile  IT;
-
+  public OrgProfile  VFX;
+  public OrgProfile  DIGITAL_VFX;
+  public OrgProfile  B_DIGITAL;
 
   public void initialize(ClientInfo client) {
     final GroupData GROUP_DATA = EntityDB.getInstance().getData(GroupData.class);
     final UserData USER_DATA = EntityDB.getInstance().getData(UserData.class);
 
     DIGITAL =  new OrgProfile("DIGITAL")
-          .withEmail("contact@digital.com")
+          .withEmail("contact@devteam.com")
           .withMobile("0845505505");
     DIGITAL = createAccount(DIGITAL, GROUP_DATA.EMPLOYEES);
 
-    IT =  new OrgProfile("IT")
-        .withEmail("it@gmail.com")
+    VFX =  new OrgProfile("VFX")
+        .withEmail("vfx@gmail.com")
         .withMobile("0845505506")
         .withRepresentativeLoginId(USER_DATA.THIEN.getLoginId())
         .withRepresentative(USER_DATA.THIEN.getFullName());
-    IT = createAccount(IT, GROUP_DATA.PARTNERS);
+    VFX = createAccount(VFX, GROUP_DATA.PARTNERS);
+
+
+    DIGITAL_VFX =  new OrgProfile("DIGITAL_VFX")
+        .withEmail("contact@digitalvfx.com")
+        .withMobile("0845505507");
+    DIGITAL_VFX = createAccount(DIGITAL_VFX, GROUP_DATA.PARTNERS);
+
+    B_DIGITAL =  new OrgProfile("B_DIGITAL")
+        .withEmail("contact@vnairlines.com")
+        .withMobile("19001801");
+    B_DIGITAL = createAccount(B_DIGITAL,  GROUP_DATA.PARTNERS);
 
   }
 
@@ -54,11 +66,11 @@ public class OrgData extends AccountData {
   }
 
   public void assertAll(ClientInfo client) throws Exception {
-    OrgProfile modifieldEmail = DataSerializer.JSON.clone(DIGITAL);
-    modifieldEmail.setEmail("dev@digital.com");
-    new OrgProfileAssert(client, DIGITAL)
+    OrgProfile modifieldEmail = DataSerializer.JSON.clone(B_DIGITAL);
+    modifieldEmail.setEmail("dev@devteam.com");
+    new OrgProfileAssert(client, B_DIGITAL)
       .assertSave(modifieldEmail, (updateProfile) -> {
-        Assertions.assertEquals("dev@digital.com", updateProfile.getEmail());
+        Assertions.assertEquals("dev@devteam.com", updateProfile.getEmail());
       });
   }
 }

@@ -10,6 +10,7 @@ import com.devteam.module.company.core.data.db.sample.CompanyData;
 import com.devteam.module.company.core.entity.Company;
 import lombok.NoArgsConstructor;
 
+
 @NoArgsConstructor
 public class DBModuleScenario extends AbstractDBModuleScenario {
 

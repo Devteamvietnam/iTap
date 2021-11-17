@@ -1,14 +1,10 @@
 package com.devteam.module.company.service.hr.data;
 
-
 import com.devteam.core.module.common.ClientInfo;
 import com.devteam.core.module.data.db.sample.EntityDB;
 import com.devteam.core.util.ds.AssertTool;
 import com.devteam.module.company.core.entity.Company;
-import com.devteam.module.company.service.hr.entity.WorkAllowance;
-import com.devteam.module.company.service.hr.entity.WorkContractTerm;
-import com.devteam.module.company.service.hr.entity.WorkPosition;
-import com.devteam.module.company.service.hr.entity.WorkTerm;
+import com.devteam.module.company.service.hr.entity.*;
 
 public class HRData extends DBModuleDataAssert {
   public WorkTerm WORK_TERM_REGULATION;
@@ -58,27 +54,27 @@ public class HRData extends DBModuleDataAssert {
   }
   private void initWorkAllowance(ClientInfo client, Company company) {
     WORK_ALLOWANCE_PARKING =
-        new WorkAllowance("Parking allowance").
+        new WorkAllowance("Parking allowance", AbstractAllowance.AllowanceMethod.WORKING_DAY).
         withAmount(5000);
 
     WORK_ALLOWANCE_LUNCH = 
-        new WorkAllowance("Lunch meal allowance").
+        new WorkAllowance("Lunch meal allowance", AbstractAllowance.AllowanceMethod.WORKING_DAY).
         withAmount(35000);
 
     WORK_ALLOWANCE_TELEPHONE = 
-        new WorkAllowance("Telephone allowance").
+        new WorkAllowance("Telephone allowance", AbstractAllowance.AllowanceMethod.FIXED_AMOUNT).
         withAmount(500000);
     
     WORK_ALLOWANCE_PETROL = 
-        new WorkAllowance("Petrol allowance").
+        new WorkAllowance("Petrol allowance", AbstractAllowance.AllowanceMethod.FIXED_AMOUNT).
         withAmount(300000);
     
     WORK_ALLOWANCE_LIABILITY = 
-        new WorkAllowance("Liablility allowance").
+        new WorkAllowance("Liablility allowance", AbstractAllowance.AllowanceMethod.FIXED_AMOUNT).
         withAmount(1500000);
     
     WORK_ALLOWANCE_ATTENDANCE = 
-        new WorkAllowance("Attendance allowance").
+        new WorkAllowance("Attendance allowance", AbstractAllowance.AllowanceMethod.FIXED_AMOUNT).
         withAmount(100000);
     
     ALL_WORK_ALLOWANCES = new WorkAllowance[] {
@@ -120,8 +116,16 @@ public class HRData extends DBModuleDataAssert {
         .withLabel("LABOR")
         .withBasicSalary(2000000).withPerformanceSalary(1000000)
         .withWorkAllowance(WORK_ALLOWANCE_LUNCH).withWorkAllowance(WORK_ALLOWANCE_TELEPHONE).withWorkAllowance(WORK_ALLOWANCE_PARKING)
-        .withHRDepartment(DEPT.HR)
+        .withHRDepartment(DEPT.IT)
         .withWorkContractTerm(WORK_CONTRACT_TERM_RESPON);
+
+    WORK_POSITION_SALE = 
+        new WorkPosition("it")
+        .withLabel("Sale")
+        .withBasicSalary(7000000).withPerformanceSalary(7000000)
+        .withWorkAllowance(WORK_ALLOWANCE_LUNCH).withWorkAllowance(WORK_ALLOWANCE_PARKING)
+        .withHRDepartment(DEPT.IT)
+        .withWorkContractTerm(WORK_CONTRACT_TERM_INSURANCE);
 
     NEW_WORK_POSITION = 
         new WorkPosition("NEWWORKPOSITION").
@@ -171,5 +175,6 @@ public class HRData extends DBModuleDataAssert {
     new CompanyWorkContractTermAssert(client, company, WORK_CONTRACT_TERM_RESPON)
     .assertEntitySearch();
   }
+  
 
 }

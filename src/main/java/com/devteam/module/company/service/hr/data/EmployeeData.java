@@ -18,19 +18,20 @@ public class EmployeeData extends DBModuleDataAssert {
   @Autowired
   private AccountService accountService;
   
-  public Employee ADMIN;
-  public Employee THIEN;
+  public Employee   ADMIN;
+  public Employee   THIEN;
  
   
   public Employee[] ALL_EMPLOYEE;
   
   protected void initialize(ClientInfo client, Company company) {
-    UserData USER = EntityDB.getInstance().getData(UserData.class);
+    UserData       USER = EntityDB.getInstance().getData(UserData.class);
     DepartmentData DEPT = EntityDB.getInstance().getData(DepartmentData.class);
     
     ADMIN = new EmployeeBuilder(client, company, new UserProfile("admin")).get();
 
-    THIEN = 
+    
+    THIEN =
         new EmployeeBuilder(client, company, USER.THIEN)
         .create()
         .joinDepartments(DEPT.IT)

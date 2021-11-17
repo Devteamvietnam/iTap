@@ -91,7 +91,6 @@ public class AppInitSecurityDBPlugin extends InitSecurityDBPlugin {
     App[] apps = {
        new App("user", "my-space").withRequiredCapability(Capability.Read),
        new App("admin", "admin").withRequiredCapability(Capability.Read) ,
-       new App("product", "product").withRequiredCapability(Capability.Admin),
        new App("company", "company").withRequiredCapability(Capability.Read),
        new App("system", "system").withRequiredCapability(Capability.Read),
     };

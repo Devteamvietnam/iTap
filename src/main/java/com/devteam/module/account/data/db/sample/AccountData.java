@@ -10,6 +10,7 @@ import com.devteam.module.account.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+
 public class AccountData extends SampleData {
   @Autowired
   protected AccountService accountService;
@@ -61,6 +62,7 @@ public class AccountData extends SampleData {
     }
 
   }
+
   
   public class BankAssert extends PersistableEntityAssert<BankAccount> {
     public BankAssert(ClientInfo client, String loginId) {

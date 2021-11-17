@@ -3,7 +3,7 @@ package com.devteam.module.data.io;
 import com.devteam.core.module.common.ClientInfo;
 import com.devteam.core.module.data.db.DBScenario;
 import com.devteam.core.module.data.db.DBServicePlugin;
-import com.devteam.module.company.service.hr.data.DBModuleScenario;
+import com.devteam.module.data.io.db.sample.DBModuleScenario;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

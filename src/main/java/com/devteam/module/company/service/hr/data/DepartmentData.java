@@ -16,6 +16,8 @@ public class DepartmentData extends DBModuleDataAssert {
   public HRDepartment IT_DEVELOPER;
 
   public HRDepartment HR;
+  
+  public HRDepartment ACCOUNTING ;
 
 
   public HRDepartment[] ALL;
@@ -32,8 +34,15 @@ public class DepartmentData extends DBModuleDataAssert {
 
     HR = new HRDepartmentBuilder("hr", "HR", "HR Department").create(client, company);
 
+    ACCOUNTING = 
+        new HRDepartmentBuilder("accounting", "Accounting", "Accounting Department").
+        create(client, company);
+
+
+
     ALL = new HRDepartment[] {
-        IT, IT_DEVELOPER, HR
+        IT, IT_DEVELOPER,
+        HR, ACCOUNTING
     };
   }
 

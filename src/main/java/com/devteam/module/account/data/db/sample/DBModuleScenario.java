@@ -2,6 +2,7 @@ package com.devteam.module.account.data.db.sample;
 
 import com.devteam.core.module.common.ClientInfo;
 import com.devteam.core.module.data.db.AbstractDBModuleScenario;
+
 import com.devteam.core.module.data.db.DBScenario;
 import com.devteam.core.module.data.db.sample.EntityDB;
 import lombok.NoArgsConstructor;

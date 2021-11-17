@@ -11,7 +11,6 @@ import com.devteam.module.account.AccountService;
 import com.devteam.module.account.entity.AccountGroup;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 public class GroupData extends SampleData {
   @Autowired
@@ -34,12 +33,15 @@ public class GroupData extends SampleData {
         new AccountGroup("company", "Digital", "Công ty cổ phần Digital");
     COMPANY = service.createAccountGroup(client, null, COMPANY);
 
-    EMPLOYEES = new AccountGroup("employees", "Nhân viên", "digital employee group");
+    EMPLOYEES = new AccountGroup("employees", "Nhân viên", "Digital employee group");
     service.createAccountGroup(client, COMPANY, EMPLOYEES);
-    
+
+    PARTNERS = new AccountGroup("partners", "Partners", "Digital partners");
+    service.createAccountGroup(client, COMPANY, PARTNERS);
+
     EMPLOYEES_SALE = new AccountGroup("sale", "Kinh doanh", "employees sale group");
     service.createAccountGroup(client, EMPLOYEES, EMPLOYEES_SALE);
-    
+
     EMPLOYEES_HR = 
         new AccountGroup("hr", "Nhan vien hanh chinh", "hr is a subGroup org/employees/");
     service.createAccountGroup(client, EMPLOYEES, EMPLOYEES_HR);

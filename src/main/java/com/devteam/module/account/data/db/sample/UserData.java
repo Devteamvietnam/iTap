@@ -19,7 +19,7 @@ public class UserData extends AccountData {
   @Autowired
   private AccountService accountService;
 
-  public UserProfile   LIEN;
+  public UserProfile LIEN;
   public UserProfile THIEN;
 
   public void initialize(ClientInfo client) {
@@ -38,7 +38,6 @@ public class UserData extends AccountData {
     for(AccountGroup sel : group) {
       accountService.createMembership(ClientInfo.DEFAULT, sel, profile.getLoginId());
     }
-
     return profile;
   }
 
