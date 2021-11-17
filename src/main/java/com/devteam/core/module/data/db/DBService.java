@@ -20,9 +20,6 @@ public class DBService {
   @Autowired
   private ApplicationContext context;
   
-  //@Autowired
-  //private JPAService jpaService;
-  
   @Autowired(required = false)
   private List<DBServicePlugin>   plugins;
 
