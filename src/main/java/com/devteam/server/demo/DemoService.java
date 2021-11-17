@@ -1,7 +1,6 @@
 package com.devteam.server.demo;
 
 import com.devteam.core.module.common.ClientInfo;
-import com.devteam.core.module.srpingframework.app.AppEnv;
 import com.devteam.module.company.core.entity.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
