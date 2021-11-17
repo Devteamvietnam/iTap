@@ -50,7 +50,7 @@ public class OrgData extends AccountData {
     DIGITAL_VFX = createAccount(DIGITAL_VFX, GROUP_DATA.PARTNERS);
 
     B_DIGITAL =  new OrgProfile("B_DIGITAL")
-        .withEmail("contact@vnairlines.com")
+        .withEmail("contact@bdigital.com")
         .withMobile("19001801");
     B_DIGITAL = createAccount(B_DIGITAL,  GROUP_DATA.PARTNERS);
 
