@@ -91,4 +91,5 @@ public class SecurityService {
   public List<AccessToken> searchAccessTokens(ClientInfo client, Long companyId, SqlQueryParams params) {
     return logic.searchAccessTokens(client, companyId, params);
   }
+
 }
