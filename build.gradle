@@ -98,6 +98,8 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
+    implementation 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
     testRuntimeOnly "org.junit.platform:junit-platform-commons:1.7.0"
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.2'
 }
