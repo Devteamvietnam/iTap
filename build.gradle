@@ -104,7 +104,34 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    forkEvery = 1
+    ignoreFailures = true
+    testLogging.showStandardStreams = true
+
+    filter {
+        includeTestsMatching "*UnitTest"
+    }
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
+task utest(type: Test) {
+    ignoreFailures = true
+    description = 'Runs Unit tests.'
+
+    //testLogging.showStandardStreams = true
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
+    useJUnitPlatform {
+        includeTags('unit')
+    }
+
+}
+
 bootRun {
     String activeProfile = System.properties['spring.profiles.active']
     systemProperty "spring.profiles.active", activeProfile
