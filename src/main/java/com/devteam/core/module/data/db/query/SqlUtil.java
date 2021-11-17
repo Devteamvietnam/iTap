@@ -96,7 +96,6 @@ public class SqlUtil {
     return createFieldExpression(entity, field) + " " + op + " " + variable;
   }
   
-  //TODO[TUAN] Need review
   static public ClauseFilter createShareableClause(Class<?> entity) {
     ClauseFilter privateFilter 
     = new ClauseFilter(entity, "shareable", "=", ":privateShareable")

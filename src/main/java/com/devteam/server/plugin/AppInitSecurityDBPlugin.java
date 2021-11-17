@@ -59,13 +59,13 @@ public class AppInitSecurityDBPlugin extends InitSecurityDBPlugin {
     Employee lien  = hrService.getEmployee(client, company, "lien");
 
     if(thien != null) {
-      List<AppPermission> tuanExistPermissions = service.findAppPermissions(client, company.getId(), thien.getLoginId());
-      service.deletePermissions(client, tuanExistPermissions);
+      List<AppPermission> thienExistPermissions = service.findAppPermissions(client, company.getId(), thien.getLoginId());
+      service.deletePermissions(client, thienExistPermissions);
     }
     
     if(lien != null) {
-      List<AppPermission> hieuExistPermissions = service.findAppPermissions(client, company.getId(), lien.getLoginId());
-      service.deletePermissions(client, hieuExistPermissions);
+      List<AppPermission> lienExistPermissions = service.findAppPermissions(client, company.getId(), lien.getLoginId());
+      service.deletePermissions(client, lienExistPermissions);
     }
 
     

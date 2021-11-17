@@ -106,7 +106,6 @@ public class AccountLogic extends DAOService {
 
     account.setPassword(passwordEncoder.encode(account.getPassword()));
     
-    //TODO[Tuan] need review and remove preSave and postSave
     for(AccountServicePlugin plugin : plugins) {
       plugin.onPreSave(client, account, false);
     }

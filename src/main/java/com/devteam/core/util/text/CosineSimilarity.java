@@ -114,6 +114,5 @@ public class CosineSimilarity {
 
   public static void main(String[] args) {
     CosineSimilarity cos = new CosineSimilarity();
-    System.out.println(cos.similarity("nguyen tuan anh", "tuan anh nguyen"));
   }
 }
