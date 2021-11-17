@@ -43,7 +43,7 @@ import lombok.Setter;
 public class Company extends PersistableEntity<Long> implements ICompany, SupportParentId {
   private static final long serialVersionUID = 1L;
 
-  public static final String TABLE_NAME = "company_company";
+  public static final String TABLE_NAME = "company";
 
   @NotNull
   private String code;
