@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.Getter;
 
 
-
 @Service("AccountService")
 public class AccountService {
   @Autowired
@@ -34,9 +33,6 @@ public class AccountService {
   @Getter
   @Autowired
   private ProfileLogic profileLogic;
-
-  @Autowired
-  private UserLogic userLogic;
 
   @Autowired
   private SecurityLogic securityLogic;
@@ -156,123 +152,12 @@ public class AccountService {
   public OrgProfile saveOrgProfile(ClientInfo clientInfo, OrgProfile profile) {
     return profileLogic.saveOrgProfile(clientInfo, profile);
   }
-  
-
-  // education
-  @Transactional(readOnly = true)
-  public List<UserEducation> findUserEducation(ClientInfo clientInfo, String loginId) {
-    return userLogic.findUserEducation(clientInfo, loginId);
-  }
-
-  @Transactional
-  public List<UserEducation> saveUserEducations(ClientInfo clientInfo, String loginId,
-      List<UserEducation> educationList) {
-    return userLogic.saveUserEducations(clientInfo, loginId, educationList);
-  }
-
-  @Transactional
-  public UserEducation saveUserEducation(ClientInfo client, String loginId, UserEducation education) {
-    return userLogic.saveUserEducation(client, loginId, education);
-  }
-
-  @Transactional
-  public boolean deleteUserEducation(ClientInfo client, String loginId, List<Long> educationIds) {
-    return userLogic.deleteUserEducation(client, loginId, educationIds);
-  }
-
-  // User Identity
-  @Transactional(readOnly = true)
-  public List<UserIdentity> findUserIdentity(ClientInfo clientInfo, String loginId) {
-    return userLogic.findUserIdentity(clientInfo, loginId);
-  }
-
-  @Transactional
-  public List<UserIdentity> saveUserIdentitys(ClientInfo clientInfo, String loginId, List<UserIdentity> identityList) {
-    return userLogic.saveUserIdentitys(clientInfo, loginId, identityList);
-  }
-
-  @Transactional
-  public UserIdentity saveUserIdentity(ClientInfo client, String loginId, UserIdentity identity) {
-    return userLogic.saveUserIdentity(client, loginId, identity);
-  }
-
-  @Transactional
-  public boolean deleteUserIdentity(ClientInfo client, String loginId, List<Long> identityIds) {
-    return userLogic.deleteUserIdentity(client, loginId, identityIds);
-  }
-
-  // User Work
-  @Transactional(readOnly = true)
-  public List<UserWork> findUserWork(ClientInfo clientInfo, String loginId) {
-    return userLogic.findUserWork(clientInfo, loginId);
-  }
-
-  @Transactional
-  public List<UserWork> saveUserWorks(ClientInfo clientInfo, String loginId, List<UserWork> workList) {
-    return userLogic.saveUserWorks(clientInfo, loginId, workList);
-  }
-
-  @Transactional
-  public UserWork saveUserWork(ClientInfo client, String loginId, UserWork work) {
-    return userLogic.saveUserWork(client, loginId, work);
-  }
-
-  @Transactional
-  public boolean deleteUserWork(ClientInfo client, String loginId, List<Long> workIds) {
-    return userLogic.deleteUserWork(client, loginId, workIds);
-  }
 
   @Transactional(readOnly = true)
   public Account getAccount(ClientInfo client, String loginId) {
     return accountLogic.getModifiableAccount(client, loginId);
   }
 
-  // User Relation
-  @Transactional(readOnly = true)
-  public List<UserRelation> findUserRelation(ClientInfo clientInfo, String loginId) {
-    return userLogic.findUserRelations(clientInfo, loginId);
-  }
-
-  @Transactional
-  public List<UserRelation> saveUserRelations(ClientInfo clientInfo, String loginId, List<UserRelation> relationList) {
-    return userLogic.saveUserRelations(clientInfo, loginId, relationList);
-  }
-
-  @Transactional
-  public UserRelation saveUserRelation(ClientInfo client, String loginId, UserRelation relation) {
-    return userLogic.saveUserRelation(client, loginId, relation);
-  }
-
-  @Transactional
-  public boolean deleteUserRelation(ClientInfo client, String loginId, List<Long> relationIds) {
-    return userLogic.deleteUserRelation(client, loginId, relationIds);
-  }
-
-  // Banks Account
-  @Transactional(readOnly =  true)
-  public List<BankAccount> findBankAccount(ClientInfo clientInfo, String loginId) {
-    return userLogic.findBankAccounts(clientInfo, loginId );
-  }
-
-  @Transactional
-  public List<BankAccount> saveBankAccounts(ClientInfo clientInfo, String loginId, List<BankAccount> accountList) {
-    return userLogic.saveBankAccounts(clientInfo, loginId, accountList);
-  }
-
-  @Transactional
-  public BankAccount saveBankAccount(ClientInfo client, String loginId, BankAccount bank) {
-    return userLogic.saveBankAccount(client, loginId, bank);
-  }
-
-  @Transactional
-  public boolean deleteBankAccount(ClientInfo client, String loginId, List<Long> bankIds) {
-    return userLogic.deleteBankAccount(client, loginId, bankIds);
-  }
-  
-  @Transactional
-  public List<BankAccount> searchBankAccount(ClientInfo client, SqlQueryParams params) {
-    return userLogic.searchBankAccounts(client, params);
-  }
   // Account password
   @Transactional
   public Result<Boolean> changePassword(ClientInfo client, ChangePasswordRequest request) {

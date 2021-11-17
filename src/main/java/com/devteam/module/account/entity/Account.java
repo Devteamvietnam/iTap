@@ -45,7 +45,7 @@ import lombok.Setter;
 public class Account extends PersistableEntity<Long> {
   private static final long serialVersionUID = 1L;
   
-  public static final String TABLE_NAME = "account_account";
+  public static final String TABLE_NAME = "account";
   
   @NotNull
   @Column(name="login_id", unique =true)

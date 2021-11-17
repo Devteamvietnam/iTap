@@ -7,7 +7,6 @@ import com.devteam.module.account.AccountService;
 import com.devteam.module.account.NewAccountModel;
 import com.devteam.module.account.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 
 public class DigitalData extends AccountData {
@@ -26,9 +25,4 @@ public class DigitalData extends AccountData {
     jpaService.getEntityManager().flush();
   }
 
-  @Transactional
-  public void assertAll(ClientInfo client) throws Exception {
-    new BankAssert(client, PROFILE.getLoginId())
-    .assertLoadList(2);
-  }
 }
