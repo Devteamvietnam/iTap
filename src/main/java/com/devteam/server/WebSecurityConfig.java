@@ -30,7 +30,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().ignoringAntMatchers("/h2-console/**")
                 .and()
                 .cors().disable();
-        httpSecurity.csrf().disable();
 
     }
 
