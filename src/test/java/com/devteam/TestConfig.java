@@ -1,7 +1,12 @@
 package com.devteam;
 
+import com.devteam.config.JpaConfiguration;
 import com.devteam.core.module.common.ClientInfo;
 import com.devteam.core.module.data.config.CoreDataModuleConfig;
+import com.devteam.core.module.data.db.sample.EntityDB;
+import com.devteam.core.module.security.config.CoreSecurityModuleConfig;
+import com.devteam.core.module.srpingframework.config.SpringFrameworkModuleConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -20,7 +25,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
     "spring.config.location=classpath:application-test.yaml",
     "spring.datasource.hibernate.show_sql=false"
   },
-  classes = {  CoreDataModuleConfig.class }
+  classes = {  CoreDataModuleConfig.class,  JpaConfiguration.class, SpringFrameworkModuleConfig.class, CoreSecurityModuleConfig.class }
 )
 @EnableAutoConfiguration(
   exclude= { DataSourceAutoConfiguration.class, SecurityAutoConfiguration.class}
@@ -33,5 +38,9 @@ abstract public class TestConfig {
   
   @Autowired
   protected ApplicationContext context;
-  
+
+  @BeforeEach
+  public void clearDataDB() throws Exception {
+    EntityDB.initDataDB(context);
+  }
 }
