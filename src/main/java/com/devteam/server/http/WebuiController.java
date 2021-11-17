@@ -36,12 +36,11 @@ public class WebuiController {
   public void appPage(HttpServletRequest req, HttpServletResponse response) throws Exception {
     process(req, response);
   }
-  
+
   void process(HttpServletRequest req, HttpServletResponse response) {
     try {
       response.setContentType("text/html");
-      String indexFileRes = appEnv.fileResourcePath("addons/core/www/public/index.html");
-      String content = IOUtil.loadResourceAsString(indexFileRes, "UTF-8");
+      String content = IOUtil.getResourceAsString("public/index.html", "UTF-8");
       response.getWriter().write(content);
       response.getWriter().flush();
     } catch (Throwable e) {
