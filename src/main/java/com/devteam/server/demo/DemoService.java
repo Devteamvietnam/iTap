@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class DemoService {
-  
+
   @Getter
   @Autowired
   private ApplicationContext context;

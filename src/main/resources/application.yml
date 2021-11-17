@@ -3,7 +3,6 @@ server:
   compression:
     enabled: true
     min-response-size: 2048
-    # Comma-separated list of MIME types that should be compressed.
     mime-types: text/html,text/xml,text/plain,text/css,application/json,application/xml,application/javascript
   servlet:
     contextPath: /
@@ -13,8 +12,7 @@ server:
       max-request-size: 30MB
       max-file-size: 10MB
 
-# Spring Configuration ############################
-
+---
 spring:
   main:
     banner-mode: console
@@ -62,14 +60,14 @@ app:
   data:
     init-sample: true
     init-demo: false
-  home: /app/home
+  home: /app
   config:
-    dir: /app/config
+    dir: /config
   upload:
-    dir: /app/upload
+    dir: /upload
   storage:
-    dir: /app/data/storage
+    dir: /data/storage
 ---
 storage:
   service:
-    dir: /app/storage/service
+    dir: /storage/service

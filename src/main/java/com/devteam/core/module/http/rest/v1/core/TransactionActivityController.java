@@ -31,7 +31,7 @@ import io.swagger.annotations.ApiOperation;
 
 
 @ConditionalOnBean(AuthenticationService.class)
-@Api(value="openfreightone", tags={"core/entity/activity"})
+@Api(value="devteam", tags={"core/entity/activity"})
 @RestController
 @RequestMapping("/rest/v1.0.0/core/entity/activity")
 public class TransactionActivityController extends BaseController {

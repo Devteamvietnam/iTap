@@ -27,7 +27,7 @@ public class UserData extends AccountData {
     LIEN = EntityDB.getInstance().getData(DigitalData.class).PROFILE;
 
     THIEN =
-        new UserProfile("Thien", "Thien Dinh", "thien@openfreightone.com").
+        new UserProfile("Thien", "Thien Dinh", "devteamvietnam@gmail.com").
             withMobile("0337303666");
     THIEN = createAccount(THIEN, GROUP_DATA.EMPLOYEES);
   }
