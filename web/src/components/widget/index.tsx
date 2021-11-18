@@ -11,7 +11,7 @@ import * as calendar from './calendar'
 import * as list from './list/index'
 import * as kanban from './kanban'
 import * as grid from './grid'
-import * as sql from './sql/index'
+import * as sql from './search/index'
 import * as util from './util'
 
 export {

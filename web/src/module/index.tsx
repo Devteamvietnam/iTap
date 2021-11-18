@@ -1,6 +1,6 @@
-import * as account from './account'
-import * as company from './company'
-import * as storage from './storage'
+import * as account from './admin/account'
+import * as company from './admin/company'
+import * as storage from './admin/storage'
 
 export {
   account, company, storage
