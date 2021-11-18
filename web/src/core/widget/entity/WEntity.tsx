@@ -1,10 +1,10 @@
-import React, { ReactFragment } from 'react';
-
+import React from 'react';
 import { app, widget, util, server, reactstrap } from 'components';
 
-import { T } from '../Dependency'
 import { IBeanObserver, BeanObserver, ComplexBeanObserver } from 'core/entity';
-import { WComponent, WComponentProps } from 'core/widget/WLayout';
+import { WComponent, WComponentProps } from '../WLayout';
+
+import { T } from '../Dependency'
 
 import ButtonActionModel = widget.element.ButtonActionModel;
 
@@ -25,9 +25,18 @@ export interface WEntityEditorProps extends WEntityProps {
   onPostCommit?: EntityOnPostCommit;
   onPostRollback?: EntityOnPostRollback;
 }
-export class WEntityEditor<T extends WEntityEditorProps = WEntityEditorProps, S = any> extends WComponent<T, S> {
+export class WEntityEditor<T extends WEntityEditorProps = WEntityEditorProps, S = any>
+  extends WComponent<T, S> {
+
+  viewId = `view-${util.IDTracker.next()}`;
+
+  nextViewId() {
+    this.viewId = `view-${util.IDTracker.next()}`;
+  }
+
   onPostCommit = (entity: any) => {
     let { onPostCommit } = this.props;
+    this.nextViewId();
     if (onPostCommit) {
       onPostCommit(entity, this);
     } else {
@@ -104,23 +113,12 @@ export abstract class WLoadableEntity extends WComponent<WLoadableEntityProps> {
     appContext.serverGET(loadUrl, null, callback);
   }
 
-  abstract renderEntity(entity: any): ReactFragment;
+  abstract renderEntity(entity: any): React.ReactFragment;
 
   render() {
     if (!this.entity) return this.renderLoading();
     return this.renderEntity(this.entity);
   }
-}
-
-export interface WDetailAutoCompleteProps extends WComponentProps {
-  bean: any;
-  field: string;
-  validators?: Array<util.validator.Validator>;
-  useSelectBean?: boolean;
-  allowEmpty?: boolean;
-  onPostSelect?: (selectedBean: any) => void;
-}
-export class WDetailAutoComplete extends WComponent<WDetailAutoCompleteProps> {
 }
 
 interface WButtonEntityWriteProps extends WComponentProps {
@@ -303,7 +301,7 @@ export class WButtonEntityStorage extends WComponent<WButtonEntityStorageProps> 
     let { appContext, observer, commitURL, label, onPostCommit } = this.props;
     let entity = observer.getMutableBean();
     let successCB = (_result: server.rest.RestResponse) => {
-      entity['entityState'] = newState;
+      observer.replaceBeanProperty('storageState', newState);
       appContext.addOSNotification("success", T('Change Storage State {{label}} Success', { label: label }));
       if (onPostCommit) onPostCommit(entity);
     }

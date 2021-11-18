@@ -119,7 +119,7 @@ export class UIEntityTagList extends VGridEntityList<UIEntityTagListProps> {
 
   onDefaultSelect(dRecord: DisplayRecord) {
     let { appContext, pageContext, readOnly, commitURL } = this.props;
-    let pageCtx = new app.PageContext().withPopup();
+    let pageCtx = pageContext.createPopupPageContext();
     let type = dRecord.record;
     let onPostCommit = () => {
       this.closePopupPageContext();

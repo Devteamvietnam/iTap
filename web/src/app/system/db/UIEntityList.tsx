@@ -67,8 +67,8 @@ export class UIEntityList extends VGridEntityList {
 
   onDefaultSelect(dRecord: DisplayRecord) {
     let entity = dRecord.record;
-    let { appContext } = this.props;
-    let pageCtx = new app.PageContext().withPopup();
+    let { appContext, pageContext } = this.props;
+    let pageCtx = pageContext.createPopupPageContext();
     let html = (
       <UIEntity appContext={appContext} pageContext={pageCtx} observer={new ComplexBeanObserver(entity)} />
     );

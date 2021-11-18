@@ -1,11 +1,13 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 import { storage } from 'components/storage';
 import { IDTracker } from 'components/util/common';
 import { Rest, SuccessCallback, FailCallback } from '../server/rest';
-import { Breadcumbs, ContentFactory, DialogContext, showDialog } from 'components/widget/layout'
+import {
+  Breadcumbs, BreadcumbsPage, ContentFactory, DialogContext, showDialog
+} from 'components/widget/layout'
 import { NotificationMessage } from 'components/widget/util'
-import { READ, WRITE, MODERATOR, ADMIN } from './permission';
+import { AppCapability, READ, WRITE, MODERATOR, ADMIN } from './permission';
 import { IAppRegistry } from './AppRegistry';
 
 export class ServerContext {
@@ -115,11 +117,18 @@ export class AppContext {
     this.uiApplication = uiApp;
   }
 
-  getAppRegistry(): any {
+  getAppRegistry(): IAppRegistry {
+    if (!this.appRegistry) throw new Error("AppRegistry is not set");
     return this.appRegistry;
   }
 
   setAppRegistry(registry: IAppRegistry) { this.appRegistry = registry; }
+
+  createPageContext(env: null | Breadcumbs | DialogContext = null) {
+    let pageCtx = new PageContext(env);
+    pageCtx.setUserAppCapability(this.getAppRegistry().getUserAppCapability());
+    return pageCtx;
+  }
 
   getOSContext() { return this.osContext; }
 
@@ -140,27 +149,27 @@ export class AppContext {
     this.uiApplication.forceUpdate();
   }
 
-  hasUserReadCapability(): boolean {
-    if (!this.appRegistry) return false;
-    let cap = this.appRegistry.getUserAppCapability();
+  /** @deprecated */
+  hasUserReadCapability() {
+    let cap = this.getAppRegistry().getUserAppCapability();
     return cap.hasCapability(READ);
   }
 
-  hasUserWriteCapability(): boolean {
-    if (!this.appRegistry) return false;
-    let cap = this.appRegistry.getUserAppCapability();
+  /** @deprecated */
+  hasUserWriteCapability() {
+    let cap = this.getAppRegistry().getUserAppCapability();
     return cap.hasCapability(WRITE);
   }
 
-  hasUserModeratorCapability(): boolean {
-    if (!this.appRegistry) return false;
-    let cap = this.appRegistry.getUserAppCapability();
+  /** @deprecated */
+  hasUserModeratorCapability() {
+    let cap = this.getAppRegistry().getUserAppCapability();
     return cap.hasCapability(MODERATOR);
   }
 
-  hasUserAdminCapability(): boolean {
-    if (!this.appRegistry) return false;
-    let cap = this.appRegistry.getUserAppCapability();
+  /** @deprecated */
+  hasUserAdminCapability() {
+    let cap = this.getAppRegistry().getUserAppCapability();
     return cap.hasCapability(ADMIN);
   }
 
@@ -196,6 +205,7 @@ export class PageContext {
   id = `page-${IDTracker.next()}`;
   dialogContext: null | DialogContext = null;
   breadcumbs: null | Breadcumbs = null;
+  userCapability: AppCapability = READ;;
 
   constructor(env: null | Breadcumbs | DialogContext = null) {
     if (env) {
@@ -207,11 +217,33 @@ export class PageContext {
     }
   }
 
-  withPopup() {
+  getUserCapability() { return this.userCapability; }
+  setUserAppCapability(cap: AppCapability) {
+    this.userCapability = cap;
+  }
+
+  private withPopup() {
     if (this.breadcumbs || this.dialogContext) throw new Error('Breadcumbs or Dialog is already set');
     this.dialogContext = new DialogContext();
     return this;
   }
+
+  createPopupPageContext() {
+    let pageCtx = new PageContext(null);
+    pageCtx.setUserAppCapability(this.getUserCapability());
+    pageCtx.withPopup();
+    return pageCtx;
+  }
+
+  createChildPageContext() { return new ChildPageContext(this); }
+
+  hasUserReadCapability() { return this.userCapability.hasCapability(READ); }
+
+  hasUserWriteCapability() { return this.userCapability.hasCapability(WRITE); }
+
+  hasUserModeratorCapability() { return this.userCapability.hasCapability(MODERATOR); }
+
+  hasUserAdminCapability() { return this.userCapability.hasCapability(ADMIN); }
 
   clearPageStorage() { storage.pageClear(); }
 
@@ -257,6 +289,34 @@ export class PageContext {
       this.breadcumbs.pushContent(factory);
     } else {
       showDialog(factory.label, "md", factory.createContent());
+    }
+  }
+}
+
+export class ChildPageContext extends PageContext {
+  parent: PageContext;
+
+  constructor(parent: PageContext) {
+    super(null);
+    if (!parent.breadcumbs) {
+      throw new Error('Parent page context must be a breadcumbs page');
+    }
+    this.userCapability = parent.getUserCapability();
+    this.parent = parent;
+  }
+
+  onAdd(name: string, label: string, ui: any) {
+    if (this.breadcumbs) {
+      this.breadcumbs.push(name, label, ui);
+    } else {
+      let rootContent: ContentFactory = {
+        name: name, label: label,
+        createContent: () => { return ui; }
+      }
+      let childBreadumbs = (
+        <BreadcumbsPage ref={(ele) => this.breadcumbs = ele} rootContent={rootContent} />
+      );
+      this.parent.onAdd(name, label, childBreadumbs);
     }
   }
 }

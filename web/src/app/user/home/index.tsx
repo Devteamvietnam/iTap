@@ -1,24 +1,24 @@
 import React from 'react';
 import { app } from 'components'
 
-import { BaseAppRegistry } from 'core/app/api';
-import { session } from 'core/app/session';
-
 import { UILoadableAccountInfo } from 'module/account/UIAccountInfo';
 import { UILoadableEmployeeInfo } from 'module/company/hr';
 import { UIDirectoryList } from 'module/storage/UIDirectoryList';
 import { VGridEntityListPlugin } from 'core/widget/vgrid';
 
+const session = app.host.session;
 class UIApplication extends app.UIMenuApplication {
   createNavigation(appContext: app.AppContext, pageContext: app.PageContext) {
     let loginId = session.getAccountAcl().getLoginId();
+    const writeCap = pageContext.hasUserWriteCapability();
     let navigation: app.NavigationConfig = {
       defaultScreen: 'my-profile',
       screens: [
         {
           id: "my-profile", label: "My Profile",
           createUI: (appContext: app.AppContext, pageContext: app.PageContext) => {
-            return (<UILoadableAccountInfo appContext={appContext} pageContext={pageContext} loginId={loginId} />)
+            return (<UILoadableAccountInfo appContext={appContext} pageContext={pageContext} loginId={loginId}
+              readOnly={!writeCap} />)
           }
         },
         {
@@ -53,12 +53,12 @@ class UIApplication extends app.UIMenuApplication {
   }
 }
 
-export class AppRegistry extends BaseAppRegistry {
+export class HomeAppRegistry extends app.BaseAppRegistry {
   module = 'user';
   name = 'my-space';
   label = 'My Space';
   description = 'My Space';
-  requiredAppCapability: app.AppCapability = app.NONE;
+  requiredAppCapability: app.AppCapability = app.READ;
 
   createUI(ctx: app.OSContext) { return <UIApplication osContext={ctx} appRegistry={this} />; };
 }

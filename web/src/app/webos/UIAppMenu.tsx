@@ -1,20 +1,17 @@
-import React from 'react';
-import { Component } from 'react';
+import { app, widget, reactstrap, storage, i18n, React } from 'components'
 
-import { app, widget, reactstrap, storage } from 'components'
+import { HostAppContext } from './HostAppContext'
 
-import { T } from 'core/widget/Dependency';
-import { WebosContext } from '.';
-
+const  T  = i18n.getT([]);
 const { fas, FAIcon, FAButton } = widget.fa;
 const { UncontrolledDropdown, DropdownToggle, DropdownMenu } = reactstrap
 const { TabPane, Tab } = widget.layout;
 
-interface WebosProps { webosContext: WebosContext; }
+interface WebosProps { webosContext: HostAppContext; }
 interface WBannerAppState {
   open: boolean;
 }
-export class UIAppMenu extends Component<WebosProps, WBannerAppState> {
+export class UIAppMenu extends React.Component<WebosProps, WBannerAppState> {
   state = { open: false }
   registries: Array<app.IAppRegistry>;
 
@@ -60,7 +57,7 @@ export class UIAppMenu extends Component<WebosProps, WBannerAppState> {
         registries.push(registry);
       }
     } else {
-      let group = appRegistryManager.appRegistryNav[groupName];
+      let group = appRegistryManager.appRegistryGroups[groupName];
       for (let name in group.registries) {
         let registry = group.registries[name];
         registries.push(registry);
@@ -117,16 +114,13 @@ export class UIAppMenu extends Component<WebosProps, WBannerAppState> {
         All
       </FAButton>
     );
-    for (let groupName in appRegistryManager.appRegistryNav) {
-      let group = appRegistryManager.appRegistryNav[groupName];
-      for (let registryName in group.registries) {
-        let registry = group.registries[registryName];
-        groupButtons.push(
-          <FAButton key={registry.name} className='px-0 text-left' color='link' onClick={() => this.onSelectAppGroup(groupName)}>
-            {registry.label}
-          </FAButton>
-        );
-      }
+    for (let groupName in appRegistryManager.appRegistryGroups) {
+      let group = appRegistryManager.appRegistryGroups[groupName];
+      groupButtons.push(
+        <FAButton key={groupName} className='px-0 text-left' color='link' onClick={() => this.onSelectAppGroup(groupName)}>
+          {group.label}
+        </FAButton>
+      );
     }
     let appButtons = [];
     for (let i = 0; i < this.registries.length; i++) {
@@ -146,7 +140,7 @@ export class UIAppMenu extends Component<WebosProps, WBannerAppState> {
     return (
       <UncontrolledDropdown isOpen={this.state.open} toggle={this.toggle}>
         <DropdownToggle className='w-logo text-white' nav caret>
-          <FAIcon icon={fas.faTh} title={'Apps Menu'} /> Digital
+          <FAIcon icon={fas.faTh} title={'Apps Menu'} /> Ahaysoft
         </DropdownToggle>
         <DropdownMenu className='p-0 m-0' style={{ width: 600, maxHeight: 500, outline: 'none' }}>
           <div className='ui-webos-app-menu flex-vbox bg-light'>

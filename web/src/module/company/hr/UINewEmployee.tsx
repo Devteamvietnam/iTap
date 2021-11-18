@@ -6,16 +6,16 @@ import {
 } from 'core/widget';
 
 import {
-  UINewAccountEditor, UIConvertAccountEditor, UINewAccountEditorPlugin
+  UINewAccountEditor, UIConvertAccountEditor, AccountType
 } from "module/account";
+import { UINewAccountEditorPlugin } from "module/account/UINewAccount";
 import { T, HRRestURL } from 'module/company/hr/Dependency'
 
 export class UINewEmployeeAccountEditorPlugin extends UINewAccountEditorPlugin {
   createAdditionalTabs(_appCtx: app.AppContext, _pageCtx: app.PageContext, _observer: ComplexBeanObserver) {
     const { Tab } = widget.layout;
     let tabs = [
-      <Tab className='p-2' name='test' label='Test'>
-        This is a test
+      <Tab className='p-2' name='employee' label='Employee'>
       </Tab>
     ];
     return tabs;
@@ -33,12 +33,13 @@ export class UINewEmployeeEditor extends WComplexEntityEditor {
             plugin={plugin} appContext={appContext} pageContext={pageContext}
             label={T('New Employee')} observer={observer}
             commitURL={HRRestURL.employee.create}
-            onPostCommit={onPostCommit} />
+            onPostCommit={onPostCommit}
+            accountTypesOptions={[AccountType.USER]} />
         </Tab>
         <Tab className='p-2' name='convert' label={T('Convert')}>
           <UIConvertAccountEditor
             plugin={plugin} appContext={appContext} pageContext={pageContext}
-            label={T('Convert An Account To Employee')} observer={observer}
+            label={T('Convert An Account To Employee')} observer={new ComplexBeanObserver({})}
             commitURL={HRRestURL.employee.create}
             onPostCommit={onPostCommit} />
         </Tab>

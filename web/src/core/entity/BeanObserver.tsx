@@ -1,6 +1,6 @@
 import { util, widget } from 'components';
 
-import ObjUtil = util.ObjUtil;
+const ObjUtil = util.ObjUtil;
 
 function markDelete(bean: any) {
   bean['_delete'] = true;
@@ -56,7 +56,6 @@ export class BeanObserver implements IBeanObserver {
     let mutableBean = this.getMutableBean();
     for (let name of names) {
       let val = mutableBean[name];
-      console.log(`check field: ${name}, val = '${val}'`)
       if (!val) return true;
       if (typeof val === 'string') {
         let string = val as string;
@@ -68,7 +67,6 @@ export class BeanObserver implements IBeanObserver {
         if (array.length == 0) return true;
       }
     }
-    console.log(`is empty properties, no empty`)
     return false;
   }
 

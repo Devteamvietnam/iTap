@@ -19,6 +19,7 @@ import {
 const COMPACT_DATETIME_FORMAT = "DD/MM/YYYY@HH:mm:ssZ";
 
 export interface BBFieldProps extends ELEProps {
+  inputId?: string;
   bean: any;
   field: string;
   placeholder?: string;
@@ -31,12 +32,13 @@ export interface BBFieldProps extends ELEProps {
   mapInputValue?: (displayValue: any) => any
   onKeyDown?: (winput: WInput, event: any, keyCode: number, currInput: any) => void;
   onInputChange?: (bean: any, field: string, oldVal: any, newVal: any) => void;
+  onRefresh?: (bbField: BBField, bean: any, field: string) => void;
 };
 interface BBFieldState {
   renderId: any;
   value: any;
 }
-export class BBField extends Component<BBFieldProps, BBFieldState> {
+export class BBField<T extends BBFieldProps = BBFieldProps> extends Component<T, BBFieldState> {
   state = { renderId: null, value: null }
 
   static getDerivedStateFromProps(props: BBFieldProps, state: BBFieldState) {
@@ -57,22 +59,33 @@ export class BBField extends Component<BBFieldProps, BBFieldState> {
     if (onInputChange) onInputChange(bean, field, oldVal, newVal);
   }
 
+  onRefreshAction = (_input: WInput) => {
+    let {onRefresh, bean, field} = this.props ;
+    if(onRefresh) onRefresh(this, bean, field);
+  }
+
   createWInput() {
     const {
-      bean, field, validators, errorCollector, focus, required,
-      placeholder, style, className, disable, onKeyDown, mapInputValue, mapDisplayValue
+      inputId, bean, field, validators, errorCollector, focus, required,
+      placeholder, style, className, disable, onKeyDown, mapInputValue, mapDisplayValue,
+      onRefresh
     } = this.props;
     let WInput: any = this.getWInput();
+    let onRefreshAction = undefined ;
+    if(onRefresh) onRefreshAction = this.onRefreshAction;
     let html = (
-      <WInput key={this.state.renderId}
+      <WInput key={this.state.renderId} inputId={inputId}
         style={style} className={className} name={field} value={bean[field]} placeholder={placeholder}
         disable={disable} focus={focus} required={required} errorCollector={errorCollector}
         onKeyDown={onKeyDown} validators={validators}
         onInputChange={(oldVal: any, newVal: any) => this.onWInputChange(oldVal, newVal)}
-        mapInputValue={mapInputValue} mapDisplayValue={mapDisplayValue} />
+        mapInputValue={mapInputValue} mapDisplayValue={mapDisplayValue} {...this.getCustomProps()}
+        onRefreshAction={onRefreshAction}/>
     );
     return html;
   }
+
+  getCustomProps() : any { return undefined; }
 
   render() { return this.createWInput(); }
 }
@@ -105,9 +118,21 @@ export class BBFloatArrayField extends BBField { getWInput(): any { return WFloa
 
 export class BBDoubleField extends BBField { getWInput(): any { return WDoubleInput; } }
 
-export class BBNumberField extends BBField { getWInput(): any { return WNumberInput; } }
+interface BBNumberFieldProps extends BBFieldProps {
+  precision?: number;
+  maxPrecision?: number;
+}
+export class BBNumberField<T extends BBNumberFieldProps = BBNumberFieldProps> extends BBField<T> { 
+  getWInput(): any { return WNumberInput; } 
 
-export class BBCurrencyField extends BBField { getWInput(): any { return WNumberInput; } }
+  getCustomProps() {
+    const { precision, maxPrecision } = this.props;
+    return {precision: precision, maxPrecision: maxPrecision}
+  }
+}
+
+export class BBCurrencyField extends BBNumberField { 
+}
 
 export class BBPercentField extends BBField { getWInput(): any { return WPercentInput; } }
 
@@ -361,7 +386,7 @@ export class BBMultiLabelSelector<T extends BBMultiLabelSelectorProps> extends C
       labelWidgets.push(widget);
     }
     let html = (
-      <div className={mergeCssClass(className, 'flex-hbox-grow-0 p-1')} style={style}>
+      <div className={mergeCssClass(className, 'flex-hbox-grow-0 flex-wrap p-1')} style={style}>
         {labelWidgets}
         <FAButton hidden={disable} color='link' icon={fas.faPlus} onClick={() => this.onCustomSelect()} />
       </div>
@@ -432,6 +457,7 @@ export interface BBCallableFieldProps extends BBFieldProps {
   onCall: () => void
 }
 
+/**@deprecated */
 export class BBFieldCallable extends Component<BBCallableFieldProps> {
   getBBField(): any {
     throw new Error('You need to override this method');
@@ -456,9 +482,12 @@ export class BBFieldCallable extends Component<BBCallableFieldProps> {
     return html;
   }
 }
+/**@deprecated */
 export class BBCallableStringField extends BBFieldCallable {
   getBBField(): any { return BBStringField; }
 }
+
+/**@deprecated */
 export class BBCallableNumberField extends BBFieldCallable {
   getBBField(): any { return BBNumberField; }
 }

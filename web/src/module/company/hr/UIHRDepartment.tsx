@@ -2,7 +2,7 @@ import React from "react";
 import { util, widget } from "components";
 
 import {
-  WEntityEditor, WToolbar, WButtonEntityCommit, WButtonEntityReset, UUIDTool
+  WEntityEditor, WToolbar, WButtonEntityCommit, WButtonEntityReset
 } from "core/widget";
 
 import { T, HRRestURL } from "module/company/hr/Dependency";
@@ -17,17 +17,12 @@ export class UIHRDepartmentEditor extends WEntityEditor {
   onGenerateName(label: string) {
     const { observer } = this.props;
     if (!observer.isNewBean()) return;
-    let name = UUIDTool.generateWithAnyTokens(
-      T("You need to enter the label"),
-      [toFileName(label)],
-      true
-    );
-    observer.getMutableBean().name = name;
+    observer.getMutableBean().name = toFileName(label);
     this.forceUpdate();
   }
 
   render() {
-    let { appContext, pageContext, observer, onPostCommit, readOnly } = this.props;
+    let { appContext, pageContext, observer, onPostCommit } = this.props;
     let bean = observer.getMutableBean();
     let writeCap = this.hasWriteCapability();
 
@@ -36,34 +31,31 @@ export class UIHRDepartmentEditor extends WEntityEditor {
         <FormContainer fluid>
           <Row>
             <ColFormGroup span={12} label={T('Label')}>
-              <BBStringField bean={bean} field={'label'} disable={!writeCap}
+              <BBStringField bean={bean} field={'label'} disable={!writeCap} required
                 onInputChange={(bean, field, oldVal, newVal) => this.onGenerateName(newVal)} />
             </ColFormGroup>
+          </Row>
+          <Row>
             <ColFormGroup span={12} label={T('Name')}>
-              <BBCallableStringField bean={bean} field={'name'} disable={!observer.isNewBean() || !writeCap}
+              <BBCallableStringField bean={bean} field={'name'} disable={!writeCap || !observer.isNewBean()}
                 onCall={() => this.onGenerateName(bean.label)} required />
             </ColFormGroup>
           </Row>
           <Row>
-            <ColFormGroup span={12} label={T('Parent Path')}>
-              <BBStringField bean={bean} disable={true} field={"parentPath"} />
-            </ColFormGroup>
-          </Row>
-          <Row>
             <ColFormGroup span={12} label={T('Description')}>
-              <BBTextField bean={bean} disable={readOnly} field={"description"} />
+              <BBTextField bean={bean} disable={!writeCap} field={"description"} />
             </ColFormGroup>
           </Row>
         </FormContainer>
         <WToolbar>
           <WButtonEntityCommit
-            appContext={appContext} pageContext={pageContext} readOnly={readOnly} observer={observer}
-            label={T(`HR Department {{label}}`, { label: bean.label })} hide={readOnly}
+            appContext={appContext} pageContext={pageContext} readOnly={!writeCap} observer={observer}
+            label={T(`HR Department {{label}}`, { label: bean.label })} hide={!writeCap}
             commitURL={HRRestURL.department.save}
             onPostCommit={onPostCommit} />
           <WButtonEntityReset
-            appContext={appContext} pageContext={pageContext} readOnly={readOnly} observer={observer}
-            onPostRollback={this.onPostRollback} hide={readOnly} />
+            appContext={appContext} pageContext={pageContext} readOnly={!writeCap} observer={observer}
+            onPostRollback={this.onPostRollback} hide={!writeCap} />
         </WToolbar>
       </div>
     );

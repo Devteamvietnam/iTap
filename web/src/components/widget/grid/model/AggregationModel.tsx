@@ -247,6 +247,16 @@ export class AggregationDisplayModel extends DisplayRecordList {
     return this;
   }
 
+  /**@override */
+  markSelectAllDisplayRecords(val: boolean = true) {
+    for (let row = 0; row < this.displayRecords.length; row++) {
+      let dRecord = this.displayRecords[row];
+      if(!dRecord.isDataRecord()) continue;
+      let recState = dRecord.getRecordState();
+      recState.selected = val;
+    }
+  }
+
   addAggregation(aggregation: Aggregation, active: boolean = false) {
     this.aggregations.push(aggregation);
     if (active) aggregation.active = true;
@@ -311,7 +321,9 @@ export class AggregationDisplayModel extends DisplayRecordList {
         for (let i = 0; i < records.length; i++) {
           let rec = records[i];
           let row = displayRecordHolder.length;
-          displayRecordHolder.push(new DisplayRecord(rec, row, true).withIndent(deep));
+          let dRecord = new DisplayRecord(rec, row, true).withIndent(deep);
+          dRecord.rowInBucket = i + 1;
+          displayRecordHolder.push(dRecord);
         }
       }
     }
@@ -320,7 +332,8 @@ export class AggregationDisplayModel extends DisplayRecordList {
       for (let i = 0; i < aggRecords.length; i++) {
         let aggRecord = aggRecords[i];
         let row = displayRecordHolder.length;
-        displayRecordHolder.push(new DisplayRecord(aggRecord, row, false).withType('agg').withIndent(deep));
+        let dRecord = new DisplayRecord(aggRecord, row, false).withType('agg').withIndent(deep);
+        displayRecordHolder.push(dRecord);
       }
     }
   }

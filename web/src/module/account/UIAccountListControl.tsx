@@ -3,7 +3,7 @@ import { app, widget, server } from 'components';
 
 import { ExplorerActions, ComplexBeanObserver } from 'core/entity';
 import {
-  WToolbar, WButtonDeleteMembership, WButtonNewMembership, WButtonEntityNew
+  WToolbar, WButtonDeleteMembership, WButtonNewMembership, WButtonEntityNew, WComponent
 } from 'core/widget';
 import {
   ExplorerConfig, VGridExplorer, VGridComponentProps, VGridComponent
@@ -22,10 +22,10 @@ import TreeModel = widget.list.TreeModel;
 class AccountGroupTreeModel extends TreeModel {
   appContext: app.AppContext;
 
-  constructor(appContext: app.AppContext, showRoot: boolean = true) {
+  constructor(appContext: app.AppContext, showRoot: boolean) {
     super(showRoot);
     this.appContext = appContext;
-    let root = new widget.list.TreeNode(null, '', '', T('All Account Groups'), null, false);
+    let root = new TreeNode(null, '', '', T('All Account Groups'), null, false);
     this.setRoot(root);
   }
 
@@ -35,28 +35,30 @@ class AccountGroupTreeModel extends TreeModel {
       if (children.length) {
         for (let i = 0; i < children.length; i++) {
           let childGroup = children[i];
-          this.addChild(node, childGroup.path, childGroup.label, childGroup);
+          this.addChild(node, childGroup.name, childGroup.label, childGroup);
         }
       }
       node.setLoadedChildren();
       if (postLoadCallback) postLoadCallback(node);
     };
-    let params = { parentPath: node.name };
-    this.appContext.serverGET(AccountRestURL.group.findChildren, params, callbackHandler);
+    let groupId = node.userData ? node.userData.id : 0;
+    this.appContext.serverGET(AccountRestURL.group.loadChildren(groupId), {}, callbackHandler);
   }
 }
 
-interface UIAccountExplorerProps extends VGridComponentProps {
-  plugin: UIAccountListPlugin;
-}
-export class UIAccountExplorer extends VGridExplorer<UIAccountExplorerProps> {
+export class UIAccountExplorer<T extends VGridComponentProps> extends VGridExplorer<T> {
   createTreeModel() {
-    return new AccountGroupTreeModel(this.props.appContext);
+    return new AccountGroupTreeModel(this.props.appContext, true);
   }
-
   createConfig() {
+    const { context } = this.props;
+    let uiRoot = context.uiRoot as WComponent;
+    let writeCap = uiRoot.hasWriteCapability();
     let explorerConfig: ExplorerConfig = {
       actions: [ExplorerActions.ADD, ExplorerActions.EDIT, ExplorerActions.DEL]
+    }
+    if (!writeCap) {
+      explorerConfig.actions = [];
     }
     return this.createTreeConfig(explorerConfig);
   }
@@ -69,13 +71,13 @@ export class UIAccountExplorer extends VGridExplorer<UIAccountExplorerProps> {
   }
 
   onEdit(node: TreeNode) {
-    let { appContext } = this.props;
+    let { appContext, pageContext } = this.props;
     let accountGroup = node.userData;
     let accountGroupObserver = new ComplexBeanObserver(accountGroup);
     if (accountGroup == null) {
       appContext.addOSNotification('danger', T("Cannot Edit the root"));
     } else {
-      let popupPageCtx = new app.PageContext().withPopup();
+      let popupPageCtx = pageContext.createPopupPageContext();
       let onPostCommit = (group: any) => {
         popupPageCtx.onClose();
         node.label = group.label;
@@ -92,41 +94,55 @@ export class UIAccountExplorer extends VGridExplorer<UIAccountExplorerProps> {
   }
 
   onAdd(node: TreeNode) {
-    let { appContext } = this.props;
-    let parentPath = node.userData?.path;
-    let parentId = node.userData?.id;
-    let accountGroup = { parentPath: parentPath, parentId: parentId }
+    let { appContext, pageContext, context } = this.props;
+    let accountGroup = { parentId: node.userData?.id }
     let observer = new ComplexBeanObserver(accountGroup);
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
 
     let onPostCommit = (group: any) => {
       popupPageCtx.onClose();
-      node.addChild(group.name, group.label, group, false);
-      this.forceUpdate();
+      if (node.loadedChildren === false) {
+        const successCB = (reloadedNode: TreeNode) => {
+          node.collapse = false;
+          this.forceUpdate();
+        }
+        this.model.loadChildren(node, successCB)
+      } else {
+        node.addChild(group.name, group.label, group, false);
+      }
+      let uiAccountList = context.uiRoot as UIAccountList;
+      uiAccountList.reloadData();
     }
     let html = (
       <UIAccountGroupEditor
         appContext={appContext} pageContext={popupPageCtx} observer={observer} onPostCommit={onPostCommit} />
     );
-    widget.layout.showDialog(T("Add New Account Group"), "md", html, popupPageCtx.getDialogContext());
+    widget.layout.showDialog(T(`Add New Account Group To ${node.userData?.label}`), "md", html, popupPageCtx.getDialogContext());
   }
 
   onDel(node: TreeNode) {
-    let { appContext } = this.props;
+    let { appContext, context } = this.props;
     let group = node.userData;
     let callback = (_response: server.rest.RestResponse) => {
       appContext.addOSNotification('success', T('Delete Account Group Success!'));
       this.model.removeNode(node);
-      this.forceUpdate();
+      this.model.setSelectedNode(this.model.root);
+      let uiAccountList = context.uiRoot as UIAccountList;
+      const accountListPlugin = uiAccountList.props.plugin as UIAccountListPlugin;
+      accountListPlugin.withGroup(null)
+      uiAccountList.reloadData();
     }
-    appContext.serverDELETE(AccountRestURL.group.delete(group.id), {}, callback)
+    let failCB = (_response: server.rest.RestResponse) => {
+      appContext.addOSNotification('danger', T(`Cannot delete account group ${group.label}, this has the children!`))
+    }
+    appContext.serverDELETE(AccountRestURL.group.delete(group.id), {}, callback, failCB)
   }
 }
 
 export class UIAccountListPageControl extends VGridComponent {
   onNewAccount() {
     let { context, appContext, pageContext } = this.props;
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
     let onPostCreate = (newAccountModel: any) => {
       const account = newAccountModel.account;
       popupPageCtx.onClose();
@@ -137,29 +153,32 @@ export class UIAccountListPageControl extends VGridComponent {
       pageContext.onAdd('account-detail', T(`Account {{loginId}}`, { loginId: account.loginId }), html);
     }
     let selectedGroup = context.getAttribute('currentGroup');
-    let accountGroupPaths = selectedGroup ? [selectedGroup.path] : '';
+    let groupIds = selectedGroup ? [selectedGroup.id] : null;
+    let groupLabel = selectedGroup ? selectedGroup.label : null;
     let observer = new ComplexBeanObserver({
       account: { accountType: AccountType.USER },
-      accountGroupPaths: accountGroupPaths
+      accountGroupIds: groupIds,
+
     });
     let html = (
       <UINewAccountEditor appContext={appContext} pageContext={popupPageCtx} observer={observer}
         commitURL={AccountRestURL.account.create} onPostCommit={onPostCreate} />
     );
-    widget.layout.showDialog(T("Add New Account"), 'md', html, popupPageCtx.getDialogContext());
+    widget.layout.showDialog(T(`Add New Account To ${groupLabel}`), 'md', html, popupPageCtx.getDialogContext());
   }
 
   onImportSuccess = () => {
     let { context } = this.props;
     let uiAccountList = context.uiRoot as UIAccountList;
     uiAccountList.reloadData();
+    uiAccountList.forceUpdate();
   }
 
   onAddMembership() {
-    let { context, appContext } = this.props;
+    let { context, appContext, pageContext } = this.props;
     let uiAccountList = context.uiRoot as UIAccountList;
     let excludeRecords = uiAccountList.props.plugin.getRecords();
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
     let html = (
       <div className='flex-vbox' style={{ height: 600 }}>
         <UIAccountList

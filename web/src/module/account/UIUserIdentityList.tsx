@@ -114,7 +114,7 @@ class UserIdentityList extends VGridEntityList<UIContactListProps> {
 
   onDefaultSelect(dRecord: DisplayRecord) {
     let { appContext, pageContext, loginId } = this.props;
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
 
     let onPostCommit = (_entity: any, _uiEditor?: WComponent) => {
       this.forceUpdate();
@@ -193,7 +193,7 @@ export class UIUserIdentityListEditor extends WCommittableEntityList<UIUserIdent
 
   onNewUserIdentity() {
     let { appContext, pageContext, loginId } = this.props;
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
     let onPostCommit = (_entity: any, _uiEditor?: WComponent) => {
       this.plugin.getRecords().push(_entity);
       this.forceUpdate();

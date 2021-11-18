@@ -1,7 +1,8 @@
-import { server, storage } from 'components'
+import { storage } from 'components/storage'
+import { RestResponse } from 'components/server/rest'
 
-import * as api from 'core/app/api'
-import CONFIG from "core/app/config";
+import * as api from 'components/app/host/api'
+import { CONFIG } from "./config";
 
 const ACCOUNT_STATE_KEY = 'webos:account-state';
 class StorableState {
@@ -96,13 +97,13 @@ class Session {
   }
 
   signin(loginModel: any, successCB?: (accountACL: api.AccountAcl) => void) {
-    let successCb = (result: server.rest.RestResponse) => {
+    let successCb = (result: RestResponse) => {
       let aclModel: api.IAclModel = result.data;
       if (this.authenticate(aclModel) && successCB) {
         successCB(this.getAccountAcl());
       }
     }
-    let failCb = (_result: server.rest.RestResponse) => {
+    let failCb = (_result: RestResponse) => {
       alert('Fail to login. Contact the admin for further information.');
     }
     let serverCtx = CONFIG.createServerContext();
@@ -116,13 +117,13 @@ class Session {
       customFailCB();
       return;
     }
-    let failCb = (_result: server.rest.RestResponse) => {
+    let failCb = (_result: RestResponse) => {
       delete accountState.accessToken
       storable.mergeState(ACCOUNT_STATE_KEY, accountState);
       customFailCB();
     }
 
-    let successCb = (result: server.rest.RestResponse) => {
+    let successCb = (result: RestResponse) => {
       let aclModel: api.IAclModel = result.data;
       if (this.authenticate(aclModel)) {
         customSuccessCB(this.getAccountAcl());

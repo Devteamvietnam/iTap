@@ -69,8 +69,8 @@ export class WJobLauncher extends WComponent<WJobLauncherProps> {
 
 export function popupJobLauncher(uiSource: WComponent, plugin: WJobLauncherPlugin,
   onLaunchSucess?: (jobInstance: any, operation: any) => void) {
-  let { appContext } = uiSource.props;
-  let pageCtx = new app.PageContext().withPopup()
+  let { appContext, pageContext } = uiSource.props;
+  let pageCtx = pageContext.createPopupPageContext();
   let html = (
     <WJobLauncher appContext={appContext} pageContext={pageCtx}
       plugin={plugin} onLaunchSucess={onLaunchSucess} />

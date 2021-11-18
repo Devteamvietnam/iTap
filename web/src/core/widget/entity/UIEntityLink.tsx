@@ -185,9 +185,9 @@ export class BBEntityLinkField extends WComponent<BBEntityLinkFieldProps> {
   }
 
   onSelectPlugin = (item: ButtonActionModel) => {
-    let { appContext, linkPluginManager } = this.props;
+    let { appContext, pageContext, linkPluginManager } = this.props;
     this.selectPlugin = linkPluginManager.getPluginById(item.name);
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
     let uiSelector = this.selectPlugin.createSelector(appContext, popupPageCtx, this.onSelect, this.onMultiSelect);
     widget.layout.showDialog('Select', 'lg', uiSelector, popupPageCtx.getDialogContext());
   }

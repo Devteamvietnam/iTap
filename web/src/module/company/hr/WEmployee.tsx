@@ -2,9 +2,13 @@ import React from "react";
 import { widget, util, app, server } from 'components'
 
 import {
-  BeanObserver, ComplexBeanObserver, EntityAutoCompletePlugin,
-  BBEntityAutoComplete, WDetailAutoComplete, WDetailAutoCompleteProps, BBEntityAutoCompleteProps
-} from 'core/widget';
+  BeanObserver, ComplexBeanObserver, 
+} from 'core/entity';
+
+import {
+  EntityAutoCompletePlugin, BBEntityAutoComplete, WDetailAutoComplete, 
+  WDetailAutoCompleteProps, BBEntityAutoCompleteProps
+} from '../../../core/widget/WInput';
 
 import { T, HRRestURL } from 'module/company/hr/Dependency'
 import { UIEmployeeList, UIEmployeeListPlugin } from "module/company/hr/UIEmployeeList";

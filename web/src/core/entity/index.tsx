@@ -1,7 +1,7 @@
 export * from './BeanObserver'
 export * from './utilities'
 
-export enum StorageState {
+export enum StorageState  {
   CREATED = 'CREATED', INACTIVE = 'INACTIVE', JUNK = 'JUNK',
   DEPRECATED = 'DEPRECATED', ACTIVE = 'ACTIVE', ARCHIVED = 'ARCHIVED'
 }

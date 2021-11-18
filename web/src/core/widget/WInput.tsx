@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { widget, app, util } from 'components';
 
+import { WComponent, WComponentProps } from './WLayout'
 import { T } from './Dependency'
 
 import BBAutoComplete = widget.input.BBAutoComplete2;
@@ -99,4 +100,15 @@ export interface BBEntityAutoCompleteProps {
 };
 export class BBEntityAutoComplete<T extends BBEntityAutoCompleteProps = BBEntityAutoCompleteProps>
   extends Component<T> {
+}
+
+export interface WDetailAutoCompleteProps extends WComponentProps {
+  bean: any;
+  field: string;
+  validators?: Array<util.validator.Validator>;
+  useSelectBean?: boolean;
+  allowEmpty?: boolean;
+  onPostSelect?: (selectedBean: any) => void;
+}
+export class WDetailAutoComplete extends WComponent<WDetailAutoCompleteProps> {
 }

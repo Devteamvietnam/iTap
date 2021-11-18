@@ -8,9 +8,9 @@ export class ExcludeRecordFilter implements RecordFilter {
   fieldToCompare: string;
   excludeValues: Set<any> = new Set<any>();
 
-  constructor(records: Array<any>, field: string, fieldToCompare: string|null = null) {
+  constructor(records: Array<any>, field: string, fieldToCompare: string | null = null) {
     this.field = field;
-    if(fieldToCompare) this.fieldToCompare = fieldToCompare;
+    if (fieldToCompare) this.fieldToCompare = fieldToCompare;
     else this.fieldToCompare = field;
 
     for (let rec of records) {

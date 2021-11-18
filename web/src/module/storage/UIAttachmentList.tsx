@@ -2,10 +2,15 @@ import React from 'react';
 import { widget, util, server } from 'components';
 
 import {
-  ComplexBeanObserver, WComponent, WComponentProps,
-  WToolbar, WButtonEntityWrite, VGridEntityListEditorPlugin
-} from 'core/widget';
-import { VGridConfigTool, VGridEntityListEditor, VGridEntityListEditorProps } from 'core/widget/vgrid';
+  ComplexBeanObserver, VGridEntityListEditorPlugin,
+} from 'core/entity';
+
+import { WComponent, WComponentProps, WToolbar } from '../../core/widget/WLayout';
+import { WButtonEntityWrite } from 'core/widget/entity';
+
+import {
+  VGridConfigTool, VGridEntityListEditor, VGridEntityListEditorProps
+} from '../../core/widget/vgrid';
 
 import { T } from './Dependency'
 import { WPreviewThumbnail } from './UIPreview';
@@ -23,18 +28,19 @@ interface UIAttachmentListEditorProps extends VGridEntityListEditorProps {
 }
 export class UIAttachmentListEditor extends VGridEntityListEditor<UIAttachmentListEditorProps> {
   renderBeanEditor() {
-    let { appContext, pageContext, attachmentPlugin } = this.props;
-    let writeCap = this.hasWriteCapability();
+    let { appContext, pageContext, attachmentPlugin, readOnly } = this.props;
     let observer = this.createBeanObserver('complex');
     return (
       <UIAttachmentForm
-        appContext={appContext} pageContext={pageContext} readOnly={!writeCap}
+        appContext={appContext} pageContext={pageContext} readOnly={readOnly}
         plugin={attachmentPlugin} observer={observer as ComplexBeanObserver} />
     );
   }
 
   createVGridConfig() {
-    let writeCap = this.hasWriteCapability();
+    let { readOnly } = this.props;
+    if (readOnly === undefined) readOnly = true;
+
     let config: VGridConfig = {
       record: {
         fields: [
@@ -51,8 +57,8 @@ export class UIAttachmentListEditor extends VGridEntityListEditor<UIAttachmentLi
       },
       toolbar: {
         actions: [
-          ...VGridConfigTool.TOOLBAR_ON_ADD(!writeCap, "Add"),
-          ...VGridConfigTool.TOOLBAR_ON_DELETE(!writeCap, "Del"),
+          ...VGridConfigTool.TOOLBAR_ON_ADD(readOnly, "Add"),
+          ...VGridConfigTool.TOOLBAR_ON_DELETE(readOnly, "Del"),
         ]
       },
       view: {

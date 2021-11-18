@@ -163,7 +163,6 @@ export class UIPermissionList extends VGridEntityList<UIPermissionListProps> {
       let permissions = [];
       for (let i = 0; i < selectedAppPermissions.length; i++) {
         const appPermission = selectedAppPermissions[i];
-        console.log(appPermission);
         permissions.push(
           {
             app: observer.getMutableBean(),
@@ -224,16 +223,17 @@ export class UIPermissionList extends VGridEntityList<UIPermissionListProps> {
       appContext.serverPUT(PermissionRestURL.permissions.save, permissions, onReceiveData);
     }
     let popupPageCtx = new app.PageContext(new widget.layout.DialogContext());
-    html = (
-      <div className='flex-vbox'>
-        <UIEmployeeList
-          type={'selector'}
-          plugin={new UIEmployeeListPlugin()}
-          appContext={appContext} pageContext={popupPageCtx} readOnly={true}
-          onSelect={(_appCtx, pageCtx, employee) => onMultiSelect(pageCtx, [employee])}
-          onMultiSelect={(_appCtx, pageCtx, employees) => onMultiSelect(pageCtx, employees)} />
-      </div>
-    )
+
+      html = (
+        <div className='flex-vbox'>
+          <UIEmployeeList
+            type={'selector'}
+            plugin={new UIEmployeeListPlugin()}
+            appContext={appContext} pageContext={popupPageCtx} readOnly={true}
+            onSelect={(_appCtx, pageCtx, employee) => onMultiSelect(pageCtx, [employee])}
+            onMultiSelect={(_appCtx, pageCtx, employees) => onMultiSelect(pageCtx, employees)} />
+        </div>
+      )
     widget.layout.showDialog(T('Add New Employee'), 'xl', html, popupPageCtx.getDialogContext());
     return html;
   }

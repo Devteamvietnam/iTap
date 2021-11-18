@@ -1,11 +1,10 @@
 import React from 'react';
 import { Component } from 'react';
-
-import { session } from 'core/app/session'
+import { app } from 'components';
 
 export class CompanyRequiredPage extends Component {
   render() {
-    if (session.isAuthenticated()) {
+    if (app.host.session.isAuthenticated()) {
       return this.props.children;
     }
 

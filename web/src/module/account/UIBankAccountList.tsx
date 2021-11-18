@@ -19,14 +19,15 @@ export class UIBankAccountForm extends WEntity {
     let { observer } = this.props;
     let writeCap = this.hasWriteCapability();
     let account = observer.getMutableBean();
+    let errorCollector = observer.getErrorCollector();
     const { BBStringField, Form, FormGroup } = widget.input;
     let html = (
       <Form>
         <FormGroup label={T('Account Holder')}>
-          <BBStringField bean={account} field={"accountHolder"} required disable={!writeCap} />
+          <BBStringField bean={account} field={"accountHolder"} required errorCollector={errorCollector} disable={!writeCap} />
         </FormGroup>
         <FormGroup label={T('Account Number')}>
-          <BBStringField bean={account} field={"accountNumber"} required disable={!writeCap} />
+          <BBStringField bean={account} field={"accountNumber"} required errorCollector={errorCollector} disable={!writeCap} />
         </FormGroup>
         <FormGroup label={T('Bank Name')}>
           <BBStringField bean={account} field={"bankName"} disable={!writeCap} />
@@ -70,14 +71,16 @@ export class UIBankAccountEditor extends WEntityEditor<UIBankAccountEditorProps>
 
 interface UIBankAccountListProps extends WGridEntityListProps {
   loginId: string
+  multiSelect: boolean;
 }
 export class BankAccountList extends VGridEntityList<UIBankAccountListProps> {
   createVGridConfig() {
+    let { multiSelect } = this.props;
     let writeCap = this.hasWriteCapability();
     let config: VGridConfig = {
       record: {
         fields: [
-          ...VGridConfigTool.FIELD_SELECTOR(this.needSelector()),
+          ...VGridConfigTool.FIELD_SELECTOR(multiSelect),
           VGridConfigTool.FIELD_INDEX(),
           VGridConfigTool.FIELD_ON_SELECT('accountHolder', T('Account Holder'), 150),
 
@@ -105,7 +108,7 @@ export class BankAccountList extends VGridEntityList<UIBankAccountListProps> {
 
   onDefaultSelect(dRecord: DisplayRecord) {
     let { appContext, pageContext, loginId } = this.props;
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
 
     let onPostCommit = (_entity: any, _uiEditor?: WComponent) => {
       this.forceUpdate();
@@ -159,7 +162,7 @@ export class UIBankAccountListEditor extends WCommittableEntityList<UIBankAccoun
 
   onNewBankAccount() {
     let { appContext, pageContext, loginId } = this.props;
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
     let onPostCommit = (_entity: any, _uiEditor?: WComponent) => {
       this.plugin.getRecords().push(_entity);
       this.forceUpdate();
@@ -180,7 +183,7 @@ export class UIBankAccountListEditor extends WCommittableEntityList<UIBankAccoun
     let html = (
       <div className='flex-vbox'>
         <BankAccountList key={`list-editor-${util.common.IDTracker.next()}`}
-          plugin={this.plugin}
+          plugin={this.plugin} multiSelect={true}
           appContext={appContext} pageContext={pageContext} readOnly={!writeCap}
           loginId={loginId} />
         <WToolbar readOnly={!writeCap}>

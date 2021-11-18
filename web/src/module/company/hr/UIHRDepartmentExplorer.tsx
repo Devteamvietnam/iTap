@@ -63,33 +63,44 @@ class UIHRDepartmentExplorerNew<T extends VGridComponentProps> extends VGridExpl
   }
 
   onAdd(node: TreeNode) {
-    let { appContext, pageContext } = this.props;
-    let hrDepartment = { parentId: node.userData?.id, parentPath: node.userData?.parentPath }
+    let { appContext, pageContext, context } = this.props;
+    let hrDepartment = { parentId: node.userData?.id }
     let observer = new BeanObserver(hrDepartment);
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
     let onPostCommit = (department: any) => {
       popupPageCtx.onClose();
-      node.addChild(department.name, department.label, department, false);
-      this.forceUpdate();
+      if (node.loadedChildren === false) {
+        const successCB = (reloadedNode: TreeNode) => {
+          node.collapse = false;
+          this.forceUpdate();
+        }
+        this.model.loadChildren(node, successCB)
+      } else {
+        node.addChild(department.name, department.label, department, false);
+      }
+      let uiEmployeeList = context.uiRoot as UIEmployeeList;
+      uiEmployeeList.reloadData();
     }
     let html = <UIHRDepartmentEditor appContext={appContext}
       pageContext={pageContext} observer={observer} onPostCommit={onPostCommit} />
-    widget.layout.showDialog(T("Add HR Department"), "md", html, popupPageCtx.getDialogContext());
+    widget.layout.showDialog(T(`Add HR Department ${node.userData?.label}`), "md", html, popupPageCtx.getDialogContext());
   }
 
   onEdit(node: TreeNode) {
-    let { appContext, pageContext } = this.props;
+    let { appContext, pageContext, context } = this.props;
     let hrDepartment = node.userData;
     let observer = new BeanObserver(hrDepartment);
     if (hrDepartment == null) {
       appContext.addOSNotification('danger', T('Cannot edit root'));
     } else {
-      let popupPageCtx = new app.PageContext().withPopup();
+      let popupPageCtx = pageContext.createPopupPageContext();
       let onPostCommit = (department: any) => {
         popupPageCtx.onClose();
         node.label = department.label;
         node.userData = department;
-        this.forceUpdate();
+        let uiEmployeeList = context.uiRoot as UIEmployeeList;
+        uiEmployeeList.reloadData();
+        uiEmployeeList.forceUpdate();
       }
       let html = <UIHRDepartmentEditor appContext={appContext} pageContext={pageContext}
         observer={observer} onPostCommit={onPostCommit} />
@@ -98,12 +109,14 @@ class UIHRDepartmentExplorerNew<T extends VGridComponentProps> extends VGridExpl
   }
 
   onDel(node: TreeNode) {
-    let { appContext } = this.props;
+    let { appContext, context } = this.props;
     let department = node.userData;
     let successCB = (_response: server.rest.RestResponse) => {
       appContext.addOSNotification('success', T('Delete HR Department Success!'));
       this.model.removeNode(node);
-      this.forceUpdate();
+      this.model.setSelectedNode(this.model.root);
+      let uiEmployeeList = context.uiRoot as UIEmployeeList;
+      uiEmployeeList.filterByDepartment(null);
     }
     let failCB = (_response: server.rest.RestResponse) => {
       appContext.addOSNotification('danger', T(`Cannot delete department ${department.label}, this has the children!`))

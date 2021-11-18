@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from 'reactstrap'
 
-import i18n from 'components/i18n';
+import { i18n } from 'components/i18n';
 import { WStringInput } from 'components/widget/input';
 import { ButtonActionModel, DropdownActionButton } from 'components/widget/element';
 import { BBRadioInputField } from 'components/widget/input';

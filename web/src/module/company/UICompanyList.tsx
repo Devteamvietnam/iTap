@@ -24,7 +24,10 @@ export class UICompanyListPlugin extends VGridEntityListPlugin {
         ...widget.sql.createSearchFilter(),
       ],
       "orderBy": {
-        "fields": ["code", "modifiedTime"], "selectFields": [], "sort": "DESC"
+        fields: ["label", "code", "modifiedTime"],
+        fieldLabels: [T("Label"), T('Code'), T("Modified Time")],
+        selectFields: ["modifiedTime"],
+        sort: "DESC"
       },
       "maxReturn": 1000
     }
@@ -41,7 +44,7 @@ export class UICompanyList extends VGridEntityList<WGridEntityListProps>{
     let config: VGridConfig = {
       record: {
         fields: [
-          ...VGridConfigTool.FIELD_SELECTOR(this.needSelector()),
+          // ...VGridConfigTool.FIELD_SELECTOR(this.needSelector()),
           VGridConfigTool.FIELD_INDEX(),
           VGridConfigTool.FIELD_ON_SELECT('label', T('Label'), 200),
 
@@ -91,18 +94,18 @@ export class UICompanyList extends VGridEntityList<WGridEntityListProps>{
   onDefaultSelect(dbRecord: DisplayRecord) {
     let bean = dbRecord.record;
     let { appContext, pageContext, readOnly } = this.props;
-    let pageCtx = new app.PageContext().withPopup()
+    let popupPageCtx = pageContext.createPopupPageContext();
     let onPostCommit = (_entity: any) => {
-      pageCtx.onBack();
+      popupPageCtx.onBack();
       this.reloadData();
     };
     let html = (
       <UICompanyEditor
-        appContext={appContext} pageContext={pageContext} readOnly={readOnly}
+        appContext={appContext} pageContext={popupPageCtx} readOnly={readOnly}
         observer={new ComplexBeanObserver(bean)}
         onPostCommit={onPostCommit} />
     );
-    widget.layout.showDialog(T('Company'), 'lg', html, pageCtx.getDialogContext());
+    widget.layout.showDialog(T('Company'), 'lg', html, popupPageCtx.getDialogContext());
   }
 }
 

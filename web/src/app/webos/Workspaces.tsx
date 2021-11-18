@@ -1,9 +1,9 @@
-import { session } from 'core/app/session'
 import { app, util } from 'components';
 
 const DEFAULT_WS_LABEL = 'Home'
-
 const WORKSPACES_STATE_KEY = 'webos:workspaces';
+const {session} = app.host;
+
 export class PathContext {
   wsId: string;
 

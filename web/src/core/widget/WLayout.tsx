@@ -53,26 +53,26 @@ export class WComponent<T extends WComponentProps = WComponentProps, S = any>
   }
 
   hasReadCapability() {
-    let { appContext } = this.props;
-    return appContext.hasUserReadCapability();
+    let { pageContext } = this.props;
+    return pageContext.hasUserReadCapability();
   }
 
-  hasWriteCapability() {
-    let { readOnly, appContext } = this.props;
+  public hasWriteCapability() {
+    let { readOnly, pageContext } = this.props;
     if (readOnly === true) return false;
-    return appContext.hasUserWriteCapability();
+    return pageContext.hasUserWriteCapability();
   }
 
   hasModeratorCapability() {
-    let { readOnly, appContext } = this.props;
+    let { readOnly, pageContext } = this.props;
     if (readOnly === true) return false;
-    return appContext.hasUserModeratorCapability();
+    return pageContext.hasUserModeratorCapability();
   }
 
   hasAdminCapability() {
-    let { readOnly, appContext } = this.props;
+    let { readOnly, pageContext } = this.props;
     if (readOnly === true) return false;
-    return appContext.hasUserAdminCapability();
+    return pageContext.hasUserAdminCapability();
   }
 
   canEditEntity(entity: any) {
@@ -114,15 +114,15 @@ export class WComponent<T extends WComponentProps = WComponentProps, S = any>
   }
 
   /**@deprecated */
-  showUI(title: string, size: 'sm' | 'md' | 'lg' | 'xl', ui: any, popup: boolean = false) {
-    if (popup) {
-      let popupPageCtx = new app.PageContext().withPopup();
-      widget.layout.showDialog(title, size, ui, popupPageCtx.getDialogContext());
-    } else {
-      let { pageContext } = this.props;
-      pageContext.onAdd(util.text.toFileName(title), title, ui);
-    }
-  }
+  // showUI(title: string, size: 'sm' | 'md' | 'lg' | 'xl', ui: any, popup: boolean = false) {
+  //   if (popup) {
+  //     let popupPageCtx = new app.PageContext().withPopup();
+  //     widget.layout.showDialog(title, size, ui, popupPageCtx.getDialogContext());
+  //   } else {
+  //     let { pageContext } = this.props;
+  //     pageContext.onAdd(util.text.toFileName(title), title, ui);
+  //   }
+  // }
 }
 export interface WToolbarProps {
   readOnly?: boolean;

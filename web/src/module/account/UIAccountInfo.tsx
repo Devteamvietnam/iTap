@@ -2,6 +2,7 @@ import React from "react";
 import { app, widget, server } from 'components';
 
 import { WComponentProps, WComponent } from "core/widget/WLayout";
+import { WEntityEditor, WEntityEditorProps } from "core/widget/entity";
 
 import { T, AccountRestURL } from "./Dependency";
 import { UIProfile } from './UIProfile';
@@ -11,23 +12,26 @@ import { UIUserIdentityListEditor } from "./UIUserIdentityList";
 import { UIUserWorkListEditor } from "./UIUserWorkList";
 import { UIUserRelationListEditor } from "./UIUserRelationList";
 import { UIBankAccountListEditor } from "./UIBankAccountList"
+import { BeanObserver } from "core/widget";
 
 const { TabPane, Tab } = widget.layout;
 const { VSplit, VSplitPane } = widget.component;
+const { FAButton } = widget.fa;
+
 export interface IUIAccountInfoPlugin {
   createAdditionalTabs: (appContext: app.AppContext, pageContext: app.PageContext, loginId: string) => Array<any>;
 }
 
-interface UIAccountInfoProps extends WComponentProps {
-  profile: any;
+interface UIAccountInfoProps extends WEntityEditorProps {
   plugin?: IUIAccountInfoPlugin;
   onModifiedData?: () => void
 }
-export class UIAccountInfo extends React.Component<UIAccountInfoProps> {
+export class UIAccountInfo extends WEntityEditor<UIAccountInfoProps> {
   render() {
-    let { appContext, plugin, pageContext, profile } = this.props;
+    let { appContext, plugin, pageContext, observer } = this.props;
     let additionalTabs = [];
-
+    const writeCap = this.hasWriteCapability();
+    const profile = observer.getMutableBean();
     if (profile.accountType == "USER") {
       additionalTabs.push(
         <Tab key='education' name="educations" label={T("Educations")}>
@@ -59,13 +63,13 @@ export class UIAccountInfo extends React.Component<UIAccountInfoProps> {
     let uiAccountInfo = (
       <VSplit>
         <VSplitPane className='pr-1' width={450}>
-          <UIProfile appContext={appContext} pageContext={pageContext} profile={profile} />
+          <UIProfile appContext={appContext} pageContext={pageContext} profile={profile} readOnly={!writeCap} />
         </VSplitPane>
         <VSplitPane>
           <TabPane className='mt-1'>
             <Tab key={'contact'} name="contact" label={T("Contacts")} active={true}>
               <UIContactListEditor
-                appContext={appContext} pageContext={pageContext} loginId={profile.loginId} />
+                appContext={appContext} pageContext={pageContext} loginId={profile.loginId} readOnly={!writeCap} />
             </Tab>
             {additionalTabs}
           </TabPane>
@@ -94,7 +98,7 @@ export interface UILoadableAccountInfoProps extends WComponentProps {
   loginId: string
 }
 export class UILoadableAccountInfo extends WComponent<UILoadableAccountInfoProps> {
-  profile: any = {};
+  observer: BeanObserver = new BeanObserver({});
 
   constructor(props: UILoadableAccountInfoProps) {
     super(props);
@@ -102,8 +106,8 @@ export class UILoadableAccountInfo extends WComponent<UILoadableAccountInfoProps
 
     let { appContext, loginId } = this.props;
     let callBack = (result: server.rest.RestResponse) => {
-      this.profile = result.data;
-
+      const profile = result.data;
+      this.observer.replaceWith(profile);
       this.markLoading(false)
       this.forceUpdate();
     }
@@ -113,9 +117,34 @@ export class UILoadableAccountInfo extends WComponent<UILoadableAccountInfoProps
   render() {
     if (this.isLoading()) return this.renderLoading();
     let { appContext, pageContext, plugin } = this.props;
+    const writeCap = this.hasWriteCapability();
+
     return (
-      <UIAccountInfo
-        appContext={appContext} pageContext={pageContext} plugin={plugin} profile={this.profile} />
+      <div className='flex-vbox'>
+        <UIAccountInfo appContext={appContext} pageContext={pageContext} plugin={plugin}
+          observer={this.observer} readOnly={!writeCap} />
+        {this.renderRemoteButton()}
+      </div>
     );
+  }
+
+
+  renderRemoteButton() {
+    let onHelloRemote = () => {
+      /*
+      const SaleApp = React.lazy(() => import("logistics/SaleApp"));
+      let uiRemote = (
+        <React.Suspense fallback="Loading Button">
+          <SaleApp config={{hello: 'Hello Config From Host'}} />
+        </React.Suspense>
+      );
+      widget.layout.showDialog('Hello Remote', 'md', uiRemote);
+      */
+    }
+
+    let html = (
+      <FAButton onClick={onHelloRemote}>Hello Remote</FAButton>
+    )
+    return html;
   }
 }

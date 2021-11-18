@@ -1,11 +1,11 @@
-import React from "react";
+import React, {Component} from "react";
 import { Route, Redirect, Link } from "react-router-dom";
-import { widget } from "components";
-
-import { session } from "core/app/session";
+import { widget, app } from "components";
 
 type PrivateRouteProps = { loginPath: string, path: any, component: any }
 type PrivateRouteState = { tryAutoSignin: boolean }
+
+const session = app.host.session;
 export class PrivateRoute extends React.Component<PrivateRouteProps, PrivateRouteState> {
   state = { tryAutoSignin: false }
 
@@ -54,6 +54,12 @@ export class UILogin extends React.Component<UILoginProps, UILoginState> {
   state = { redirectToReferrer: false };
 
   onLogin(loginModel: any) {
+    let loginIdInput =  document.getElementById('loginId');
+    loginIdInput?.focus();
+    let passwordInput =  document.getElementById('password');
+    passwordInput?.focus();
+    loginIdInput?.focus();
+
     let successCallback = (accountACL: any) => {
       this.setState({ redirectToReferrer: true });
     };
@@ -94,7 +100,7 @@ export class UILogin extends React.Component<UILoginProps, UILoginState> {
                 <ColFormGroup span={12} className='mt-2 mb-1'>
                   <label>Login Id</label>
                   <BBStringField
-                    bean={model} field={'loginId'}
+                    inputId={'loginId'} bean={model} field={'loginId'}
                     onKeyDown={(winput: widget.input.WInput, e: any, keyCode: number, currInput: any) => this.onLoginByShortcutKey(winput, e, keyCode, currInput, model)} />
                 </ColFormGroup>
               </Row>
@@ -102,7 +108,7 @@ export class UILogin extends React.Component<UILoginProps, UILoginState> {
               <Row>
                 <ColFormGroup span={12} className='mt-2 mb-1'>
                   <label>Password</label>
-                  <BBPasswordField bean={model} field={'password'}
+                  <BBPasswordField inputId={'password'} bean={model} field={'password'}
                     onKeyDown={
                       (winput: widget.input.WInput, e: any, keyCode: number, currInput: any) => {
                         this.onLoginByShortcutKey(winput, e, keyCode, currInput, model);

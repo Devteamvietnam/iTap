@@ -1,7 +1,6 @@
 import React from 'react';
 import { app } from 'components';
 
-import { BaseAppRegistry } from 'core/app/api';
 import { T } from './Dependency';
 
 import { UIAccountList, UIAccountListPlugin } from 'module/account/UIAccountList';
@@ -39,7 +38,6 @@ class UIApplication extends app.UIMenuApplication {
         {
           label: T('Settings'), indentLevel: 1, requiredCapability: app.READ,
           screens: [
-            
           ]
         }
       ]
@@ -48,7 +46,7 @@ class UIApplication extends app.UIMenuApplication {
   }
 }
 
-export class AppRegistry extends BaseAppRegistry {
+export class AdminAppRegistry extends app.BaseAppRegistry {
   module = 'admin';
   name = 'admin';
   label = 'Admin';

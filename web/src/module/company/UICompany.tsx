@@ -1,63 +1,84 @@
 import React from 'react';
-import { widget } from 'components';
+import { util, widget } from 'components';
 
 import { WButtonEntityCommit, WButtonEntityReset, WEntity, WEntityEditor } from 'core/widget/entity';
-import { WToolbar } from 'core/widget';
+import { UUIDTool, WToolbar } from 'core/widget';
 
 import { T, CompanyRestURL, BBAccountAutoComplete } from "./Dependency";
 import { BBCompanyAutoComplete } from './WCompany';
 import { UILoadableCompanyConfig } from './UICompanyConfig';
 
-const { FormContainer, Row, FormGroupCol, BBStringField, BBDateTimeField, BBTextField } = widget.input;
+const {
+  FormContainer, Row, FormGroupCol,
+  BBStringField, BBDateTimeField,
+  BBTextField, BBCallableStringField
+} = widget.input;
 
 export class UICompanyForm extends WEntity {
 
+  onGenerateCode(label: any) {
+    const { toFileName } = util.text;
+    let { observer } = this.props;
+    if (!observer.isNewBean()) return;
+    let code = UUIDTool.generateWithAnyTokens(
+      T("You need to enter the label"),
+      [toFileName(label)],
+      true
+    );
+    observer.getMutableBean().code = code;
+    this.forceUpdate();
+  }
+
   render() {
-    let { appContext, pageContext, observer, readOnly } = this.props;
+    let { appContext, pageContext, observer } = this.props;
     let bean = observer.getMutableBean();
+    const adminCap = this.hasAdminCapability();
     return (
       <FormContainer fluid>
         <Row>
-          <FormGroupCol span={6} label={T('Code')}>
-            <BBStringField bean={bean} field={'code'} disable={readOnly} required />
-          </FormGroupCol>
           <FormGroupCol span={6} label={T('Label')}>
-            <BBStringField bean={bean} field={'label'} disable={readOnly} required />
+            <BBStringField bean={bean} field={'label'} disable={!adminCap} required
+              onInputChange={(bean, field, oldVal, newVal) => this.onGenerateCode(newVal)} />
+          </FormGroupCol>
+          <FormGroupCol span={6} label={T('Code')}>
+            <BBCallableStringField bean={bean} field={'code'} disable={!adminCap || !observer.isNewBean()} required
+              onCall={() => this.onGenerateCode(bean.label)} />
           </FormGroupCol>
         </Row>
         <Row>
           <FormGroupCol span={6} label={T('FullName')}>
-            <BBStringField bean={bean} field={'fullName'} disable={readOnly} />
+            <BBStringField bean={bean} field={'fullName'} disable={!adminCap} />
           </FormGroupCol>
           <FormGroupCol span={6} label={T('Registration Code')}>
-            <BBStringField bean={bean} field={'registrationCode'} disable={readOnly} />
+            <BBStringField bean={bean} field={'registrationCode'} disable={!adminCap} />
           </FormGroupCol>
         </Row>
         <Row>
           <FormGroupCol span={12} label={T('Parent Company')}>
             <BBCompanyAutoComplete
               appContext={appContext} pageContext={pageContext}
-              bean={bean} field={'parentId'} labelField={'parentLabel'} useSelectBean={false} disable={readOnly} />
+              bean={bean} field={'parentId'} labelField={'parentLabel'} useSelectBean={false}
+              disable={!adminCap} />
           </FormGroupCol>
         </Row>
         <Row>
           <FormGroupCol span={12} label={T('Admin Account Login Id')}>
             <BBAccountAutoComplete
               appContext={appContext} pageContext={pageContext}
-              bean={bean} field={'adminAccountLoginId'} useSelectBean={false} disable={readOnly} />
+              bean={bean} field={'adminAccountLoginId'} useSelectBean={false} disable={!adminCap} />
           </FormGroupCol>
         </Row>
         <Row>
           <FormGroupCol span={6} label={T('Founding Date')}>
-            <BBDateTimeField bean={bean} field={"foundingDate"} dateFormat={"DD/MM/YYYY"} timeFormat={false} disable={readOnly} />
+            <BBDateTimeField bean={bean} field={"foundingDate"} dateFormat={"DD/MM/YYYY"} timeFormat={false} disable={!adminCap} />
           </FormGroupCol>
           <FormGroupCol span={6} label={T('Closing Date')}>
-            <BBDateTimeField bean={bean} field={"closingDate"} dateFormat={"DD/MM/YYYY"} timeFormat={false} disable={readOnly} />
+            <BBDateTimeField bean={bean} field={"closingDate"} dateFormat={"DD/MM/YYYY"} timeFormat={false} disable={!adminCap} />
           </FormGroupCol>
         </Row>
         <Row>
           <FormGroupCol span={12} label={T('Description')}>
-            <BBTextField bean={bean} field={'description'} disable={readOnly} style={{ height: '20em' }} />
+            <BBTextField bean={bean} field={'description'} disable={!adminCap} style={{ height: '20em' }} />
           </FormGroupCol>
         </Row>
       </FormContainer>

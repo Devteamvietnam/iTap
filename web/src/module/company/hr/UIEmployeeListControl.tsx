@@ -8,7 +8,7 @@ import { VGridComponent } from 'core/widget/vgrid';
 import { AccountType } from 'module/account';
 
 import {
-  HRRestURL, T
+   HRRestURL, T
 } from "module/company/hr/Dependency";
 
 import { UILoadableEmployeeAccountInfo } from 'module/company/hr/UIEmployee';
@@ -18,7 +18,7 @@ import { UINewEmployeeEditor } from 'module/company/hr/UINewEmployee';
 export class UIEmployeeListPageControl extends VGridComponent {
   onNewEmployee() {
     let { context, appContext, pageContext } = this.props;
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
     let onPostCreate = (employee: any) => {
       popupPageCtx.onClose();
       let html = (
@@ -28,21 +28,18 @@ export class UIEmployeeListPageControl extends VGridComponent {
     }
     let selectedDepartment = context.getAttribute('currentDepartment');
 
-    if (!selectedDepartment) {
-      appContext.addOSNotification("danger", T(`Department is not selected!`));
-    } else {
-      let departmentIds = [selectedDepartment.id];
-      let newEmployeeObserver = new ComplexBeanObserver({
-        account: { accountType: AccountType.USER },
-        departmentIds: departmentIds
-      });
-
-      let html = (
-        <UINewEmployeeEditor appContext={appContext} pageContext={popupPageCtx}
-          observer={newEmployeeObserver} onPostCommit={onPostCreate} />
-      );
-      widget.layout.showDialog(T('Add New Employee'), 'md', html, popupPageCtx.getDialogContext());
-    }
+    let departmentIds = selectedDepartment ? [selectedDepartment.id] : null;
+    let departmentParentLabel = selectedDepartment ? selectedDepartment.label : 'Root';
+    let newEmployeeObserver = new ComplexBeanObserver({
+      account: { accountType: AccountType.USER },
+      departmentIds: departmentIds,
+      departmentParentLabel: departmentParentLabel
+    });
+    let html = (
+      <UINewEmployeeEditor appContext={appContext} pageContext={popupPageCtx}
+        observer={newEmployeeObserver} onPostCommit={onPostCreate} />
+    );
+    widget.layout.showDialog(T(`Add New Employee To ${departmentParentLabel}`), 'md', html, popupPageCtx.getDialogContext());
   }
 
   onImportSuccess = () => {
@@ -52,10 +49,10 @@ export class UIEmployeeListPageControl extends VGridComponent {
   }
 
   onAddMembership() {
-    let { context, appContext } = this.props;
+    let { context, appContext, pageContext } = this.props;
     let uiEmployeeList = context.uiRoot as UIEmployeeList;
     let excludeRecords = uiEmployeeList.props.plugin.getRecords();
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
     let html = (
       <div className='flex-vbox' style={{ height: 600 }}>
         <UIEmployeeList
@@ -100,7 +97,7 @@ export class UIEmployeeListPageControl extends VGridComponent {
       appContext.addOSNotification("success", T(`Add Replations Success`));
       let uiEmployeeList = context.uiRoot as UIEmployeeList;
       uiEmployeeList.reloadData();
-      uiEmployeeList.forceUpdate();
+      context.getVGrid().forceUpdateView();
     }
     appContext.serverPUT(HRRestURL.department.relation(selectedDepartment.id), employeeIds, successCB);
 

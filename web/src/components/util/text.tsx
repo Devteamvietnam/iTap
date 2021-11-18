@@ -102,18 +102,17 @@ export const formater = {
     return moment(val).format('YYYYMMDDHHmmss');
   },
 
-  number: function (val: number) {
+  number: function (val: number, precision: number = 2) {
     if (Number.isInteger(val)) return formatNumber(val, 0);
-    return formatNumber(val, 2);
+    return formatNumber(val, precision);
   },
 
   idNumber: function (val: number) { return val.toFixed(0); },
 
   integer: function (val: number) { return formatNumber(val, 0); },
 
-  currency: function (val: number) {
-    if (Number.isInteger(val)) return formatNumber(val, 0) + ".00";
-    return formatNumber(val, 2);
+  currency: function (val: number, precision: number = 2) {
+    return formatNumber(val, precision);
   },
 
   percent: function (val: number) {

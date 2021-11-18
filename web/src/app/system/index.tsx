@@ -2,7 +2,6 @@ import React from 'react';
 import { app } from 'components'
 
 import { T } from './Dependency';
-import { BaseAppRegistry } from 'core/app/api';
 import { UIJVMPage } from './monitor/UIJVM';
 import { UIRestPage } from './monitor/UIRest';
 import { UIEntityListPage } from './db/UIEntityList';
@@ -32,7 +31,7 @@ class UIApplication extends app.UIMenuApplication {
   }
 }
 
-export class AppRegistry extends BaseAppRegistry {
+export class SystemAppRegistry extends app.BaseAppRegistry {
   module = 'system';
   name = 'system';
   label = 'system';

@@ -81,7 +81,7 @@ class UIMethodList extends VGridEntityList {
   onDefaultSelect(dRecord: DisplayRecord) {
     let type = dRecord.record;
     let { appContext, pageContext, } = this.props;
-    let pageCtx = new app.PageContext().withPopup();
+    let pageCtx = pageContext.createPopupPageContext();
     let errors = []
     for (var e in type.errors) {
       errors.push(type.errors[e])

@@ -1,16 +1,15 @@
 import React, { ReactElement } from 'react';
 
-import { server, util, widget } from 'components';
+import { server, util, widget, app } from 'components';
 import AvatarEditor from 'react-avatar-editor'
 
 import { WComponent, WComponentProps, WEntity, WEntityProps } from 'core/widget';
-
-import CONFIG from "core/app/config"
 import { T, AccountRestURL, WUploadResource, UploadResource } from "./Dependency";
 
 const { FAButton, fas } = widget.fa;
 const { BBSlider, FormContainer, Row, ColFormGroup } = widget.input;
-
+ 
+const CONFIG = app.host.CONFIG;
 interface WAvatarImgEditorProps extends WComponentProps {
   avatarUrl: string;
   onSaveAvatar: (image: any) => void;
@@ -82,13 +81,10 @@ export class WAvatarEditor extends WEntity<WAvatarEditorProps> {
     let profile = observer.getMutableBean();
     let callback = (response: server.rest.RestResponse) => {
       let resource = response.data;
-      console.log(`set avatar success`);
-      console.log(resource);
       profile.avatarUrl = resource.publicDownloadUri;
       this.viewId = util.common.IDTracker.next();
       this.forceUpdate();
     }
-    console.log(`set avatar, modify = ${modify}`);
     let uploadUrl = null;
     if(modify) uploadUrl = AccountRestURL.profile.modifyAvatar(profile.loginId);
     else       uploadUrl = AccountRestURL.profile.uploadAvatar(profile.loginId);

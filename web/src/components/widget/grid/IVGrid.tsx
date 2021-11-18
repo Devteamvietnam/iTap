@@ -357,8 +357,7 @@ export class VGridContext extends WidgetContext {
 
   constructor(owner: Component, config: VGridConfig, model: ListModel) {
     super(owner);
-    this.config = config;
-    this.configModel = new VGridConfigModel(config);
+    this.setConfig(config);
     this.model = model;
   }
 
@@ -367,6 +366,11 @@ export class VGridContext extends WidgetContext {
   getVGrid() {
     if (!this.vgrid) throw new Error('vgrid is not set');
     return this.vgrid;
+  }
+
+  setConfig(config: VGridConfig) {
+    this.config = config;
+    this.configModel = new VGridConfigModel(config);
   }
 
   setVGrid(vgrid: IVGrid) { this.vgrid = vgrid; }

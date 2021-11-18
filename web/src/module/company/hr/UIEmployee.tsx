@@ -18,6 +18,8 @@ export class UIEmployeeEditor extends WEntityEditor {
   render() {
     let { appContext, pageContext, observer } = this.props;
     let writeCap = this.hasWriteCapability();
+    console.log(writeCap);
+
     let employee = observer.getMutableBean();
     return (
       <div className='flex-vbox'>
@@ -112,7 +114,7 @@ export class UILoadableEmployeeInfo extends WComponent<UILoadableEmployeeInfoPro
         </Container>
         <div className='flex-vbox'>
           <TabPane storeId={`employee-detail`}>
-           <div>Comming soon</div>
+                <div>comming soon</div>
           </TabPane>
         </div>
       </div>
@@ -142,19 +144,20 @@ export class UILoadableEmployeeAccountInfo extends Component<UILoadableAccountIn
 export class UIEmployeeUtil {
   static showEmployeeEditor(uiSource: WComponent, employee: any, popup: boolean = false) {
     let { appContext, pageContext } = uiSource.props;
+    const writeCap = uiSource.hasWriteCapability();
     if (popup) {
-      let popupPageContext = new app.PageContext().withPopup();
+      let popupPageContext = pageContext.createPopupPageContext();
       let onPostCommit = (_entity: any) => {
         popupPageContext.onBack();
         uiSource.forceUpdate();
       }
       let html = (
         <UIEmployeeEditor appContext={appContext} pageContext={popupPageContext} observer={new BeanObserver(employee)}
-          onPostCommit={(entity) => onPostCommit(entity)} />);
+          onPostCommit={(entity) => onPostCommit(entity)} readOnly={!writeCap} />);
       widget.layout.showDialog("Employee", 'md', html, popupPageContext.getDialogContext());
     } else {
       let html = (
-        <UIEmployeeEditor appContext={appContext} pageContext={pageContext} observer={new BeanObserver(employee)} />);
+        <UIEmployeeEditor appContext={appContext} pageContext={pageContext} observer={new BeanObserver(employee)} readOnly={!writeCap} />);
       pageContext.onAdd('employee-info', T(`Employee {{loginId}}`, { loginId: employee.loginId }), html);
     }
   }
@@ -162,7 +165,7 @@ export class UIEmployeeUtil {
   static showEmployeeInfo(uiSource: WComponent, loginId: string, popup: boolean = false) {
     let { appContext, pageContext } = uiSource.props;
     if (popup) {
-      let popupPageCtx = new app.PageContext().withPopup();
+      let popupPageCtx = pageContext.createPopupPageContext();
       let html = (
         <UILoadableEmployeeAccountInfo appContext={appContext} pageContext={popupPageCtx} loginId={loginId} />);
       widget.layout.showDialog("Employee", 'lg', html, popupPageCtx.getDialogContext());

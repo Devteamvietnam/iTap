@@ -1,14 +1,14 @@
 import React from 'react';
-import { server, util, widget } from 'components';
+import { server, util, widget, app } from 'components';
 
 import { StorageState } from 'core/entity'
 import { VGridEntityList, VGridEntityListPlugin, VGridConfigTool } from 'core/widget/vgrid';
 
-import CONFIG from 'core/app/config';
 import { T, AccountRestURL } from './Dependency';
 import { UIAccountExplorer, UIAccountListPageControl } from './UIAccountListControl';
 import { WAvatar } from './WAvatar';
 import { UIAccountUtil } from './UIAccountUtil';
+import { AccountType } from './model';
 
 import DisplayRecord = widget.grid.model.DisplayRecord;
 import VGridConfig = widget.grid.VGridConfig;
@@ -21,9 +21,6 @@ export class UIAccountListPlugin extends VGridEntityListPlugin {
     super([]);
 
     this.searchParams = {
-      "params": {
-        "group": null
-      },
       "filters": widget.sql.createSearchFilter(),
       "optionFilters": [
         {
@@ -41,14 +38,31 @@ export class UIAccountListPlugin extends VGridEntityListPlugin {
         fields: ["loginId", "fullName", "modifiedTime"],
         fieldLabels: ["Login Id", "Full Name", "Modified Time"],
         selectFields: ["loginId"],
-        sort: "DESC"
+        sort: "ASC"
       },
       "maxReturn": 1000
     }
   }
 
-  withGroup(group: string | null) {
-    return this.addSearchParam('group', group);
+  withGroup(groupId: number | null) {
+    return this.addSearchParam('groupId', groupId);
+  }
+
+  withAccountType(accountType: AccountType | undefined) {
+    if (accountType) {
+      if (this.searchParams) {
+        this.searchParams.optionFilters =
+          [
+            {
+              "name": "accountType", "label": "Account Type", "type": "STRING", "required": true,
+              "options": ["", "USER", "ORGANIZATION"],
+              "optionLabels": ["All", "User", "Organization"],
+              "selectOption": accountType
+            }
+          ]
+      }
+    }
+    return this;
   }
 
   loadData(uiList: VGridEntityList<any>) {
@@ -151,7 +165,7 @@ export class UIAccountList extends VGridEntityList {
               let { appContext } = uiAccountList.props;
               let callback = (response: server.rest.RestResponse) => {
                 let storeInfo = response.data;
-                let viewReportUrl = CONFIG.createServerLink(`/get/store/${storeInfo.storeId}`);
+                let viewReportUrl = app.host.CONFIG.createServerLink(`/get/store/${storeInfo.storeId}`);
                 reportCallback('success', viewReportUrl, "Load Report Success");
               }
               let loadReportUrl = AccountRestURL.account.printURL(config.name, reportType);
@@ -173,8 +187,8 @@ export class UIAccountList extends VGridEntityList {
     let { plugin } = this.props;
     let context = this.getVGridContext();
     context.withAttr('currentGroup', group);
-    let path = group ? group.path : null;
-    (plugin as UIAccountListPlugin).withGroup(path);
+    let groupId = group ? group.id : null;
+    (plugin as UIAccountListPlugin).withGroup(groupId);
     this.reloadData();
   }
 }

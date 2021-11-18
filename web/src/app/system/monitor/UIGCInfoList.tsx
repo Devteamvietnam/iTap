@@ -78,8 +78,8 @@ export class UIGCInfoList extends VGridEntityList {
 
   onDefaultSelect(dRecord: DisplayRecord) {
     let type = dRecord.record;
-    let { appContext, pageContext, } = this.props;
-    let pageCtx = new app.PageContext().withPopup();
+    let { appContext, pageContext } = this.props;
+    let pageCtx = pageContext.createPopupPageContext();
     let observer = new ComplexBeanObserver(type);
 
     let html = (<GCInfoForm observer={observer} pageContext={pageContext} appContext={appContext} />);

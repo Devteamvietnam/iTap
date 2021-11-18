@@ -1,25 +1,25 @@
-import React from 'react';
-import { Component } from 'react';
 import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
+import { widget, util, reactstrap, app, i18n, React } from 'components'
 
-import { session } from "core/app/session";
-import { app, widget, util, reactstrap } from 'components'
-import { WebosContext } from '.';
+import { WAvatar } from '../../module/account/WAvatar'
+
+import { HostAppContext } from './HostAppContext';
 import { UIAppMenu } from './UIAppMenu';
-import { T } from 'core/widget/Dependency';
-import { WAvatar } from 'module/account/WAvatar';
 import { CompanySelector, LanguageSelector } from './Selectors';
 
-export interface WebosProps { webosContext: WebosContext; }
+export interface WebosProps { webosContext: HostAppContext; }
 
+const  T  = i18n.getT([]);
 const { IDTracker } = util;
+const session = app.host.session; 
+
 const { fas, FAIcon, FAButton } = widget.fa;
 const { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } = reactstrap
 const { Form, FormGroup, BBStringField } = widget.input;
 interface WWSTabControlsState {
   openAddTab?: boolean;
 }
-class WBannerWSTabControls extends Component<WebosProps & RouteComponentProps<{}>, WWSTabControlsState> {
+class WBannerWSTabControls extends React.Component<WebosProps & RouteComponentProps<{}>, WWSTabControlsState> {
   state = { openAddTab: false };
 
   toggleAddTab = () => {
@@ -103,7 +103,7 @@ const WBannerWSTabControlsWithRouter = withRouter(WBannerWSTabControls);
 
 interface UIMessageNotificationProps { }
 interface UIMessageNotificationState { open: boolean; }
-class UIMessageNotification extends Component<UIMessageNotificationProps, UIMessageNotificationState> {
+class UIMessageNotification extends React.Component<UIMessageNotificationProps, UIMessageNotificationState> {
   state = { open: false }
 
   toggle = () => {
@@ -129,7 +129,7 @@ class UIMessageNotification extends Component<UIMessageNotificationProps, UIMess
 interface UIOSNotificationState {
   open: boolean;
 }
-class UIOSNotification extends Component<WebosProps, UIOSNotificationState> {
+class UIOSNotification extends React.Component<WebosProps, UIOSNotificationState> {
   renderId: any;
   messages: Array<widget.util.NotificationMessage>;
 
@@ -193,7 +193,7 @@ class UIOSNotification extends Component<WebosProps, UIOSNotificationState> {
   }
 }
 
-class WBannerAlert extends Component<WebosProps, {}> {
+class WBannerAlert extends React.Component<WebosProps, {}> {
   render() {
     const { webosContext } = this.props;
     return (
@@ -204,7 +204,7 @@ class WBannerAlert extends Component<WebosProps, {}> {
     );
   }
 }
-class WBannerAdmin extends Component<WebosProps & RouteComponentProps, {}> {
+class WBannerAdmin extends React.Component<WebosProps & RouteComponentProps, {}> {
   signout() {
     session.signout(this, null);
     let { history } = this.props;
@@ -239,7 +239,7 @@ class WBannerAdmin extends Component<WebosProps & RouteComponentProps, {}> {
 }
 const WBannerAdminWithRouter = withRouter(WBannerAdmin);
 
-export class UIBanner extends Component<WebosProps> {
+export class UIBanner extends React.Component<WebosProps> {
   render() {
     let { webosContext } = this.props;
     return (

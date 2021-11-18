@@ -1,7 +1,7 @@
 import { server, widget } from 'components';
 
-import RecordConfig = widget.grid.RecordConfig;
-import getRecordState = widget.grid.model.getRecordState
+type RecordConfig = widget.grid.RecordConfig;
+const getRecordState = widget.grid.model.getRecordState
 export class EntityUtil {
   static fromServer(response: server.rest.RestResponse) {
     let entity = response.data;

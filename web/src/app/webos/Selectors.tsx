@@ -1,18 +1,18 @@
-import React, { ReactFragment } from 'react';
-import { Component } from 'react';
+import { i18n, app, widget, util, React } from 'components'
 
-import * as api from "core/app/api";
-import { session } from "core/app/session";
-import { i18n, app, widget, util } from 'components'
-import { WebosContext } from '.';
-import { T } from 'core/widget/Dependency';
+import { HostAppContext } from './HostAppContext'
 
-interface WebosProps { webosContext: WebosContext; }
+const T = i18n.getT([]);
+
+type ICompanyAclModel = app.host.ICompanyAclModel;
+const session = app.host.session;
+
+interface WebosProps { webosContext: HostAppContext; }
 class CompanyAclNode {
-  companyAcl: api.ICompanyAclModel;
+  companyAcl: ICompanyAclModel;
   children: Array<CompanyAclNode> | null = null;
 
-  constructor(companyAcl: api.ICompanyAclModel) {
+  constructor(companyAcl: ICompanyAclModel) {
     this.companyAcl = companyAcl;
   }
 
@@ -22,7 +22,7 @@ class CompanyAclNode {
   }
 }
 
-function build(companyAcls: Array<api.ICompanyAclModel>) {
+function build(companyAcls: Array<ICompanyAclModel>) {
   let map: Record<string, CompanyAclNode> = {};
   let nodes = new Array<CompanyAclNode>();
   let roots = new Array<CompanyAclNode>();
@@ -47,11 +47,11 @@ function build(companyAcls: Array<api.ICompanyAclModel>) {
   return roots;
 }
 
-export class CompanySelector extends Component<WebosProps> {
+export class CompanySelector extends React.Component<WebosProps> {
   onInputChange = (bean: any, field: string, oldVal: any, newVal: any) => {
     let { webosContext } = this.props;
     let callbackHandler = (result: any) => {
-      let companyAclModel: api.ICompanyAclModel = result.data;
+      let companyAclModel: ICompanyAclModel = result.data;
       if (companyAclModel != null) {
         session.getAccountAcl().changeCompanyAcl(companyAclModel);
       }
@@ -63,7 +63,7 @@ export class CompanySelector extends Component<WebosProps> {
     restClient.post("/company/acl/change", currentCompanyCtx, callbackHandler);
   }
 
-  buildOptAndLabels(opts: Array<string>, labels: Array<ReactFragment>, node: CompanyAclNode, deep: number) {
+  buildOptAndLabels(opts: Array<string>, labels: Array<React.ReactFragment>, node: CompanyAclNode, deep: number) {
     let code = node.companyAcl.companyCode;
     let label = util.text.formater.truncate(node.companyAcl.companyLabel, 25);
     opts.push(code);
@@ -90,7 +90,7 @@ export class CompanySelector extends Component<WebosProps> {
       let companyAclNodes = build(companyAcls);
       let bean = { select: companyAcl.companyCode };
       let opts = new Array<string>();
-      let optLabels = new Array<ReactFragment>();
+      let optLabels = new Array<React.ReactFragment>();
       for (let node of companyAclNodes) {
         this.buildOptAndLabels(opts, optLabels, node, 0);
       }
@@ -110,7 +110,7 @@ export class CompanySelector extends Component<WebosProps> {
   }
 }
 
-export class LanguageSelector extends Component<WebosProps> {
+export class LanguageSelector extends React.Component<WebosProps> {
   onInputChange = (bean: any, field: string, oldVal: any, newVal: any) => {
     let { webosContext } = this.props;
     let osContext = webosContext.osContext;

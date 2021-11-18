@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-
 import { app, sample } from 'components'
-
-import { BaseAppRegistry } from 'core/app/api';
-
 export default class UIApplication extends Component<app.OSProps> {
   appContext: app.AppContext;
 
@@ -23,7 +19,7 @@ export default class UIApplication extends Component<app.OSProps> {
   }
 }
 
-export class AppRegistry extends BaseAppRegistry {
+export class SampleAppRegistry extends app.BaseAppRegistry {
   module: string = 'sample';
   name: string = 'components';
   label: string = 'React Js Lib Sample';

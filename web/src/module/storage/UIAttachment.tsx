@@ -2,7 +2,8 @@ import React from 'react';
 import { widget, util } from 'components';
 
 import {
-  WComplexEntity, WComplexEntityProps} from 'core/widget';
+  WComplexEntity, WComplexEntityProps
+} from 'core/widget';
 
 import { T } from './Dependency'
 
@@ -18,7 +19,7 @@ interface UIAttachmentFormProps extends WComplexEntityProps {
 }
 export class UIAttachmentForm extends WComplexEntity<UIAttachmentFormProps> {
   render() {
-    let { observer, plugin } = this.props;
+    let { observer, plugin, readOnly } = this.props;
 
     let attachment = observer.getMutableBean();
     let html = (
@@ -56,7 +57,7 @@ export class UIAttachmentForm extends WComplexEntity<UIAttachmentFormProps> {
         </Row>
         <Row>
           <FormGroupCol span={12} label={T('Description')}>
-            <BBTextField bean={attachment} field={'description'} />
+            <BBTextField bean={attachment} field={'description'} disable={readOnly} />
           </FormGroupCol>
         </Row>
       </FormContainer>

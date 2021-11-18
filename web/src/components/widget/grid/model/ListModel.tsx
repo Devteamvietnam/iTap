@@ -40,7 +40,10 @@ export class ListModel {
 
   getFilterRecords(): Array<any> { return this.filteredRecords; }
 
-  getDisplayRecordList() { return this.displayRecordList; }
+  getDisplayRecordList() { 
+    return this.displayRecordList; 
+  }
+
   setDisplayRecordList(list: IDisplayRecordList) {
     this.displayRecordList = list;
     this.displayRecordList.updateRecords(this.filteredRecords);

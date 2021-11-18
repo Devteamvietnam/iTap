@@ -1,12 +1,11 @@
 
 import React, { Component } from 'react'
 import { BrowserRouter, Link } from "react-router-dom";
-import { widget } from "components";
+import { widget, app } from "components";
 
 import {
   WComponentProps, WComponent
 } from "./WLayout";
-import CONFIG from "core/app/config"
 
 const { FAButton } = widget.fa;
 
@@ -22,7 +21,7 @@ export class WLink extends Component<WLinkProps> {
     let downloadUrl = to;
     if (type == 'external') {
     } else {
-      downloadUrl = `${CONFIG.getServerUrl()}/${to}`;
+      downloadUrl = `${app.host.CONFIG.getServerUrl()}/${to}`;
     }
     return (<BrowserRouter><Link target={target} to={{ pathname: downloadUrl }}>{label}</Link></BrowserRouter>);
   }

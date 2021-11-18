@@ -1,6 +1,4 @@
-import { app } from 'components'
-
-import AppCapability = app.AppCapability;
+import { AppCapability, NONE } from 'components/app/permission'
 
 export interface IAccessToken {
   label: string;
@@ -84,33 +82,7 @@ export class AccountAcl {
   getUserAppCapability(module: string, appName: string): AppCapability {
     let key = `${module}/${appName}`;
     let appPermission: IAppPermission = this.appPermissionMap[key];
-    if (appPermission == null) return app.NONE;
-    return new app.AppCapability(appPermission.capability);
+    if (appPermission == null) return NONE;
+    return new AppCapability(appPermission.capability);
   }
 };
-
-export class BaseAppRegistry implements app.IAppRegistry {
-  module: string = 'unknown';
-  name: string = 'unknown';
-  label: string = 'Unknown';
-  description: string = '';
-
-  requiredAppCapability: app.AppCapability = app.NONE;
-  userAppCapability: app.AppCapability = app.NONE;
-
-  getRequiredAppCapability() { return this.requiredAppCapability; }
-
-  setRequiredAppCapability(capability: app.AppCapability) {
-    this.requiredAppCapability = capability;
-  }
-
-  getUserAppCapability() { return this.userAppCapability; }
-
-  setUserAppCapability(capability: app.AppCapability) {
-    this.userAppCapability = capability;
-  }
-
-  createUI(ctx: app.OSContext) {
-    throw new Error('You need to override this method');
-  };
-}

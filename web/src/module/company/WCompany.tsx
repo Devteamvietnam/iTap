@@ -1,10 +1,11 @@
 import React from 'react';
-import { app, widget } from 'components'
+import { app, server, widget } from 'components'
 
 import {
   BBEntityAutoComplete,
   BBEntityAutoCompleteProps,
   BeanObserver,
+  ComplexBeanObserver,
   EntityAutoCompletePlugin,
 } from 'core/widget';
 
@@ -31,35 +32,34 @@ export class CompanyAutoCompletePlugin extends EntityAutoCompletePlugin {
 
   onShowMoreInfo(ui: BBAutoComplete, bean: any) {
     let readOnly = !this.appContext.hasUserWriteCapability();
-    let callback = (result: any) => {
-      let observer = new BeanObserver(result.data);
+    let callback = (response: server.rest.RestResponse) => {
+      let observer = new BeanObserver(response.data);
       let html = (
         <UICompanyEditor
           appContext={this.appContext} pageContext={this.pageContext} readOnly={readOnly} observer={observer} />
       );
       ui.dialogShow(T("Company Info"), 'md', html);
     };
-    this.doShowMoreInfo(ui, bean, CompanyRestURL.company.load(bean.parentId), callback);
+    let parentId = this.getRefLinkValue(ui, bean)
+    this.doShowMoreInfo(ui, bean, CompanyRestURL.company.load(parentId), callback);
   }
 
   onCustomSelect(ui: BBAutoComplete) {
-    let readOnly = this.appContext.hasUserReadCapability();
     let onSelect = (company: any) => {
       this.replaceWithSelect(ui, company, company.id);
       this.updateLabelAfterSelect(ui, ui.props.bean, company);
       ui.onPostSelect(company.id);
-      this.closePopupPageContext();
+      ui.dialogClose();
     }
 
-    let popupPageCtx = this.newPopupPageContext();
-    let html = (
+    let uiContent = (
       <div className='flex-vbox' style={{ height: 500 }}>
         <UICompanyList plugin={new UICompanyListPlugin().withExcludeRecords()}
-          appContext={this.appContext} pageContext={popupPageCtx} readOnly={readOnly}
+          appContext={this.appContext} pageContext={this.pageContext} readOnly={true}
           onSelect={(_appContext, _pageContext, company) => onSelect(company)} />
       </div>
     );
-    widget.layout.showDialog(T('Select Company'), 'lg', html, popupPageCtx.getDialogContext());
+    ui.dialogShow(T('Select Company'), 'lg', uiContent);
   }
 
   onCreateNew(ui: BBAutoComplete) {
@@ -109,12 +109,12 @@ export class BBCompanyAutoComplete extends BBEntityAutoComplete<BBCompanyAutoCom
     return this.renderAutocomplete();
   }
   renderWithLabelField(labelField: string) {
-    let { disable, bean } = this.props;
+    let { bean } = this.props;
     let { BBStringField } = widget.input;
     let html = (
       <div className='flex-hbox'>
         <BBStringField className='mr-1 w-50'
-          bean={bean} field={labelField} disable={disable} placeholder={T('Company Label')} />
+          bean={bean} field={labelField} disable={true} placeholder={T('Company Label')} />
         {this.renderAutocomplete()}
       </div>
     );

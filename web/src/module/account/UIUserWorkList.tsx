@@ -24,12 +24,12 @@ export class UIUserWorkForm extends WEntity {
   render() {
     let { observer, readOnly, appContext, pageContext } = this.props;
     let bean = observer.getMutableBean();
-
+    let errorCollector = observer.getErrorCollector();
     let html = (
       <FormContainer fluid>
         <Row>
           <FormGroupCol span={6} label={T('Label')}>
-            <BBStringField bean={bean} field={"label"} disable={readOnly} required />
+            <BBStringField bean={bean} field={"label"} disable={readOnly} required errorCollector={errorCollector} />
           </FormGroupCol>
         </Row>
         <Row>
@@ -89,7 +89,7 @@ class UserWorkList extends VGridEntityList<UserWorkListProps> {
 
   onDefaultSelect(dRecord: DisplayRecord) {
     let { appContext, pageContext, loginId } = this.props;
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
 
     let onPostCommit = (_entity: any, _uiEditor?: WComponent) => {
       this.forceUpdate();
@@ -170,7 +170,7 @@ export class UIUserWorkListEditor extends WCommittableEntityList<UIUserWorkListE
 
   onNewUserWork() {
     let { appContext, pageContext, loginId } = this.props;
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
     let onPostCommit = (_entity: any, _uiEditor?: WComponent) => {
       this.plugin.getRecords().push(_entity);
       this.forceUpdate();

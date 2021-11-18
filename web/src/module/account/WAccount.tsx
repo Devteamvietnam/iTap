@@ -1,26 +1,31 @@
 import React from 'react';
 import { widget, util, app } from 'components'
 
+import { ComplexBeanObserver } from 'core/entity';
+
 import {
-  ComplexBeanObserver,
-  EntityAutoCompletePlugin, WDetailAutoComplete, BBEntityAutoComplete, WDetailAutoCompleteProps, BBEntityAutoCompleteProps
+  EntityAutoCompletePlugin, BBEntityAutoComplete, BBEntityAutoCompleteProps, WDetailAutoComplete, WDetailAutoCompleteProps
 } from 'core/widget';
 
 import { AccountRestURL, T } from './Dependency'
 import { UIAccountList, UIAccountListPlugin } from './UIAccountList'
 import { UILoadableAccountInfo } from './UIAccountInfo'
 import { UINewAccountEditor } from './UINewAccount';
+import { AccountType } from './model';
 
 import BBAutoComplete = widget.input.BBAutoComplete2;
 const { Form, FormGroup, BBStringField } = widget.input;
 
 export class AccountAutoCompletePlugin extends EntityAutoCompletePlugin {
   labelField?: string;
+  accountType?: AccountType;
 
-  constructor(appContext: app.AppContext, pageContext: app.PageContext, labelField?: string) {
+  constructor(appContext: app.AppContext, pageContext: app.PageContext, labelField?: string, accountType?: AccountType) {
     super(appContext, pageContext);
     this.labelField = labelField;
+    this.accountType = accountType;
   }
+
   filter(pattern: string, onChangeCallback: (selOptions: any[]) => void) {
     let searchParams: widget.sql.SqlSearchParams = {
       "filters": [...widget.sql.createSearchFilter(pattern)],
@@ -46,13 +51,13 @@ export class AccountAutoCompletePlugin extends EntityAutoCompletePlugin {
       ui.onPostSelect(account.loginId);
       ui.dialogClose();
     }
-
     let popupPageCtx = new app.PageContext(new widget.layout.DialogContext());
+
     let uiContent = (
       <div className='flex-vbox'>
         <UIAccountList
           appContext={this.appContext} pageContext={popupPageCtx} type={'selector'} readOnly={true}
-          plugin={new UIAccountListPlugin()} onSelect={onSelect} />
+          plugin={new UIAccountListPlugin().withAccountType(this.accountType)} onSelect={onSelect} />
       </div>
     );
     widget.layout.showDialog(T('Select Account'), 'lg', uiContent, popupPageCtx.getDialogContext());
@@ -86,7 +91,6 @@ export class AccountAutoCompletePlugin extends EntityAutoCompletePlugin {
       }
     }
   }
-
 }
 
 interface BBAccountAutoCompleteProps extends BBEntityAutoCompleteProps {
@@ -140,33 +144,27 @@ export class WDetailAccountAutoComplete extends WDetailAutoComplete {
     super(props);
     let { appContext, readOnly, pageContext, allowEmpty } = props;
     this.plugin =
-      new AccountAutoCompletePlugin(appContext, pageContext).
-        withAllowCreateNew(readOnly ? true : false);
+      new AccountAutoCompletePlugin(appContext, pageContext, undefined, AccountType.USER)
+        .withAllowCreateNew(readOnly ? true : false);
+
     if (!allowEmpty) {
       this.plugin.withValidators([new util.validator.EmptyValidator(T('This field cannot be empty'))]);
     }
   }
 
-  onPostSelect(bean: any, newVal: any) {
-    const { onPostSelect } = this.props;
-    if (onPostSelect) {
-      onPostSelect(newVal);
-    }
-    this.forceUpdate();
-  }
-
   render() {
-    let { bean, readOnly, useSelectBean, field } = this.props;
+    let { bean, readOnly, useSelectBean, field, onPostSelect } = this.props;
     let detailBean = bean[field] ? bean[field] : {};
 
     if (useSelectBean == undefined) useSelectBean = true;
+
     return (
       <Form>
         <FormGroup label={T('Login Id')}>
           <BBAutoComplete
-            plugin={this.plugin} bean={bean} field={'loginId'} useSelectBean={useSelectBean}
+            plugin={this.plugin} bean={bean} field={field} useSelectBean={useSelectBean}
             searchField="loginId" searchDescField={'loginId'} disable={readOnly}
-            onPostSelect={(bean, newVal) => this.onPostSelect(bean, newVal)} />
+            onPostSelect={onPostSelect} />
         </FormGroup>
         <FormGroup label={T('Full Name')}>
           <BBStringField bean={detailBean} field={'fullName'} disable={true} />

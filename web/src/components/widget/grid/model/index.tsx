@@ -1,7 +1,7 @@
 export { ListModel } from './ListModel'
+export type { IDisplayRecordList } from './model'
 export {
-  DisplayRecord, IDisplayRecordList, DisplayRecordList,
-  RecordState, getRecordState
+  DisplayRecord, DisplayRecordList, RecordState, getRecordState
 } from './model'
 export * from './AggregationModel'
 export * from './TreeRecordModel'

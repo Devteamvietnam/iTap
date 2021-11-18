@@ -76,6 +76,7 @@ function runInputValidation(value: any, validators?: Array<Validator>) {
   }
 }
 export interface WInputProps extends ELEProps {
+  inputId?: string;
   name: string;
   value: any;
   placeholder: any;
@@ -87,15 +88,16 @@ export interface WInputProps extends ELEProps {
   onChange?: (oldVal: any, newVal: any) => void;
   onInputChange?: (oldVal: any, newVal: any) => void;
   onKeyDown?: (winput: WInput, event: any, keyCode: number, currInput: any) => void;
-  mapDisplayValue?: (inputValue: any) => any
-  mapInputValue?: (displayValue: any) => any
+  onRefreshAction?: (winput: WInput) => void;
+  mapDisplayValue?: (inputValue: any) => any;
+  mapInputValue?: (displayValue: any) => any;
 };
 export interface WInputState {
   message: null | string;
   value: any;
   inputValue: any
 };
-export class WInput extends Component<WInputProps, WInputState> {
+export class WInput<T extends WInputProps = WInputProps> extends Component<T, WInputState> {
   state = { value: null, inputValue: null, message: null };
   customClass: null | string = null;
   message: null | string = null;
@@ -117,7 +119,7 @@ export class WInput extends Component<WInputProps, WInputState> {
     return null;
   }
 
-  constructor(props: WInputProps) {
+  constructor(props: T) {
     super(props);
 
     this.state = { message: null, value: null, inputValue: null };
@@ -194,7 +196,7 @@ export class WInput extends Component<WInputProps, WInputState> {
   _getCustomClass() { return null; }
 
   render() {
-    let { style, className, name, placeholder, disable, focus } = this.props;
+    let { style, className, name, placeholder, disable, focus, onRefreshAction, inputId } = this.props;
     let inputValue = this.state.inputValue;
     let displayValue = this.toDisplayValue(inputValue);
     let classes = className ? `form-control ${className}` : 'form-control';
@@ -205,11 +207,20 @@ export class WInput extends Component<WInputProps, WInputState> {
       type = 'text';
     }
     if (this.customClass) classes = classes + ' ' + this.customClass;
-    return (
-      <input style={style} className={classes} autoFocus={focus ? true : false} type={type}
+    let inputUI = (
+      <input id={inputId} style={style} className={classes} autoFocus={focus ? true : false} type={type}
         name={name} value={displayValue} placeholder={placeholder} readOnly={disable} autoComplete="off"
         onChange={this.onChange} onFocus={this.onFocus} onBlur={this.onFocusLost} onKeyDown={(e) => this.onKeyDown(e)} />
     );
+    if(onRefreshAction) {
+      return (
+        <div className='flex-hbox'>
+          {inputUI}
+          <FAButton color='link' icon={fas.faSyncAlt} onClick={() => onRefreshAction? onRefreshAction(this): undefined } />
+        </div>
+      );
+    }
+    return inputUI;
   }
 }
 
@@ -283,7 +294,7 @@ export class WFloatInput extends WInput {
   }
 }
 
-export class WDoubleInput extends WInput {
+export class WDoubleInput<T extends WInputProps = WInputProps> extends WInput<T> {
   onPostInit(_props: WInputProps) { this.customClass = 'input-number'; }
 
   convert(value: string) {
@@ -293,12 +304,26 @@ export class WDoubleInput extends WInput {
   }
 }
 
-export class WNumberInput extends WDoubleInput {
+interface WNumberInputProps extends WInputProps {
+  precision?: number;
+  maxPrecision?: number;
+}
+export class WNumberInput<T extends WNumberInputProps = WNumberInputProps> extends WDoubleInput<T> {
   toDisplayValue(value: any) {
-    const { mapDisplayValue } = this.props;
+    let { mapDisplayValue, precision, maxPrecision } = this.props;
     if (mapDisplayValue) value = mapDisplayValue(value);
     if (!value || typeof value === 'string' || value instanceof String) return value;
-    return formater.number(value);
+
+    if (precision) return formater.number(value, precision);
+    if (!maxPrecision) maxPrecision = 3;
+    let precisionCount = 0;
+    if (Math.floor(value) != value) {
+      precisionCount = value.toString().split(".")[1].length || 0;
+    }
+    if (precisionCount > maxPrecision) {
+      return formater.number(value, maxPrecision);
+    }
+    return formater.number(value, precisionCount);
   }
 }
 

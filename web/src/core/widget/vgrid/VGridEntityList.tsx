@@ -1,10 +1,10 @@
 import React, { Component, ReactFragment } from "react";
-import { app, widget, server } from 'components';
+import { app, widget, server, util } from 'components';
 
 import { BeanObserver, ComplexBeanObserver } from 'core/entity';
 import { ExplorerActions, ModifyBeanActions } from "core/entity";
 
-import { WComponent, WComponentProps } from 'core/widget/WLayout';
+import { WComponent, WComponentProps } from '../WLayout';
 
 import { T } from "../Dependency"
 import { RecordFilter, ExcludeRecordIdFilter } from "../WEntityList";
@@ -27,7 +27,7 @@ import VTree = widget.list.VTree;
 export type VGridEntityListType = 'page' | 'selector';
 
 export class VGridEntityListPlugin {
-  listConfig?: VGridConfig;
+  vgridConfig?: VGridConfig;
   searchParams?: widget.sql.SqlSearchParams;
   listModel: widget.grid.model.ListModel;
   recordFilter?: RecordFilter;
@@ -59,7 +59,7 @@ export class VGridEntityListPlugin {
   }
 
   withVGridConfig(config: VGridConfig) {
-    this.listConfig = config;
+    this.vgridConfig = config;
     return this;
   }
 
@@ -76,10 +76,10 @@ export class VGridEntityListPlugin {
   }
 
   getVGridConfig(): VGridConfig {
-    if (!this.listConfig) {
+    if (!this.vgridConfig) {
       throw new Error("No Table Config Available");
     }
-    return this.listConfig;
+    return this.vgridConfig;
   }
 
   getRecords() { return this.listModel.getRecords(); }
@@ -141,7 +141,6 @@ export interface VGridComponentProps extends VGridContextProps {
   readOnly?: boolean;
 }
 export class VGridComponent<T extends VGridComponentProps = VGridComponentProps> extends Component<T> {
-
 }
 
 export interface VGridEntityListProps extends WComponentProps {
@@ -162,7 +161,8 @@ export interface WGridEntityListProps extends WComponentProps {
 export interface VGridEntityListState {
 }
 export abstract class VGridEntityList<T extends WGridEntityListProps = WGridEntityListProps, S extends VGridEntityListState = VGridEntityListState> extends WComponent<T, S> {
-  private vgridContext: VGridContext;
+  protected vgridContext: VGridContext;
+  protected viewId = util.common.IDTracker.next();
 
   constructor(props: T) {
     super(props);
@@ -248,7 +248,7 @@ export abstract class VGridEntityList<T extends WGridEntityListProps = WGridEnti
   render() {
     if (this.isLoading()) return this.renderLoading();
     let context = this.getVGridContext();
-    let html = (<widget.grid.VGrid context={context} />);
+    let html = (<widget.grid.VGrid key={`id-${this.viewId}`} context={context} />);
     return html;
   }
 }
@@ -280,32 +280,32 @@ export class VGridEntityListEditor<T extends VGridEntityListEditorProps = VGridE
   }
 
   needSelector() {
-    let { appContext } = this.props;
-    let writeCap = appContext.hasUserWriteCapability();
+    let { pageContext } = this.props;
+    let writeCap = pageContext.hasUserWriteCapability();
     return writeCap;
   }
 
   hasReadCapability() {
-    let { appContext } = this.props;
-    return appContext.hasUserReadCapability();
+    let { pageContext } = this.props;
+    return pageContext.hasUserReadCapability();
   }
 
   hasWriteCapability() {
-    let { readOnly, appContext } = this.props;
+    let { readOnly, pageContext } = this.props;
     if (readOnly === true) return false;
-    return appContext.hasUserWriteCapability();
+    return pageContext.hasUserWriteCapability();
   }
 
   hasModratorCapability() {
-    let { readOnly, appContext } = this.props;
+    let { readOnly, pageContext } = this.props;
     if (readOnly === true) return false;
-    return appContext.hasUserModeratorCapability();
+    return pageContext.hasUserModeratorCapability();
   }
 
   hasAdminCapability() {
-    let { readOnly, appContext } = this.props;
+    let { readOnly, pageContext } = this.props;
     if (readOnly === true) return false;
-    return appContext.hasUserAdminCapability();
+    return pageContext.hasUserAdminCapability();
   }
 
   getCurrentBeanObserver() {

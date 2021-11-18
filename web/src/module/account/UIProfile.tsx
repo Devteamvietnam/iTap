@@ -4,13 +4,13 @@ import { widget, util, app, server } from 'components';
 import { BeanObserver, ComplexBeanObserver } from 'core/entity'
 import { WEntityEditor, WButtonEntityCommit, WButtonEntityReset } from 'core/widget/entity'
 import { WComponentProps, WToolbar, WComponent } from 'core/widget';
-import { session } from 'core/app/session';
 
 import { AccountRestURL, T } from './Dependency';
 import { BBAccountAutoComplete } from './WAccount';
 import { WAvatarEditor } from './WAvatar';
 import { UIChangePasswordEditor } from './UIPassword';
 
+const { session } = app.host;
 const {
   BBStringField, BBDateTimeField, BBTextField, Form, FormGroup, BBSelectField, BBNumberField,
 } = widget.input;
@@ -62,9 +62,9 @@ function CommonProfileForm(editor: UIProfileEditor) {
 
 export class UIProfileEditor extends WEntityEditor {
   onChangePassword = () => {
-    let { appContext, observer } = this.props;
+    let { appContext, pageContext, observer } = this.props;
     let profile = observer.getMutableBean();
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
     let writeCap = this.hasWriteCapability();
     let reqObserver = new BeanObserver({ loginId: profile.loginId });
     let html = (
@@ -148,7 +148,7 @@ export class UIUserProfileEditor extends UIProfileEditor {
                 validators={[new util.validator.NumberRangeValidator(0, 500)]} />
             </FormGroup>
             <FormGroup label='Avatar Url'>
-              <BBStringField bean={profile} field={'avatarUrl'} disable={!hasWriteCap} />
+              <BBStringField bean={profile} field={'avatarUrl'} disable={true} />
             </FormGroup>
           </Tab>
         </TabPane>
@@ -171,47 +171,50 @@ export class UIUserProfileEditor extends UIProfileEditor {
 export class UIOrgProfileEditor extends UIProfileEditor {
 
   render() {
-    const { appContext, pageContext, observer, readOnly } = this.props;
+    const { appContext, pageContext, observer } = this.props;
     let profile = observer.getMutableBean();
-
+    const writeCap = this.hasWriteCapability();
     let html = (
       <Form>
         {CommonProfileForm(this)}
         <FormGroup label={T('Login Id')}>
           <BBStringField bean={profile} field={'loginId'} disable={true} />
         </FormGroup>
-        <FormGroup label={T('Name')}>
-          <BBStringField bean={profile} field={'name'} disable={readOnly} />
+        <FormGroup label='Account Type'>
+          <BBStringField bean={profile} field={'accountType'} disable={true} />
+        </FormGroup>
+        <FormGroup label={T('Name (local language)')}>
+          <BBStringField bean={profile} field={'name'} disable={!writeCap} />
         </FormGroup>
         <FormGroup label={T('Organization Type')}>
-          <BBStringField bean={profile} field={'organizationType'} disable={readOnly} />
+          <BBStringField bean={profile} field={'organizationType'} disable={!writeCap} />
         </FormGroup>
         <FormGroup label={T('Slogan')}>
-          <BBStringField bean={profile} field={'slogan'} disable={readOnly} />
+          <BBStringField bean={profile} field={'slogan'} disable={!writeCap} />
         </FormGroup>
-        <FormGroup label={T('Representative Login Id')}>
+        <FormGroup label={T('Representative')}>
           <BBAccountAutoComplete
-            appContext={appContext} pageContext={pageContext} disable={readOnly}
+            appContext={appContext} pageContext={pageContext} disable={!writeCap}
             bean={profile} field={'representativeLoginId'}
             useSelectBean={false} labelField={'representative'} />
         </FormGroup>
         <FormGroup label={T('Founding Date')}>
-          <BBDateTimeField bean={profile} field={'foundingDate'} timeFormat={false} disable={readOnly} />
+          <BBDateTimeField bean={profile} field={'foundingDate'} timeFormat={false} disable={!writeCap} />
         </FormGroup>
         <FormGroup label={T('Closing Date')}>
-          <BBDateTimeField bean={profile} field={'closingDate'} timeFormat={false} disable={readOnly} />
+          <BBDateTimeField bean={profile} field={'closingDate'} timeFormat={false} disable={!writeCap} />
         </FormGroup>
         <FormGroup label={T('Description')}>
-          <BBTextField bean={profile} field={'description'} disable={readOnly} />
+          <BBTextField bean={profile} field={'description'} disable={!writeCap} />
         </FormGroup>
-        <WToolbar>
+        <WToolbar readOnly={!writeCap}>
           <WButtonEntityCommit
-            appContext={appContext} pageContext={pageContext} readOnly={readOnly}
+            appContext={appContext} pageContext={pageContext}
             observer={observer} label={`Org Profile ${profile.loginId}`}
             commitURL={AccountRestURL.profile.saveOrg}
             onPostCommit={this.onPostCommit} />
           <WButtonEntityReset
-            appContext={appContext} pageContext={pageContext} readOnly={readOnly} observer={observer}
+            appContext={appContext} pageContext={pageContext} observer={observer}
             onPostRollback={this.onPostRollback} />
         </WToolbar>
       </Form>

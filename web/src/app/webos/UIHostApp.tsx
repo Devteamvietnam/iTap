@@ -1,24 +1,25 @@
-import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { util, storage } from 'components'
+import { util, storage, React } from 'components'
 
+import { HostAppContext } from './HostAppContext'
 import { UIBanner } from './UIBanner'
-import { WebosContext } from '.'
-import { Workspace } from 'app/webos/Workspaces';
+import { Workspace } from './Workspaces'
+
+import "./stylesheet.scss";
 
 const { IDTracker } = util;
 
-interface UIWebosProps { }
-interface UIWebosState { }
-class UIWebos extends Component<UIWebosProps & RouteComponentProps<{}>, UIWebosState> {
+interface UIHostProps { }
+interface UIHostState { }
+class UIHostApp extends React.Component<UIHostProps & RouteComponentProps<{}>, UIHostState> {
   state = { location: null };
 
   renderId: number = IDTracker.next();
-  webosContext: WebosContext;
+  hostAppContext: HostAppContext;
 
   constructor(props: any) {
     super(props);
-    this.webosContext = new WebosContext(this);
+    this.hostAppContext = new HostAppContext(this);
   }
 
   static getDerivedStateFromProps(nextProps: any, _prevState: any) {
@@ -26,12 +27,7 @@ class UIWebos extends Component<UIWebosProps & RouteComponentProps<{}>, UIWebosS
     return { location: path };
   }
 
-  componentDidMount() {
-    const hello = require('/src/Hello.js');
-    hello();
-  }
-
-  getWorkspaceUIContent(ctx: WebosContext, ws: Workspace) {
+  getWorkspaceUIContent(ctx: HostAppContext, ws: Workspace) {
     let uiContent = ws.getUIContent();
     if (uiContent) return uiContent;
     let appId = ws.model.currentAppId;
@@ -49,7 +45,8 @@ class UIWebos extends Component<UIWebosProps & RouteComponentProps<{}>, UIWebosS
   }
 
   render() {
-    const webosCtx = this.webosContext;
+    console.log('call render....')
+    const webosCtx = this.hostAppContext;
     const osContext = webosCtx.osContext;
 
     let { location } = this.state;
@@ -78,7 +75,7 @@ class UIWebos extends Component<UIWebosProps & RouteComponentProps<{}>, UIWebosS
 
     let wsScreens = [];
     for (let ws of workspaces.getWorkspaces()) {
-      let uiAppHtml = this.getWorkspaceUIContent(this.webosContext, ws);
+      let uiAppHtml = this.getWorkspaceUIContent(this.hostAppContext, ws);
       let style = undefined;
       if (!ws.isSelected()) style = { display: 'none' };
       wsScreens.push(
@@ -88,7 +85,7 @@ class UIWebos extends Component<UIWebosProps & RouteComponentProps<{}>, UIWebosS
     let html = (
       <div key={this.renderId} className={`${theme}-theme flex-vbox`}>
         <div className={'ui-webos flex-vbox body-bg body-color'}>
-          <UIBanner webosContext={this.webosContext} />
+          <UIBanner webosContext={this.hostAppContext} />
           <div className='ui-screens flex-vbox'> {wsScreens} </div>
         </div>
       </div>
@@ -96,4 +93,4 @@ class UIWebos extends Component<UIWebosProps & RouteComponentProps<{}>, UIWebosS
     return html;
   }
 }
-export default withRouter(UIWebos);
+export default withRouter(UIHostApp);

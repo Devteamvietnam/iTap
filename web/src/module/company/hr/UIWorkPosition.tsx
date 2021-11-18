@@ -37,9 +37,6 @@ export class UIWorkPositionFormEditor extends WEntityEditor {
               </FormGroupCol>
             </Row>
           </FormContainer>
-          <TabPane>
-          <div>Comming soon</div>
-          </TabPane>
           <WToolbar>
             <WButtonEntityCommit
               appContext={appContext} pageContext={pageContext} hide={!writeCap} observer={observer}
@@ -51,7 +48,7 @@ export class UIWorkPositionFormEditor extends WEntityEditor {
           </WToolbar>
         </widget.component.VSplitPane>
         <widget.component.VSplitPane>
-         <div>Comming soon</div>
+          <div>Comming soon</div>
         </widget.component.VSplitPane>
       </widget.component.VSplit>
     );

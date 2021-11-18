@@ -66,6 +66,7 @@ export function getRecordState(record: any) {
 export class DisplayRecord {
   record: any;
   row: number;
+  rowInBucket?: number;
   model: any;
   type: 'data' | 'agg' | 'bucket' | 'unknown' = 'data';
   indentLevel: number = 0;
@@ -88,6 +89,11 @@ export class DisplayRecord {
     if (madatory) return getRecordState(this.record);
     let recState: RecordState = this.record['_state'];
     return recState;
+  }
+
+  getDisplayRow() {
+    if(this.rowInBucket) return this.rowInBucket;
+    return this.row + 1;
   }
 
   getIndentLevel() { return this.indentLevel; }

@@ -32,7 +32,7 @@ export enum ApplicantPhase {
 }
 
 export enum PaidTimeOffType {
-  ANNUALTAKEOFF = "AnnualTakeOff", SICKLEAVE = "SickLeave"
+  ANNUALTAKEOFF = "AnnualTakeOff", SICKLEAVE = "SickLeave", OTHER = "Other"
 }
 
 export enum TimeOffStatus {
@@ -44,7 +44,7 @@ export enum TimesheetPeriodType {
 }
 
 export enum AdjustmentType {
-  WORKING_HOUR = "WORKING_HOUR", OT_HOUR = "OT_HOUR", BONUS = "BONUS"
+  WORKING_HOUR = "WORKING_HOUR", OT_HOUR = "OT_HOUR", BONUS = "BONUS", OTHER = "OTHER"
 }
 
 export enum AdjustmentStatus {

@@ -7,9 +7,6 @@ import { DisplayRecord } from './model/model';
 import { VGridConfigUtil } from './util';
 import { HeaderCell } from './view/HeaderCell';
 class SelectorHeaderCell extends HeaderCell {
-  componentDidMount() {
-  }
-
   toggleSelectAllRow = (checked: boolean) => {
     let { context } = this.props;
     let state = VGridConfigUtil.getRecordConfigState(context.config);
@@ -34,8 +31,8 @@ class SelectorHeaderCell extends HeaderCell {
 
 export function createSelector(label: string, width: number, removable?: boolean) {
   let col: FieldConfig = {
-    name: '_selector_', label: label, width: width, container: 'fixed-left',
-    removable: removable, resizable: false,
+    name: '_selector_', label: label, width: width, cssClass: 'cell-text-center', 
+    container: 'fixed-left', removable: removable, resizable: false,
     customRender: (ctx: VGridContext, _field: FieldConfig, dDecord: DisplayRecord) => {
       return <WGridRecordSelector className='d-inline-block m-auto' context={ctx} row={dDecord.row} />
     },
@@ -52,7 +49,7 @@ export function createIndex(label: string, width: number, removable?: boolean) {
     name: '_index_', label: label, width: width, container: 'fixed-left',
     removable: removable, resizable: false,
     customRender: (_ctx: VGridContext, _field: FieldConfig, record: DisplayRecord) => {
-      return <>{record.row + 1}</>
+      return <>{record.getDisplayRow()}</>
     }
   }
   return col;

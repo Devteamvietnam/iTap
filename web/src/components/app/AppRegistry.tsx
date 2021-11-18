@@ -1,5 +1,5 @@
 import * as app from './app'
-import {AppCapability} from './permission'
+import {AppCapability, NONE} from './permission'
 
 export interface IAppPlugin {
   targetModule: string;
@@ -24,3 +24,30 @@ export interface IAppRegistry {
   getUserAppCapability: () => AppCapability;
   setUserAppCapability: (permission: AppCapability) => void;
 }
+
+export class BaseAppRegistry implements IAppRegistry {
+  module: string = 'unknown';
+  name: string = 'unknown';
+  label: string = 'Unknown';
+  description: string = '';
+
+  requiredAppCapability: AppCapability = NONE;
+  userAppCapability: AppCapability = NONE;
+
+  getRequiredAppCapability() { return this.requiredAppCapability; }
+
+  setRequiredAppCapability(capability: AppCapability) {
+    this.requiredAppCapability = capability;
+  }
+
+  getUserAppCapability() { return this.userAppCapability; }
+
+  setUserAppCapability(capability: AppCapability) {
+    this.userAppCapability = capability;
+  }
+
+  createUI(_ctx: app.OSContext) {
+    throw new Error('You need to override this method');
+  };
+}
+

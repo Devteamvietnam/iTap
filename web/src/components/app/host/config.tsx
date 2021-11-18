@@ -1,4 +1,4 @@
-import { app } from 'components'
+import {ServerContext} from 'components/app/app';
 declare global {
   interface Window { CONFIG: any; }
 }
@@ -13,7 +13,7 @@ export interface ConfigModel {
   restUrl: string
 }
 
-class Config {
+class HostAppConfig {
   tenant: string = 'default';
   model: ConfigModel;
   devMode: boolean;
@@ -42,7 +42,7 @@ class Config {
   }
 
   createServerContext() {
-    let serverCtx = new app.ServerContext(model.hosting.domain, model.serverUrl, model.restUrl);
+    let serverCtx = new ServerContext(model.hosting.domain, model.serverUrl, model.restUrl);
     return serverCtx;
   }
 }
@@ -60,7 +60,7 @@ let model: ConfigModel = {
   environment: environment,
   build: 'latest',
   hosting: {
-    domain: 'dev-demo.website'
+    domain: 'ahaysoft.com'
   },
   serverUrl: serverUrl,
   restUrl: restUrl
@@ -71,5 +71,6 @@ if (window.CONFIG) {
   window.CONFIG = null;
 }
 
-let config = new Config(model);
-export default config;
+let CONFIG = new HostAppConfig(model);
+
+export { CONFIG };

@@ -32,7 +32,7 @@ export class UIEmployeeListPlugin extends HRDepartmentExplorerPlugin {
       "orderBy": {
         "fields": ["loginId", "modifiedTime"],
         "fieldLabels": [T("Login Id"), T("Modified Time")],
-        "selectFields": [],
+        "selectFields": ['modifiedTime'],
         "sort": "DESC"
       },
       "maxReturn": 1000
@@ -77,6 +77,10 @@ export class UIEmployeeList extends VGridEntityList {
             HRRestURL.employee.saveState,
             [StorageState.ACTIVE, StorageState.INACTIVE, StorageState.ARCHIVED, StorageState.DEPRECATED], readOnly
           )
+        ],
+
+        filterActions: [
+          ...VGridConfigTool.TOOLBAR_AUTO_REFRESH('auto-refresh-employee-list', T('Refresh')),
         ],
 
         filters: VGridConfigTool.TOOLBAR_FILTERS(addDbSearchFilter),
@@ -147,8 +151,8 @@ export class UIEmployeeList extends VGridEntityList {
     let { plugin } = this.props;
     let context = this.getVGridContext();
     context.withAttr('currentDepartment', department);
-    let departmentName = department ? department.name : null;
-    (plugin as UIEmployeeListPlugin).onSelectDepartment(departmentName);
+    let departmentId = department ? department.id : null;
+    (plugin as HRDepartmentExplorerPlugin).onSelectDepartment(departmentId);
     this.reloadData();
   }
 }

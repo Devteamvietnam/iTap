@@ -5,8 +5,6 @@ export * from 'module/company/hr/index';
 
 export * from 'module/company/hr/utilities';
 
-export * from 'module/company/model';
-
 export { WAvatar } from 'module/account';
 
 export { StorageState } from 'core/entity';

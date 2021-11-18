@@ -8,7 +8,7 @@ import { CompanyRestURL, T } from './Dependency'
 import { ComplexBeanObserver, } from 'core/entity';
 
 import VGridConfig = widget.grid.VGridConfig;
-const { Form, FormGroup, BBStringField } = widget.input;
+const { Form, FormGroup, BBStringField, BBTextField } = widget.input;
 
 interface BBWidgetInputSelectProps {
   bean: any, field: string, fieldCheck?: string, fieldLabel?: string, disable?: boolean,
@@ -46,7 +46,7 @@ class UICompanyConfigAttributeForm extends WEntity {
           <BBStringField bean={attribute} field={'value'} disable={!writeCap} />
         </FormGroup>
         <FormGroup label={T('Description')}>
-          <BBStringField bean={attribute} field={'description'} disable={!writeCap} />
+          <BBTextField bean={attribute} field={'description'} disable={!writeCap} />
         </FormGroup>
       </Form>
     );

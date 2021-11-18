@@ -198,7 +198,7 @@ export class TableView extends Component<VGridViewProps, VGridTableViewState> {
 
   render() {
     if (!this.state.init) {
-      return (<div className='flex-hbox' ref={(divElement) => { this.divElement = divElement }}>Loading...</div>)
+      return (<div className='flex-hbox' ref={(ele) => { this.divElement = ele }}>Loading...</div>)
     }
     this.viewModel.initRender();
     let { scrollAreaW, scrollAreaH } = this.state;

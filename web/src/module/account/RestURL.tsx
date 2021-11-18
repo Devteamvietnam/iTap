@@ -1,7 +1,10 @@
 
 export const AccountRestURL = {
   group: {
-    findChildren: "/account/group/children",
+    loadChildren: (groupId?: number) => {
+      if (!groupId) groupId = 0;
+      return `/account/group/${groupId}/children`;
+    },
     save: `/account/group`,
     membership: (groupId: number) => { return `/account/group/${groupId}/memberships` },
     createChild: (parentId: number) => { return `/account/group/${parentId}/create` },

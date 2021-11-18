@@ -50,9 +50,6 @@ class UIContactForm extends WEntity {
               <BBStringField
                 bean={contact} field={'address'} errorCollector={errorCollector} disable={!writeCap} required />
             </FormGroup>
-            <FormGroup label={T('District')}>
-              <BBStringField bean={contact} field={'district'} disable={!writeCap} />
-            </FormGroup>
           </widget.component.VSplitPane>
           <widget.component.VSplitPane>
             <FormGroup label={T('Email')}>
@@ -112,7 +109,7 @@ class ContactList extends VGridEntityList<UIContactListProps> {
 
   onDefaultSelect(dRecord: DisplayRecord) {
     let { appContext, pageContext, loginId } = this.props;
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
 
     let onPostCommit = (_entity: any, _uiEditor?: WComponent) => {
       this.forceUpdate();
@@ -239,7 +236,7 @@ export class UIContactListEditor extends WCommittableEntityList<UIContactListEdi
 
   onNewContact() {
     let { appContext, pageContext, loginId } = this.props;
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
     let onPostCommit = (_entity: any, _uiEditor?: WComponent) => {
       this.plugin.getRecords().push(_entity);
       this.forceUpdate();

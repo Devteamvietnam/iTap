@@ -28,12 +28,13 @@ export class UIUserEducationForm extends WEntity {
     let { observer, appContext, pageContext } = this.props;
     let bean = observer.getMutableBean();
     let writeCap = this.hasWriteCapability();
+    let errorCollector = observer.getErrorCollector();
     let html = (
       <FormContainer fluid>
         <Row>
           <FormGroupCol span={6} label={T('Label')}>
             <BBStringField bean={bean} field={"label"} disable={!writeCap}
-              placeholder={T('Education Label')} required={true} />
+              placeholder={T('Education Label')} required errorCollector={errorCollector} />
           </FormGroupCol>
         </Row>
         <Row>
@@ -101,7 +102,7 @@ class UserEducationList extends VGridEntityList<UserEducationProps> {
   }
   onDefaultSelect(dRecord: DisplayRecord) {
     let { appContext, pageContext, loginId } = this.props;
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
 
     let onPostCommit = (_entity: any, _uiEditor?: WComponent) => {
       this.forceUpdate();
@@ -179,7 +180,7 @@ export class UIUserEducationListEditor extends WCommittableEntityList<UIUserEduc
 
   onNewEducation() {
     let { appContext, pageContext, loginId } = this.props;
-    let popupPageCtx = new app.PageContext().withPopup();
+    let popupPageCtx = pageContext.createPopupPageContext();
     let onPostCommit = (_entity: any, _uiEditor?: WComponent) => {
       this.plugin.getRecords().push(_entity);
       this.forceUpdate();

@@ -13,10 +13,8 @@ import * as kanban from './kanban'
 import * as grid from './grid'
 import * as sql from './sql/index'
 import * as util from './util'
-import * as cron from './cron'
 
 export {
   icons, fa, context, element, input, draftjs, component, print,
-  layout, calendar, kanban, grid, sql, util, cron,
-  list
+  layout, calendar, kanban, grid, sql, util,list
 }

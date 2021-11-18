@@ -5,9 +5,9 @@ export class HRDepartmentExplorerPlugin extends VGridEntityListPlugin {
     return { "department": null };
   }
 
-  onSelectDepartment(dept: string | null) {
+  onSelectDepartment(departmentId: string | null) {
     if (this.searchParams) {
-      this.searchParams.params = { 'department': dept };
+      this.searchParams.params = { 'departmentId': departmentId };
     }
     return this;
   }
@@ -24,9 +24,9 @@ export const HRRestURL = {
 
   department: {
     load: (id: string) => { return `/company/hr/department/${id}` },
-    loadChildren: (parentId?: number) => {
-      if (!parentId) parentId = 0;
-      return `/company/hr/department/${parentId}/children`;
+    loadChildren: (deptId?: number) => {
+      if (!deptId) deptId = 0;
+      return `/company/hr/department/${deptId}/children`;
     },
     save: "/company/hr/department",
     relation: (departmentId: number) => { return `/company/hr/department/${departmentId}/relations` },

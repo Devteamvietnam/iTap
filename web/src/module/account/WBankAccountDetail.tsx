@@ -7,9 +7,11 @@ import {
 import { VGridEntityListPlugin } from "core/widget/vgrid";
 
 import { AccountRestURL, T } from "./Dependency";
-import { BankAccountList, UIBankAccountEditor } from "./UIBankAccountList";
+import { BankAccountList, UIBankAccountForm, UIBankAccountEditor } from "./UIBankAccountList";
 
 import BBAutoComplete = widget.input.BBAutoComplete2;
+
+const { fa } = widget;
 const { BBStringField, FormContainer, ColFormGroup, Row } = widget.input;
 export class BankAccountAutoCompletePlugin extends EntityAutoCompletePlugin {
   loginId: string;
@@ -36,19 +38,15 @@ export class BankAccountAutoCompletePlugin extends EntityAutoCompletePlugin {
     this.doSearch(AccountRestURL.bankAccount.search, searchParams, onChangeCallback);
   }
 
-  // onShowMoreInfo(ui: BBAutoComplete, bean: any) {
-  //   let loginId = this.getRefLinkValue(ui, bean);
-  //   let callback = (result: any) => {
-  //     let bankAccount = result.data;
-  //     let observer: ComplexBeanObserver = new ComplexBeanObserver(bankAccount);
-  //     let uiContent = (
-  //       <UIBankAccountEditor
-  //         appContext={this.appContext} pageContext={this.pageContext} observer={observer} readOnly={true} loginId={loginId} />
-  //     );
-  //     ui.dialogShow(T('BankAccount Info'), 'md', uiContent);
-  //   };
-  //   this.doShowMoreInfo(ui, bean, AccountRestURL.bankAccount.findByLoginId(loginId), callback);
-  // }
+  onShowMoreInfo(ui: BBAutoComplete, bean: any) {
+    let bankAccount = { accountHolder: bean.bankAccountOwner, accountNumber: bean.bankAccountNumber, bankName: bean.bankAccountName, bankAdress: bean.bankAdress };
+    let observer: ComplexBeanObserver = new ComplexBeanObserver(bankAccount);
+    let uiContent = (
+      <UIBankAccountForm
+        appContext={this.appContext} pageContext={this.pageContext} observer={observer} readOnly={true} />
+    );
+    ui.dialogShow(T('BankAccount Info'), 'md', uiContent)
+  }
 
   onCustomSelect(ui: BBAutoComplete) {
     let onSelect = (bankAccount: any) => {
@@ -64,7 +62,7 @@ export class BankAccountAutoCompletePlugin extends EntityAutoCompletePlugin {
           <BankAccountList
             plugin={plugin.withExcludeRecords()} type={'selector'} loginId={this.loginId}
             appContext={this.appContext} pageContext={this.pageContext} readOnly={true}
-            onSelect={(_appContext, _pageContext, selBankAccount) => onSelect(selBankAccount)} />
+            onSelect={(_appContext, _pageContext, selBankAccount) => onSelect(selBankAccount)} multiSelect={false} />
         </div>);
       ui.dialogShow(T('Select BankAccount'), 'lg', uiContent);
     }
@@ -77,15 +75,35 @@ export class BankAccountAutoCompletePlugin extends EntityAutoCompletePlugin {
   }
 
   updateDetailAfterSelect(ui: BBAutoComplete, bean: any, selectBean: any) {
-    if (this.accountHolder) {
-      let { searchDescField } = ui.props;
-      if (searchDescField) {
-        bean[this.accountHolder] = selectBean["accountHolder"];
-        bean[this.bankName] = selectBean["bankName"];
-        bean[this.bankAdress] = selectBean["bankAdress"];
-        ui.forceUpdate();
+    if (selectBean != null) {
+      if (this.accountHolder) {
+        let { searchDescField } = ui.props;
+        if (searchDescField) {
+          bean[this.accountHolder] = selectBean["accountHolder"];
+          bean[this.bankName] = selectBean["bankName"];
+          bean[this.bankAdress] = selectBean["bankAdress"];
+          ui.forceUpdate();
+        }
       }
     }
+  }
+
+  onCreateNew(ui: BBAutoComplete) {
+    let popupPageCtx = this.pageContext.createPopupPageContext();
+
+    let onPostCreate = (bankAccount: any) => {
+      this.replaceWithSelect(ui, bankAccount, bankAccount.accountNumber);
+      this.updateDetailAfterSelect(ui, ui.props.bean, bankAccount);
+      ui.onPostSelect(bankAccount.accountNumber);
+      popupPageCtx.onClose();
+    }
+    let uiContent = (
+      <UIBankAccountEditor
+        appContext={this.appContext} pageContext={popupPageCtx}
+        observer={new ComplexBeanObserver({})} loginId={this.loginId}
+        onPostCommit={onPostCreate} />
+    );
+    widget.layout.showDialog(T('Create New Bank Account'), 'md', uiContent, popupPageCtx.getDialogContext());
   }
 }
 
@@ -114,31 +132,27 @@ export class BBBankAccountAutoComplete extends BBEntityAutoComplete<BBBankAccoun
     let { bean } = this.props;
 
     let html = (
-      <div className='flex-vbox'>
-        <FormContainer fluid>
-          <Row>
-            <ColFormGroup span={6} label={T('Bank Account Holder')} >
-              <BBStringField
-                bean={bean} field={accountHolder} disable placeholder={T('Bank Account Number')} />
-            </ColFormGroup>
-            <ColFormGroup span={6} label={T('Bank Account Number')}>
-              {this.renderAutocomplete()}
-            </ColFormGroup>
-          </Row>
-
-          <Row>
-            <ColFormGroup span={6} label={T('Bank Account Name')}>
-              <BBStringField
-                bean={bean} field={bankName} disable placeholder={T('Bank Account Name')} />
-            </ColFormGroup>
-            <ColFormGroup span={6} label={T('Bank Account Address')}>
-              <BBStringField
-                bean={bean} field={bankAdress} disable placeholder={T('Bank Account Adress')} />
-            </ColFormGroup>
-          </Row>
-
-        </FormContainer>
-      </div >
+      <FormContainer fluid>
+        <Row>
+          <ColFormGroup span={6} label={T('Bank Account Number')}>
+            {this.renderAutocomplete()}
+          </ColFormGroup>
+          <ColFormGroup span={6} label={T('Bank Account Holder')} >
+            <BBStringField
+              bean={bean} field={accountHolder} disable placeholder={T('Bank Account Number')} />
+          </ColFormGroup>
+        </Row>
+        <Row>
+          <ColFormGroup span={6} label={T('Bank Account Name')}>
+            <BBStringField
+              bean={bean} field={bankName} disable placeholder={T('Bank Account Name')} />
+          </ColFormGroup>
+          <ColFormGroup span={6} label={T('Bank Account Address')}>
+            <BBStringField
+              bean={bean} field={bankAdress} disable placeholder={T('Bank Account Adress')} />
+          </ColFormGroup>
+        </Row>
+      </FormContainer>
     );
     return html;
   }
