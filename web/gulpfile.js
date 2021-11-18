@@ -7,7 +7,6 @@ const fs = require('fs');
 const del = require('del');
 
 var srcFiles = ['./public/**', './dist/**']
-//var dest = "../../app/release/src/app/server/public"
 var dest = "../../../releases/datatp/server/public"
 
 gulp.task('react:do-clean', function() {
@@ -41,4 +40,3 @@ gulp.task('help', function(cb) {
   console.log('\n')
   cb();
 });
-
