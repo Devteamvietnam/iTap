@@ -89,10 +89,11 @@ public class AppInitSecurityDBPlugin extends InitSecurityDBPlugin {
   
   private App[] createApps() {
     App[] apps = {
-       new App("user", "my-space").withRequiredCapability(Capability.Read),
-       new App("admin", "admin").withRequiredCapability(Capability.Read) ,
-       new App("company", "company").withRequiredCapability(Capability.Read),
-       new App("system", "system").withRequiredCapability(Capability.Read),
+            new App("user", "my-space").withRequiredCapability(Capability.Read),
+            new App("admin", "admin").withRequiredCapability(Capability.Read) ,
+            new App("company", "company").withRequiredCapability(Capability.Read),
+            new App("system", "system").withRequiredCapability(Capability.Read),
+            new App("sample", "reactjs-lib").withRequiredCapability(Capability.Admin)
     };
     return apps;
   }
