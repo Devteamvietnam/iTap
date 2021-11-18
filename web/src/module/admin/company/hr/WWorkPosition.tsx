@@ -5,9 +5,9 @@ import {
   BeanObserver, EntityAutoCompletePlugin, BBEntityAutoComplete
 } from 'core/widget';
 
-import { T, HRWorkRestURL } from 'module/company/hr/Dependency';
-import { UIWorkPositionFormEditor } from "module/company/hr/UIWorkPosition";
-import { UIWorkPossitionList, UIWorkPositionListPlugin } from "module/company/hr/UIWorkPossitionList";
+import { T, HRWorkRestURL } from 'module/admin/company/hr/Dependency';
+import { UIWorkPositionFormEditor } from "module/admin/company/hr/UIWorkPosition";
+import { UIWorkPossitionList, UIWorkPositionListPlugin } from "module/admin/company/hr/UIWorkPossitionList";
 
 import BBAutoComplete = widget.input.BBAutoComplete2;
 

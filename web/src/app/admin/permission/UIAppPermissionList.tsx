@@ -6,7 +6,7 @@ import { ExcludeRecordFilter } from 'core/widget/WEntityList';
 import { VGridConfigTool, VGridEntityList, VGridEntityListPlugin, WGridEntityListProps } from 'core/widget/vgrid';
 
 import { PermissionRestURL, T } from './Dependency';
-import { UIEmployeeList, UIEmployeeListPlugin } from 'module/company/hr/UIEmployeeList';
+import { UIEmployeeList, UIEmployeeListPlugin } from 'module/admin/company/hr/UIEmployeeList';
 
 import VGridConfig = widget.grid.VGridConfig;
 import VGridContext = widget.grid.VGridContext;

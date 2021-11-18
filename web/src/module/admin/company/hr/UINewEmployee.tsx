@@ -7,9 +7,9 @@ import {
 
 import {
   UINewAccountEditor, UIConvertAccountEditor, AccountType
-} from "module/account";
-import { UINewAccountEditorPlugin } from "module/account/UINewAccount";
-import { T, HRRestURL } from 'module/company/hr/Dependency'
+} from "module/admin/account";
+import { UINewAccountEditorPlugin } from "module/admin/account/UINewAccount";
+import { T, HRRestURL } from 'module/admin/company/hr/Dependency'
 
 export class UINewEmployeeAccountEditorPlugin extends UINewAccountEditorPlugin {
   createAdditionalTabs(_appCtx: app.AppContext, _pageCtx: app.PageContext, _observer: ComplexBeanObserver) {

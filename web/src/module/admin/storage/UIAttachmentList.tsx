@@ -5,12 +5,12 @@ import {
   ComplexBeanObserver, VGridEntityListEditorPlugin,
 } from 'core/entity';
 
-import { WComponent, WComponentProps, WToolbar } from '../../core/widget/WLayout';
+import { WComponent, WComponentProps, WToolbar } from 'core/widget/WLayout';
 import { WButtonEntityWrite } from 'core/widget/entity';
 
 import {
   VGridConfigTool, VGridEntityListEditor, VGridEntityListEditorProps
-} from '../../core/widget/vgrid';
+} from 'core/widget/vgrid';
 
 import { T } from './Dependency'
 import { WPreviewThumbnail } from './UIPreview';

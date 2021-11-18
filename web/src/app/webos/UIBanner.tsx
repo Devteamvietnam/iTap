@@ -1,7 +1,7 @@
 import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
 import { widget, util, reactstrap, app, i18n, React } from 'components'
 
-import { WAvatar } from '../../module/account/WAvatar'
+import { WAvatar } from 'module/admin/account/WAvatar'
 
 import { HostAppContext } from './HostAppContext';
 import { UIAppMenu } from './UIAppMenu';
@@ -117,8 +117,8 @@ class UIMessageNotification extends React.Component<UIMessageNotificationProps, 
       <div className='flex-hbox mx-1'>
         <FAButton id={id} className='text-white' outline icon={fas.faComment} />
         <Popover placement="bottom" isOpen={this.state.open} target={id} toggle={this.toggle}>
-          <PopoverHeader>Popover Title</PopoverHeader>
-          <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+          <PopoverHeader>Devteam</PopoverHeader>
+          <PopoverBody>@2021</PopoverBody>
         </Popover>
       </div>
     );
@@ -250,7 +250,7 @@ export class UIBanner extends React.Component<WebosProps> {
         </div>
         <div className='flex-hbox-grow-0'>
           <WBannerAlert webosContext={webosContext} />
-          <WBannerAdminWithRouter webosContext={webosContext} />
+          <WBannerAdminWithRouter webosContext={webosContext} />     
         </div>
       </div>
     );

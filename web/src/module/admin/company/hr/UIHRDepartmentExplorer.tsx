@@ -4,10 +4,10 @@ import { app, widget, server } from 'components';
 import { BeanObserver, ExplorerActions, WComponent, } from 'core/widget';
 import { ExplorerConfig, VGridComponentProps, VGridExplorer } from 'core/widget/vgrid';
 
-import { T, HRRestURL } from "module/company/hr/Dependency";
-import { UIWorkPositionListPlugin, UIWorkPossitionList } from 'module/company/hr/UIWorkPossitionList';
-import { UIEmployeeListPlugin, UIEmployeeList } from 'module/company/hr/UIEmployeeList';
-import { UIHRDepartmentEditor } from 'module/company/hr/UIHRDepartment';
+import { T, HRRestURL } from "module/admin/company/hr/Dependency";
+import { UIWorkPositionListPlugin, UIWorkPossitionList } from 'module/admin/company/hr/UIWorkPossitionList';
+import { UIEmployeeListPlugin, UIEmployeeList } from 'module/admin/company/hr/UIEmployeeList';
+import { UIHRDepartmentEditor } from 'module/admin/company/hr/UIHRDepartment';
 
 import TreeNode = widget.list.TreeNode;
 import TreeModel = widget.list.TreeModel;

@@ -7,7 +7,7 @@ import {
 } from 'core/widget/entity'
 import { WToolbar, WComponent, WComponentProps } from 'core/widget';
 
-import { IUIAccountInfoPlugin, UILoadableAccountInfo, UILoadableAccountInfoProps } from "module/account/UIAccountInfo";
+import { IUIAccountInfoPlugin, UILoadableAccountInfo, UILoadableAccountInfoProps } from "module/admin/account/UIAccountInfo";
 import {  T, HRRestURL } from './Dependency';
 
 const { BBStringField, BBDateTimeField, BBNumberField, Form, FormGroup } = widget.input;

@@ -6,7 +6,7 @@ import {
 } from 'core/widget';
 import { VGridEntityListPlugin } from 'core/widget/vgrid';
 
-import { HRWorkRestURL, T } from 'module/company/hr/Dependency';
+import { HRWorkRestURL, T } from 'module/admin/company/hr/Dependency';
 
 const { FormContainer, FormGroupCol, Row, BBStringField } = widget.input;
 const { Tab, TabPane } = widget.layout;

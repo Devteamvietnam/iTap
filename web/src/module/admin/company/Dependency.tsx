@@ -9,6 +9,6 @@ export { UIEmployeeListEditor, BBEmployeeAutoComplete } from '../company/hr';
 
 export { BBAccountAutoComplete } from '../account/WAccount';
 
-export * from "module/company/RestURL";
+export * from "module/admin/company/RestURL";
 
 export const T = i18n.getT(['module.company']);

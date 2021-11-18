@@ -3,10 +3,10 @@ import { app } from 'components';
 
 import { T } from './Dependency';
 
-import { UIAccountList, UIAccountListPlugin } from 'module/account/UIAccountList';
-import { UICompanyList, UICompanyListPlugin } from 'module/company/UICompanyList';
-import { SystemStorage } from 'module/storage/Storage';
-import { UIStoragePage } from 'module/storage/UIStorage';
+import { UIAccountList, UIAccountListPlugin } from 'module/admin/account/UIAccountList';
+import { UICompanyList, UICompanyListPlugin } from 'module/admin/company/UICompanyList';
+import { SystemStorage } from 'module/admin/storage/Storage';
+import { UIStoragePage } from 'module/admin/storage/UIStorage';
 import { UIAppList, UIAppListPlugin } from './permission/UIAppList';
 
 class UIApplication extends app.UIMenuApplication {

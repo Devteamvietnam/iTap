@@ -3,8 +3,8 @@ import React from 'react';
 import { ComplexBeanObserver, WToolbar, WButtonEntityNew } from 'core/widget';
 import { VGridComponent } from 'core/widget/vgrid';
 
-import { T } from "module/company/hr//Dependency";
-import { UIWorkPositionFormEditor } from 'module/company/hr/UIWorkPosition';
+import { T } from "module/admin/company/hr//Dependency";
+import { UIWorkPositionFormEditor } from 'module/admin/company/hr/UIWorkPosition';
 
 export class UIPositionListPageControl extends VGridComponent {
   onNewWorkPosition() {

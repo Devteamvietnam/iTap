@@ -8,12 +8,12 @@ import {
 import {
   EntityAutoCompletePlugin, BBEntityAutoComplete, WDetailAutoComplete, 
   WDetailAutoCompleteProps, BBEntityAutoCompleteProps
-} from '../../../core/widget/WInput';
+} from 'core/widget/WInput';
 
-import { T, HRRestURL } from 'module/company/hr/Dependency'
-import { UIEmployeeList, UIEmployeeListPlugin } from "module/company/hr/UIEmployeeList";
-import { UINewEmployeeEditor } from 'module/company/hr/UINewEmployee'
-import { UIEmployeeEditor } from 'module/company/hr/UIEmployee'
+import { T, HRRestURL } from 'module/admin/company/hr/Dependency'
+import { UIEmployeeList, UIEmployeeListPlugin } from "module/admin/company/hr/UIEmployeeList";
+import { UINewEmployeeEditor } from 'module/admin/company/hr/UINewEmployee'
+import { UIEmployeeEditor } from 'module/admin/company/hr/UIEmployee'
 
 import BBAutoComplete = widget.input.BBAutoComplete2;
 

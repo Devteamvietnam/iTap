@@ -2,11 +2,11 @@ import React from 'react';
 import { app } from 'components';
 
 import { T } from 'core/widget/Dependency';
-import { CompanyStorage } from 'module/storage/Storage';
-import { UIStoragePage } from 'module/storage/UIStorage';
+import { CompanyStorage } from 'module/admin/storage/Storage';
+import { UIStoragePage } from 'module/admin/storage/UIStorage';
 
-import { UIEmployeeList, UIEmployeeListPlugin } from 'module/company/hr/UIEmployeeList';
-import { UIWorkPositionListPlugin, UIWorkPossitionList } from 'module/company/hr/UIWorkPossitionList';
+import { UIEmployeeList, UIEmployeeListPlugin } from 'module/admin/company/hr/UIEmployeeList';
+import { UIWorkPositionListPlugin, UIWorkPossitionList } from 'module/admin/company/hr/UIWorkPossitionList';
 
 export class UIApplication extends app.UIMenuApplication {
   createNavigation(appContext: app.AppContext, pageContext: app.PageContext) {

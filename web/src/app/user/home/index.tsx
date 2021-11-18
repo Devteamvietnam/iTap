@@ -1,9 +1,9 @@
 import React from 'react';
 import { app } from 'components'
 
-import { UILoadableAccountInfo } from 'module/account/UIAccountInfo';
-import { UILoadableEmployeeInfo } from 'module/company/hr';
-import { UIDirectoryList } from 'module/storage/UIDirectoryList';
+import { UILoadableAccountInfo } from 'module/admin/account/UIAccountInfo';
+import { UILoadableEmployeeInfo } from 'module/admin/company/hr';
+import { UIDirectoryList } from 'module/admin/storage/UIDirectoryList';
 import { VGridEntityListPlugin } from 'core/widget/vgrid';
 
 const session = app.host.session;

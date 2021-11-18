@@ -3,7 +3,7 @@ import { widget } from 'components'
 import { VGridConfigTool, VGridEntityList } from 'core/widget/vgrid';
 import { StorageState } from 'core/widget';
 
-import { T, HRDepartmentExplorerPlugin, HRRestURL } from 'module/company/hr/Dependency';
+import { T, HRDepartmentExplorerPlugin, HRRestURL } from 'module/admin/company/hr/Dependency';
 
 import VGridConfig = widget.grid.VGridConfig;
 

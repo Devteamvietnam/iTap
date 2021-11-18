@@ -5,7 +5,7 @@ import {
   WEntityEditor, WToolbar, WButtonEntityCommit, WButtonEntityReset
 } from "core/widget";
 
-import { T, HRRestURL } from "module/company/hr/Dependency";
+import { T, HRRestURL } from "module/admin/company/hr/Dependency";
 
 const { toFileName } = util.text;
 const {

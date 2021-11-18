@@ -5,15 +5,15 @@ import {
   ComplexBeanObserver, WToolbar, WButtonNewMembership, WButtonDeleteMembership, WButtonEntityNew
 } from 'core/widget';
 import { VGridComponent } from 'core/widget/vgrid';
-import { AccountType } from 'module/account';
+import { AccountType } from 'module/admin/account';
 
 import {
    HRRestURL, T
-} from "module/company/hr/Dependency";
+} from "module/admin/company/hr/Dependency";
 
-import { UILoadableEmployeeAccountInfo } from 'module/company/hr/UIEmployee';
-import { UIEmployeeListPlugin, UIEmployeeList } from 'module/company/hr/UIEmployeeList';
-import { UINewEmployeeEditor } from 'module/company/hr/UINewEmployee';
+import { UILoadableEmployeeAccountInfo } from 'module/admin/company/hr/UIEmployee';
+import { UIEmployeeListPlugin, UIEmployeeList } from 'module/admin/company/hr/UIEmployeeList';
+import { UINewEmployeeEditor } from 'module/admin/company/hr/UINewEmployee';
 
 export class UIEmployeeListPageControl extends VGridComponent {
   onNewEmployee() {

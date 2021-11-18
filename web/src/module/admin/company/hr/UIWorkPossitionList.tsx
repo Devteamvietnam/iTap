@@ -6,10 +6,10 @@ import { ComplexBeanObserver } from 'core/widget';
 
 import {
   T, StorageState, HRDepartmentExplorerPlugin, HRWorkRestURL
-} from 'module/company/hr/Dependency';
-import { UIHRDepartmentWorkPossitonExplorer } from 'module/company/hr/UIHRDepartmentExplorer';
-import { UIPositionListPageControl } from 'module/company/hr/UIWorkPossitionListControl';
-import { UIWorkPositionFormEditor } from 'module/company/hr/UIWorkPosition';
+} from 'module/admin/company/hr/Dependency';
+import { UIHRDepartmentWorkPossitonExplorer } from 'module/admin/company/hr/UIHRDepartmentExplorer';
+import { UIPositionListPageControl } from 'module/admin/company/hr/UIWorkPossitionListControl';
+import { UIWorkPositionFormEditor } from 'module/admin/company/hr/UIWorkPosition';
 
 import DisplayRecord = widget.grid.model.DisplayRecord;
 import VGridConfig = widget.grid.VGridConfig;

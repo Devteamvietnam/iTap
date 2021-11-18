@@ -6,9 +6,9 @@ import {
   BBEntityAutoComplete, BBEntityAutoCompleteProps
 } from 'core/widget';
 
-import { T, HRRestURL } from 'module/company/hr/Dependency'
-import { UIHRDepartmentList, UIHRDepartmentListPlugin } from "module/company/hr/UIHRDepartmentList";
-import { UIHRDepartmentEditor } from "module/company/hr/UIHRDepartment";
+import { T, HRRestURL } from 'module/admin/company/hr/Dependency'
+import { UIHRDepartmentList, UIHRDepartmentListPlugin } from "module/admin/company/hr/UIHRDepartmentList";
+import { UIHRDepartmentEditor } from "module/admin/company/hr/UIHRDepartment";
 
 import BBAutoComplete = widget.input.BBAutoComplete2;
 

@@ -32,47 +32,14 @@ export class UIAccountInfo extends WEntityEditor<UIAccountInfoProps> {
     let additionalTabs = [];
     const writeCap = this.hasWriteCapability();
     const profile = observer.getMutableBean();
-    if (profile.accountType == "USER") {
-      additionalTabs.push(
-        <Tab key='education' name="educations" label={T("Educations")}>
-          <UIUserEducationListEditor appContext={appContext} pageContext={pageContext} loginId={profile.loginId} />
-        </Tab>
-      );
-      additionalTabs.push(
-        <Tab key={'identity'} name="identities" label={T("Identities")}>
-          <UIUserIdentityListEditor appContext={appContext} pageContext={pageContext} loginId={profile.loginId} />
-        </Tab>
-      );
-      additionalTabs.push(
-        <Tab key={'work'} name="works" label={T("Works")}>
-          <UIUserWorkListEditor appContext={appContext} pageContext={pageContext} loginId={profile.loginId} />
-        </Tab>
-      );
-      additionalTabs.push(
-        <Tab key={'relation'} name="relations" label={T("Relations")}>
-          <UIUserRelationListEditor appContext={appContext} pageContext={pageContext} loginId={profile.loginId} />
-        </Tab>
-      );
-      additionalTabs.push(
-        <Tab key={'bankAccount'} name="bankAccounts" label={T("Bank Accounts")}>
-          <UIBankAccountListEditor appContext={appContext} pageContext={pageContext} loginId={profile.loginId} />
-        </Tab>
-      )
-    }
 
     let uiAccountInfo = (
       <VSplit>
-        <VSplitPane className='pr-1' width={450}>
+        <VSplitPane className='pr-2' width={600}>
           <UIProfile appContext={appContext} pageContext={pageContext} profile={profile} readOnly={!writeCap} />
         </VSplitPane>
         <VSplitPane>
-          <TabPane className='mt-1'>
-            <Tab key={'contact'} name="contact" label={T("Contacts")} active={true}>
-              <UIContactListEditor
-                appContext={appContext} pageContext={pageContext} loginId={profile.loginId} readOnly={!writeCap} />
-            </Tab>
-            {additionalTabs}
-          </TabPane>
+          <div>Comming soon</div>
         </VSplitPane>
       </VSplit>
     );
@@ -128,22 +95,12 @@ export class UILoadableAccountInfo extends WComponent<UILoadableAccountInfoProps
     );
   }
 
-
   renderRemoteButton() {
     let onHelloRemote = () => {
-      /*
-      const SaleApp = React.lazy(() => import("logistics/SaleApp"));
-      let uiRemote = (
-        <React.Suspense fallback="Loading Button">
-          <SaleApp config={{hello: 'Hello Config From Host'}} />
-        </React.Suspense>
-      );
-      widget.layout.showDialog('Hello Remote', 'md', uiRemote);
-      */
     }
 
     let html = (
-      <FAButton onClick={onHelloRemote}>Hello Remote</FAButton>
+      <FAButton onClick={onHelloRemote}>Digital @devteam</FAButton>
     )
     return html;
   }

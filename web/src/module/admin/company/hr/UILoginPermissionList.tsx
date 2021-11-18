@@ -4,8 +4,8 @@ import { widget, app } from 'components';
 import { WEntity } from 'core/widget';
 import { VGridEntityListEditor, VGridConfigTool } from 'core/widget/vgrid';
 
-import { T, LoginPermissionOptions as LoginOptions } from 'module/company/hr/Dependency'
-import { UIEmployeeList, UIEmployeeListPlugin } from 'module/company/hr/UIEmployeeList';
+import { T, LoginPermissionOptions as LoginOptions } from 'module/admin/company/hr/Dependency'
+import { UIEmployeeList, UIEmployeeListPlugin } from 'module/admin/company/hr/UIEmployeeList';
 import VGridConfig = widget.grid.VGridConfig;
 import VGridContext = widget.grid.VGridContext;
 const { BBStringField } = widget.input;
