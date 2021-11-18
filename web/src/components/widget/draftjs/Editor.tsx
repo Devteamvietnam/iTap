@@ -104,10 +104,6 @@ export class RichTextEditor extends Component<RichEditorProps, RichEditorState> 
     return this.dataConverter.toHtml(this.state.editorState);
   }
 
-  toPlainText() {
-    return this.dataConverter.toPlainText(this.state.editorState);
-  }
-
   fromHtml(html: string) {
     return this.dataConverter.fromHtml(html);
   }
@@ -161,25 +157,7 @@ export interface BBRichTextEditorProps extends ELEProps {
   errorCollector?: ErrorCollector;
   onInputChange?: (bean: any, field: string, oldVal: any, newVal: any) => void;
 };
-export interface BBRichTextEditorState {
-  bean: any;
-}
-export class BBRichTextEditor extends Component<BBRichTextEditorProps, BBRichTextEditorState> {
-  state: BBRichTextEditorState = { bean: null }
-
-  static getDerivedStateFromProps(props: BBRichTextEditorProps, state: BBRichTextEditorState) {
-    let { bean, field, required, errorCollector } = props;
-    if (state.bean !== bean) {
-      state.bean = bean ;
-      let value = bean[field];
-      if (required && (!value || value === '')) {
-        let errorMessage = 'This field cannot be empty';
-        if (errorCollector) errorCollector.collect(field, errorMessage);
-      }
-      return null;
-    }
-    return state;
-  }
+export class BBRichTextEditor extends Component<BBRichTextEditorProps> {
 
   onInputChange = (editor: RichTextEditor) => {
     let { onInputChange, bean, field } = this.props;
@@ -190,32 +168,7 @@ export class BBRichTextEditor extends Component<BBRichTextEditorProps, BBRichTex
   }
 
   onLostFocus = (editor: RichTextEditor) => {
-    let {bean, field, validators, errorCollector, required} = this.props;
-    let error = false;
-    if(validators || required) {
-      if(errorCollector) errorCollector.remove(field);
-      let text = editor.toPlainText();
-      text = text.trim();
-      if(required && text === '') {
-        if (errorCollector) {
-          let message = 'This field cannot be empty';
-          errorCollector.collect(field, message);
-        }
-        error = true;
-      }
-      if(validators) {
-        for(let validator of validators) {
-          try {
-            validator.validate(text);
-          } catch(err) {
-            let errorMessage = err.message;
-            if (errorCollector) errorCollector.collect(field, errorMessage);
-            error = true;
-          }
-        }
-      }
-    }
-    if(error) return;
+    let {bean, field} = this.props;
     bean[field] = editor.toHtml();
   }
 

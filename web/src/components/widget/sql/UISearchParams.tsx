@@ -3,7 +3,7 @@ import moment from 'moment';
 import { InputGroupAddon, Badge } from 'reactstrap';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from 'reactstrap'
 
-import { i18n } from 'components/i18n';
+import i18n from 'components/i18n';
 import { SqlSearchParams, Filter, OptionFilter, RangeFilter, OrderBy } from "./type";
 
 import { fas, FAButton, FAIcon } from "components/widget/fa";

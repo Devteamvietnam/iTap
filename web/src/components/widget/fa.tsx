@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import { IconDefinition as FAIconDefinition, SizeProp } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon as FAIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
+import { IconDefinition, SizeProp } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
 import * as fas from '@fortawesome/free-solid-svg-icons'
 import * as far from '@fortawesome/free-regular-svg-icons'
 import * as brands from '@fortawesome/free-brands-svg-icons'
@@ -9,18 +9,18 @@ import * as brands from '@fortawesome/free-brands-svg-icons'
 import { Button, ButtonProps } from 'reactstrap';
 
 export { fas, far, brands }
-export { FAIcon }
-export type { FAIconDefinition }
+export { FontAwesomeIcon as FAIcon }
+export { IconDefinition as FAIconDefinition }
 
 export class FALabel extends Component<FontAwesomeIconProps> {
   render() {
     let { children } = this.props;
-    return (<span><FAIcon {...this.props} /> {children}</span>);
+    return (<span><FontAwesomeIcon {...this.props} /> {children}</span>);
   }
 }
 
 export interface FAButtonProps extends ButtonProps {
-  icon?: FAIconDefinition;
+  icon?: IconDefinition;
   iconSize?: SizeProp;
   iconInverse?: boolean;
   hint?: string;
@@ -36,7 +36,7 @@ export class FAButton extends Component<FAButtonProps> {
     if (!size) size = "sm";
     if (icon) {
       iconUI = (
-        <FAIcon size={iconSize ? iconSize : '1x'} inverse={iconInverse} icon={icon} />
+        <FontAwesomeIcon size={iconSize ? iconSize : '1x'} inverse={iconInverse} icon={icon} />
       );
     }
     return (

@@ -1,4 +1,3 @@
 var CONFIG = {
-    build: "latest"
-  }
-  
+  build: "latest"
+}

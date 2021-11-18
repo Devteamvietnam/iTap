@@ -1,7 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import { i18n } from './i18n'
+import i18n from './i18n'
 import * as reactstrap from 'reactstrap';
 
 import * as util from './util/index'
@@ -11,12 +8,5 @@ import * as app from './app'
 import * as sample from './sample/index'
 
 export { storage } from './storage'
-export { i18n, util, widget, server, app, reactstrap, sample, React, ReactDOM }
+export { i18n, util, widget, server, app, reactstrap, sample }
 
-console.log('-----------------------------------');
-console.log('load components');
-if(!React['id']) {
-  React['id'] = 'components'
-}
-console.log('React id ' + React['id']);
-console.log('-----------------------------------');

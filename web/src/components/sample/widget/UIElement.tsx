@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AutoRefreshButton } from 'components/widget/element'
-import { i18n } from 'components/i18n';
+import i18n from "components/i18n";
 
 class UIElement extends Component<any> {
   render() {

@@ -10,13 +10,14 @@ export * from './IVGrid'
 export * from './util'
 export { VGrid } from './VGrid'
 export { VGridControlSection, VGridControlManager } from './control/VGridControl'
-export * from './VGridEditor'
+export { VGridEditor } from './VGridEditor';
+export { VGridEditorProps, VGridEditorPlugin } from './VGridEditor';
 
 export const ENTITY_COLUMNS: Array<FieldConfig> = [
-  { name: 'modifiedBy', label: 'Modified By', state: { visible: true }, width: 150 },
+  { name: 'modifiedBy', label: 'Modified By', state: { visible: false }, width: 100 },
   {
-    name: 'modifiedTime', label: 'Modified Time', state: { visible: true },
-    width: 180, format: formater.compactDateTime
+    name: 'modifiedTime', label: 'Modified Time',
+    state: { visible: false }, width: 180, format: formater.compactDateTime
   },
   { name: 'storageState', label: 'State', width: 100, state: { visible: false } },
 

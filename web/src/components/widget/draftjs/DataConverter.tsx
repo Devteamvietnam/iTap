@@ -3,16 +3,10 @@ import { EditorState } from "draft-js";
 
 import * as DraftConvert from 'draft-convert';
 export interface IDataConverter {
-  toPlainText: (editorState: EditorState) => string;
   toHtml: (editorState: EditorState) => string;
   fromHtml: (html: string) => EditorState;
 }
 export class NewDataConverter implements IDataConverter {
-  toPlainText(editorState: EditorState) {
-    let text = editorState.getCurrentContent().getPlainText('\u0001');
-    return text;
-  }
-
   toHtml(editorState: EditorState) {
     const html = DraftConvert.convertToHTML({
       styleToHTML: (style) => {

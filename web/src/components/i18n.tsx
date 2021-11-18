@@ -1,4 +1,4 @@
-import i18n, {TFunction} from "i18next";
+import i18n    from "i18next";
 import Backend from 'i18next-http-backend';
 
 class I18nManager {
@@ -31,12 +31,12 @@ class I18nManager {
     i18n.changeLanguage(lang);
   }
 
-  getT(ns?: Array<string>, lang?: string) : TFunction {
+  getT(ns?: Array<string>, lang?: string) {
     let language = lang;
     if(!language) language = this.language;
     if(!ns) ns = ['translation'];
     else    ns.push('translation');
-    let t: TFunction = i18n.getFixedT(language, ns);
+    let t = i18n.getFixedT(language, ns);
     return t;
   }
 
@@ -46,4 +46,5 @@ class I18nManager {
 }
 
 const i18nManager = new I18nManager();
-export  { i18nManager  as i18n };
+
+export default i18nManager;

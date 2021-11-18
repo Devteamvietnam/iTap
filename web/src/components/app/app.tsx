@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import { storage } from 'components/storage';
 import { IDTracker } from 'components/util/common';
 import { Rest, SuccessCallback, FailCallback } from '../server/rest';
-import {
-  Breadcumbs, BreadcumbsPage, ContentFactory, DialogContext, showDialog
-} from 'components/widget/layout'
+import { Breadcumbs, ContentFactory, DialogContext, showDialog } from 'components/widget/layout'
 import { NotificationMessage } from 'components/widget/util'
-import { AppCapability, READ, WRITE, MODERATOR, ADMIN } from './permission';
+import { READ, WRITE, MODERATOR, ADMIN } from './permission';
 import { IAppRegistry } from './AppRegistry';
 
 export class ServerContext {
@@ -117,19 +115,11 @@ export class AppContext {
     this.uiApplication = uiApp;
   }
 
-  getAppRegistry(): IAppRegistry {
-    if (!this.appRegistry) throw new Error("AppRegistry is not set");
+  getAppRegistry(): any {
     return this.appRegistry;
   }
 
   setAppRegistry(registry: IAppRegistry) { this.appRegistry = registry; }
-
-  /** @deprecated */
-  createPageContext(env: null | Breadcumbs | DialogContext = null) {
-    let pageCtx = new PageContext(env);
-    pageCtx.setUserAppCapability(this.getAppRegistry().getUserAppCapability());
-    return pageCtx;
-  }
 
   getOSContext() { return this.osContext; }
 
@@ -150,27 +140,27 @@ export class AppContext {
     this.uiApplication.forceUpdate();
   }
 
-  /** @deprecated */
-  hasUserReadCapability() {
-    let cap = this.getAppRegistry().getUserAppCapability();
+  hasUserReadCapability(): boolean {
+    if (!this.appRegistry) return false;
+    let cap = this.appRegistry.getUserAppCapability();
     return cap.hasCapability(READ);
   }
 
-  /** @deprecated */
-  hasUserWriteCapability() {
-    let cap = this.getAppRegistry().getUserAppCapability();
+  hasUserWriteCapability(): boolean {
+    if (!this.appRegistry) return false;
+    let cap = this.appRegistry.getUserAppCapability();
     return cap.hasCapability(WRITE);
   }
 
-  /** @deprecated */
-  hasUserModeratorCapability() {
-    let cap = this.getAppRegistry().getUserAppCapability();
+  hasUserModeratorCapability(): boolean {
+    if (!this.appRegistry) return false;
+    let cap = this.appRegistry.getUserAppCapability();
     return cap.hasCapability(MODERATOR);
   }
 
-  /** @deprecated */
-  hasUserAdminCapability() {
-    let cap = this.getAppRegistry().getUserAppCapability();
+  hasUserAdminCapability(): boolean {
+    if (!this.appRegistry) return false;
+    let cap = this.appRegistry.getUserAppCapability();
     return cap.hasCapability(ADMIN);
   }
 
@@ -206,7 +196,6 @@ export class PageContext {
   id = `page-${IDTracker.next()}`;
   dialogContext: null | DialogContext = null;
   breadcumbs: null | Breadcumbs = null;
-  userCapability: AppCapability = READ;;
 
   constructor(env: null | Breadcumbs | DialogContext = null) {
     if (env) {
@@ -218,39 +207,13 @@ export class PageContext {
     }
   }
 
-  getUserCapability() { return this.userCapability; }
-  setUserAppCapability(cap: AppCapability) {
-    this.userCapability = cap;
-  }
-
-  hasUserReadCapability() { return this.userCapability.hasCapability(READ); }
-
-  hasUserWriteCapability() { return this.userCapability.hasCapability(WRITE); }
-
-  hasUserModeratorCapability() { return this.userCapability.hasCapability(MODERATOR); }
-
-  hasUserAdminCapability() { return this.userCapability.hasCapability(ADMIN); }
-
-  clearPageStorage() { storage.pageClear(); }
-
   withPopup() {
     if (this.breadcumbs || this.dialogContext) throw new Error('Breadcumbs or Dialog is already set');
     this.dialogContext = new DialogContext();
     return this;
   }
 
-  createPopupPageContext() {
-    let pageCtx = new PageContext(null);
-    pageCtx.setUserAppCapability(this.getUserCapability());
-    pageCtx.withPopup();
-    return pageCtx;
-  }
-
-  createChildPageContext() { return new ChildPageContext(this); }
-
-  createPageContextWithCapability(cap: AppCapability) { 
-    return new PageContextWithCapability(this, cap); 
-  }
+  clearPageStorage() { storage.pageClear(); }
 
   createStoreId(name: String) {
     return `${this.id}/${name}`
@@ -264,6 +227,7 @@ export class PageContext {
 
   getDialogContext() { return this.dialogContext; }
 
+  /** @deprecated */
   onBack() {
     if (this.dialogContext) {
       this.dialogContext.getDialog().hide();
@@ -272,7 +236,6 @@ export class PageContext {
     }
   }
 
-  /** @deprecated */
   onClose() {
     if (this.dialogContext) {
       this.dialogContext.getDialog().hide();
@@ -296,69 +259,6 @@ export class PageContext {
       showDialog(factory.label, "md", factory.createContent());
     }
   }
-}
-
-export class ChildPageContext extends PageContext {
-  parent: PageContext;
-
-  constructor(parent: PageContext) {
-    super(null);
-    if (!parent.breadcumbs) {
-      throw new Error('Parent page context must be a breadcumbs page');
-    }
-    this.userCapability = parent.getUserCapability();
-    this.parent = parent;
-  }
-
-  onAdd(name: string, label: string, ui: any) {
-    if (this.breadcumbs) {
-      this.breadcumbs.push(name, label, ui);
-    } else {
-      let rootContent: ContentFactory = {
-        name: name, label: label,
-        createContent: () => { return ui; }
-      }
-      let childBreadumbs = (
-        <BreadcumbsPage ref={(ele) => this.breadcumbs = ele} rootContent={rootContent} />
-      );
-      this.parent.onAdd(name, label, childBreadumbs);
-    }
-  }
-}
-
-export class PageContextWithCapability extends PageContext {
-  parent: PageContext;
-
-  constructor(parent: PageContext, cap: AppCapability) {
-    super(parent.breadcumbs);
-    this.parent = parent;
-    this.userCapability = cap;
-  }
-
-  clearPageStorage() { storage.pageClear(); }
-
-  withPopup() {
-    this.parent.withPopup();
-    return this;
-  }
-
-  createStoreId(name: String) { return this.parent.createStoreId(name); }
-
-  withBreadcumbs(breadcumbs: Breadcumbs) {
-    this.parent.withBreadcumbs(breadcumbs);
-    return this;
-  }
-
-  getDialogContext() { return this.parent.getDialogContext() }
-
-  onBack() { this.parent.onBack(); }
-
-  /** @deprecated */
-  onClose() { this.parent.onClose(); }
-
-  onAdd(name: string, label: string, ui: any) { this.parent.onAdd(name, label,ui) }
-
-  addContent(factory: ContentFactory) { this.parent.addContent(factory); }
 }
 
 export interface ApplicationProps { appContext: AppContext }

@@ -50,6 +50,7 @@ export class VSplitPane extends Component<VSplitPaneProps, SplitPaneState> {
   }
 
   toggle = () => {
+    console.log('call vsplit pane toggle');
     let { onChange } = this.props;
     let collapse = !this.state.collapse;
     this.setState({ collapse: collapse })
@@ -57,10 +58,8 @@ export class VSplitPane extends Component<VSplitPaneProps, SplitPaneState> {
   }
 
   resize = (deltaX: number, _deltaY: number) => {
-    let { onChange } = this.props;
-    let { width, collapse } = this.state;
+    let { width } = this.state;
     this.setState({ width: width + deltaX });
-    if (onChange) onChange(this, collapse);
   }
 
   renderHandle() {
@@ -141,12 +140,12 @@ interface VSplitProps {
   updateOnResize?: boolean;
 }
 export class VSplit extends Component<VSplitProps, SplitPaneState> {
-  renderId = IDTracker.next();
+  contentViewId = `view-${IDTracker.next()}`
 
   onChange = (_pane: VSplitPane, _collapse: boolean) => {
     let { updateOnResize } = this.props;
     if (updateOnResize) {
-      this.renderId = IDTracker.next();
+      this.contentViewId = `view-${IDTracker.next()}`
     }
     this.forceUpdate();
   };
@@ -156,8 +155,7 @@ export class VSplit extends Component<VSplitProps, SplitPaneState> {
     let vsplitPanes: Array<any> = [];
     children.forEach((child: React.ReactElement<VSplitPane>, idx: number) => {
       vsplitPanes.push(
-        <VSplitPane key={`split-pane-${idx}`} 
-          contentViewId={`vsplit-render-${this.renderId}`} {...child.props} onChange={this.onChange} />
+        <VSplitPane key={idx} contentViewId={this.contentViewId} {...child.props} onChange={this.onChange} />
       )
     });
     className = className ? `vsplit ${className}` : 'vsplit'

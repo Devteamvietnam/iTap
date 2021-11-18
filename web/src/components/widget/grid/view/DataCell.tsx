@@ -10,7 +10,7 @@ import { DisplayRecord } from '../model/model'
 import { VGridContext, VGridContextProps, FieldConfig } from '../IVGrid'
 import { VGridConfigUtil } from '../util'
 
-export function formatCellValue(field: FieldConfig, val: any): any {
+export function formatCellValue(field: any, val: any): any {
   if (val == null) return null;
   if (field.format) return field.format(val);
 
@@ -20,7 +20,7 @@ export function formatCellValue(field: FieldConfig, val: any): any {
   return val;
 }
 
-function getCellType(_field: FieldConfig, val: any): any {
+function getCellType(_field: any, val: any): any {
   if (val == null) return '';
   if (typeof val.getMonth === 'function') return 'date';
   else if (typeof val === 'number') return 'number';
@@ -122,11 +122,9 @@ export class DataCell extends Component<DataCellProps, DataCellState> {
     let cellData = null;
     if (field.fieldDataGetter) cellData = field.fieldDataGetter(dRecord.record);
     else cellData = formatCellValue(field, dRecord.record[field.name]);
-    let className = field.cssClass;
-    if(!className) {
-      className = 'cell-' + getCellType(field, dRecord.record[field.name]);
-    }
-    return (<div className={`${className} w-100`}>{cellData}</div>);
+
+    let cellType = getCellType(field, dRecord.record[field.name]);
+    return (<div className={`cell-${cellType} w-100`}>{cellData}</div>);
   }
 
   render() {

@@ -24,21 +24,6 @@ function createFetchConfig(method: string, params: any) {
   return config;
 }
 
-export function handleResponseError(response: RestResponse) {
-  if (response.error.errorType === 'NotAuthorized') {
-    let html = (
-      <div>You are not authorized. Maybe your session is expired.</div>
-    );
-    showNotification("info", 'md', html);
-    window.location.reload();
-    return;
-  }
-  let html = (
-    <ReactJson src={response} indentWidth={4} collapsed={1} />
-  );
-  showDialog("Error", 'md', html);
-}
-
 function createUrl(baseUrl: string, path: string, params?: any) {
     if (params) {
       path = path + '?' + Object.keys(params).map(function (k) {
@@ -115,11 +100,27 @@ export class Rest {
       return response.json();
     }).then(function (response: RestResponse) {
       if (!response || response.error) {
-        if (failCb) {
-          failCb(response)
-          return;
+        if (response && response.error) {
+          if (response.error.errorType === 'NotAuthorized') {
+            let html = (
+              <div>
+                <div>You are not authorized. Maybe your session is expired.</div>
+              </div>
+            );
+            showNotification("info", 'md', html);
+            window.location.reload();
+            return;
+          }
+
+          if (failCb) {
+            failCb(response.error)
+          } else {
+            let html = (
+              <ReactJson src={response} indentWidth={4} collapsed={1} />
+            );
+            showDialog("Error", 'md', html);
+          }
         }
-        handleResponseError(response)
       } else {
         response.data = JSON.parse(response.data);
         successCallback(response);

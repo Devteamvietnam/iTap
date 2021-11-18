@@ -36,13 +36,11 @@ export class TreeNode {
     return null;
   }
 
-  getChildren() { return this.children; }
+  getChildren(): any { return this.children; }
 
   getParent(): any { return this.parent; }
 
-  setLoadedChildren() { 
-    this.loadedChildren = true; 
-  }
+  setLoadedChildren() { this.loadedChildren = true; }
 
   addChild(name: string, label: string, userData: any, collapse: boolean): any {
     let path = null;
@@ -253,9 +251,8 @@ export class VTree extends Component<VTreeProps> {
     const { model } = this.props;
     let thisUI = this;
     let callback = (node: TreeNode) => {
-      let children = node.getChildren();
-      if (children != null && selectFirstNode) {
-        this.onSelectNode(children[0])
+      if (node.getChildren() != null && selectFirstNode) {
+        this.onSelectNode(node.getChildren()[0])
       }
       thisUI.forceUpdate();
     };

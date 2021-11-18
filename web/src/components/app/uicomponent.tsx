@@ -76,7 +76,7 @@ export class UIApplication extends Component<UIApplicationProps> {
     const { osContext, appRegistry } = props;
     this.appContext = new AppContext(this, osContext);
     this.appContext.setAppRegistry(appRegistry);
-    this.pageContext = this.appContext.createPageContext(null);
+    this.pageContext = new PageContext(null);
     this.navigation = this.createAllowedNavigation(this.appContext, this.pageContext);
   }
 
@@ -213,8 +213,9 @@ export class UIApplicationBody extends BreadcumbsPage<UIBodyProps> {
     let screenModel = this.selectScreenModel(appContext.getEvent());
     let uiScreen = null;
     if (screenModel.createUI) {
-      let pageContext = appContext.createPageContext(this);
+      let pageContext = new PageContext(null);
       pageContext.clearPageStorage();
+      pageContext.withBreadcumbs(this);
       uiScreen = screenModel.createUI(appContext, pageContext);
     } else if (screenModel.ui) {
       pageContext.withBreadcumbs(this);

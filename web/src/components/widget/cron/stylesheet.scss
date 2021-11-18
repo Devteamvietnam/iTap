@@ -1,0 +1,43 @@
+.ui-cron-editor {
+  min-width: 600px;
+  padding: 5px;
+
+  .header {
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 2px 4px 2px 0px;
+
+      .btn {
+        width: 95px;
+        padding: 2px ;
+      }
+    }
+
+  }
+
+  .ui-time-selector {
+    input, select {
+      display: inline-block;
+      margin: 0px 3px 0px 3px;
+    }
+    select { width: 100px; }
+
+    .specific-n-unit-editor {
+      .select-box {
+        max-width: 600px !important;
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 5px;
+
+        .box {
+          min-width: 10% !important;
+        }
+      }
+    }
+  }
+
+}

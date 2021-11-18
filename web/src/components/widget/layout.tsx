@@ -27,10 +27,7 @@ export interface Breadcumbs {
   pushContent: (content: ContentFactory) => void;
   onBack: () => void;
 }
-export interface BreadcumbsPageProps extends ELEProps { 
-  scroll?: boolean;
-  rootContent?: ContentFactory;
-}
+export interface BreadcumbsPageProps extends ELEProps { scroll?: boolean }
 export interface BreadcumbsPageState { path: Array<ContentFactory> }
 export class BreadcumbsPage<T extends BreadcumbsPageProps>
   extends Component<T, BreadcumbsPageState> implements Breadcumbs {
@@ -42,11 +39,6 @@ export class BreadcumbsPage<T extends BreadcumbsPageProps>
     super(props);
     this.onSelectPath.bind(this);
     this.state = { path: [] };
-    let {rootContent} = props;
-    if(rootContent) {
-      let ui = rootContent.createContent() ;
-      this.add(rootContent.name, rootContent.label, ui);
-    }
   }
 
   clear() { this.state.path.splice(0, this.state.path.length); }
@@ -161,7 +153,7 @@ export class BreadcumbsPage<T extends BreadcumbsPageProps>
   render() {
     let html = (
       <div className='breadcumbs flex-vbox'>
-        <div className='flex-hbox-grow-0 p-1 justify-content-between'>
+        <div className='flex-hbox justify-content-between'>
           <div className='flex-hbox'> {this.createBreadcumbPaths()} </div>
           <div className='flex-hbox-grow-0'>
             <div className='px-2'>{this.renderActions()}</div>
@@ -464,15 +456,13 @@ export function showDialog(
     body = content.createContent();
   }
   let parentDomId = `uidialog_${IDTracker.next()}`;
+  let uiDialog = (<Dialog parentDomId={parentDomId} title={title} size={size} content={body} context={ctx} />);
 
   var dialogDiv = document.createElement("div");
   dialogDiv.setAttribute("id", parentDomId);
   let appDialogDiv = document.getElementById('app-dialog');
   if (appDialogDiv) {
     appDialogDiv.appendChild(dialogDiv);
-    let uiDialog = (
-      <Dialog parentDomId={parentDomId} title={title} size={size} content={body} context={ctx} />
-    );
     ReactDOM.render(uiDialog, dialogDiv);
   }
 }

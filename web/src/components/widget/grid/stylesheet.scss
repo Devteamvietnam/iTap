@@ -82,6 +82,10 @@
 
     > .grid {
       .cell {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+
         padding: 0.35em;
         text-align: right;
         white-space:   nowrap;
@@ -95,17 +99,12 @@
           text-align: left;
         }
 
+        .cell-text { text-align: left; }
+
         .form-control {
           background-color: #f5f7faf5;
         }
       }
-
-      .cell-text { text-align: left; }
-      .cell-text-right { text-align: right; }
-      .cell-text-center { text-align: center; }
-      .cell-number { text-align: right; }
-      .cell-date { text-align: right; }
-      .cell-align-right { text-align: right; }
 
       .cell-header {
         background-color: var(--grid-cell-header,lightgray);

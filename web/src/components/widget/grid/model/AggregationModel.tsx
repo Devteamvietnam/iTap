@@ -124,8 +124,6 @@ export class Aggregation {
   name: string;
   field: string;
   active: boolean;
-  sort: null | 'asc' | 'desc' = null;
-
   aggFunctions: Array<IAggregationFunction> = []
   onClick?: (bucket: Bucket) => void;
 
@@ -135,11 +133,6 @@ export class Aggregation {
     this.name = name;
     this.field = field;
     this.active = active;
-  }
-
-  withSortBucket(sort: null | 'asc' | 'desc') {
-    this.sort = sort;
-    return this;
   }
 
   withFieldGetter(getter: (record: any) => any) {
@@ -161,19 +154,7 @@ export class Aggregation {
     throw new Error("This method need to be implemented");
   }
 
-  sortBuckets(buckets: Array<Bucket>) {
-    if (!this.sort) return buckets;
-    let sortOrder = 1;
-    if (this.sort === 'desc') sortOrder = -1;
-    const SORT_FUNC = function (b1: Bucket, b2: Bucket) {
-      let l1 = b1.label;
-      let l2 = b2.label;
-      let compare = l1.localeCompare(l2);
-      return compare * sortOrder;
-    };
-    buckets = buckets.sort(SORT_FUNC);
-    return buckets;
-  }
+  sortBuckets(buckets: Array<Bucket>) { return buckets; }
 
   runAggFunctions(bucket: Bucket) {
     if (this.aggFunctions.length == 0) return;
@@ -209,8 +190,8 @@ export class ValueAggregation extends Aggregation {
 export class DateValueAggregation extends Aggregation {
   format: string;
 
-  constructor(name: string, field: string, format: string, active: boolean = false) {
-    super(name, field, active);
+  constructor(name: string, field: string, format: string) {
+    super(name, field);
     this.format = format ? format : 'YYYY-MM-DD';
   }
 
@@ -225,6 +206,16 @@ export class DateValueAggregation extends Aggregation {
       bucketMap[mapValue] = selBucket;
     }
     selBucket.addRecord(record);
+  }
+
+  sortBuckets(buckets: Array<Bucket>) {
+    const SORT_FUNC = function (b1: Bucket, b2: Bucket) {
+      let l1 = b1.label;
+      let l2 = b2.label;
+      if (l1 === l2) return 0;
+      return (l1 > l2) ? 1 : -1;
+    };
+    return buckets.sort(SORT_FUNC);
   }
 }
 
@@ -254,16 +245,6 @@ export class AggregationDisplayModel extends DisplayRecordList {
     this.displayRecords.length = 0;
     this._addDisplayRecord(this.displayRecords, this.rootBucket, 0);
     return this;
-  }
-
-  /**@override */
-  markSelectAllDisplayRecords(val: boolean = true) {
-    for (let row = 0; row < this.displayRecords.length; row++) {
-      let dRecord = this.displayRecords[row];
-      if (!dRecord.isDataRecord()) continue;
-      let recState = dRecord.getRecordState();
-      recState.selected = val;
-    }
   }
 
   addAggregation(aggregation: Aggregation, active: boolean = false) {
@@ -330,9 +311,7 @@ export class AggregationDisplayModel extends DisplayRecordList {
         for (let i = 0; i < records.length; i++) {
           let rec = records[i];
           let row = displayRecordHolder.length;
-          let dRecord = new DisplayRecord(rec, row, true).withIndent(deep);
-          dRecord.rowInBucket = i + 1;
-          displayRecordHolder.push(dRecord);
+          displayRecordHolder.push(new DisplayRecord(rec, row, true).withIndent(deep));
         }
       }
     }
@@ -341,8 +320,7 @@ export class AggregationDisplayModel extends DisplayRecordList {
       for (let i = 0; i < aggRecords.length; i++) {
         let aggRecord = aggRecords[i];
         let row = displayRecordHolder.length;
-        let dRecord = new DisplayRecord(aggRecord, row, false).withType('agg').withIndent(deep);
-        displayRecordHolder.push(dRecord);
+        displayRecordHolder.push(new DisplayRecord(aggRecord, row, false).withType('agg').withIndent(deep));
       }
     }
   }

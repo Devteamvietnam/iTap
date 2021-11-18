@@ -68,9 +68,6 @@ class TableAggregationViewModel extends TableViewModel {
       col -= 1;
     }
     let field = this.context.getConfigModel().getRecordConfigModel().getVisibleColumn(group, col);
-     if (field.customHeaderRender) {
-      return field.customHeaderRender(this.context, field, style);
-    }
     return <HeaderCell context={this.context} field={field} style={style} />;
   }
 

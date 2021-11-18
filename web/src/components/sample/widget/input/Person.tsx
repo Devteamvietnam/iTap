@@ -7,7 +7,7 @@ import { Form, FormGroup } from 'components/widget/input'
 import { BBStringField } from "components/widget/input";
 
 export const PERSONS = [
-  { name: 'thien', fullName: 'Thien Dinh' }
+  { name: 'thien', fullName: 'Thien Dinh' },
 ]
 
 export class PersonBBAutoCompletePlugin extends BBAutoCompletePlugin {

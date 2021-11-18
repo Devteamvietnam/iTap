@@ -10,7 +10,6 @@ import {
   BBLongField,
   BBFloatField,
   BBDoubleField, BBDoubleArrayField,
-  BBNumberField,
   BBRadioInputField,
   BBDateTimeField,
   BBSelectField,
@@ -34,7 +33,6 @@ const BEAN = {
   long: 1000,
   float: 1.23,
   double: 10.234,
-  number: 10.2345678,
   doubleArray: [1.0, 2.0],
   select: 'male', numSelect: 3,
   dropdownSelect: 'female',
@@ -165,15 +163,6 @@ export default class UIBeanEditor extends Component<{}, UIBeanEditorState> {
                 <FormGroup label={'Double Array'}>
                   <BBDoubleArrayField
                     bean={bean} field={'doubleArray'} disable={disable} onInputChange={onInputChange} />
-                </FormGroup>
-
-                <FormGroup label={'Number With Precision'}>
-                  <BBNumberField bean={bean} field={'number'} precision={10} disable={disable} onInputChange={onInputChange}
-                  onRefresh={(_bbField, _bean, _field) => console.log('call refresh')} />
-                </FormGroup>
-
-                <FormGroup label={'Number With Max Precision'}>
-                  <BBNumberField bean={bean} field={'number'} maxPrecision={4} disable={disable} onInputChange={onInputChange} />
                 </FormGroup>
 
                 <FormGroup label={'Radio Select'}>
