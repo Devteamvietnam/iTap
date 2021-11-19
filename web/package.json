@@ -23,7 +23,9 @@
     "web-vitals": "^2.1.2"
   },
   "devDependencies": {
-    "node-sass": "^6.0.1"
+    "bootstrap": "^4.4.1",
+    "node-sass": "^6.0.1",
+    "reactstrap": "^9.0.1"
   },
   "eslintConfig": {
     "extends": [
