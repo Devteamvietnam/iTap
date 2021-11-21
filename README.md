@@ -1,7 +1,8 @@
 <h3 align="center">
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&center=true&vCenter=true&lines=Digitalvfx+Project)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&center=true&vCenter=true&lines=iTap+Project)](https://git.io/typing-svg)
 ![Snake animation](github-user-contribution.svg)
+
 </h3>
 
 ![](https://img.shields.io/badge/Language-Java-informational?style=flat&logo=solidity&logoColor=white&color=3bac3a)
@@ -25,8 +26,9 @@
 ### Email Contact devteamvietnam@gmail.com
 
 ### How to run Project
-- You can use 
-  
-  gradle bootRun -Dspring.profiles.active=dev 
-  
-  when run in local
+
+- You can use
+
+  gradle bootRun -Dspring.profiles.active=dev
+
+  when run in local with h2 database
